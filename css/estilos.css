@@ -1,1 +1,109 @@
 @CHARSET "ISO-8859-1";
+body {
+	text-align: center;
+	background-color: #ccc;
+	margin: 0px auto;
+}
+a {
+	text-decoration: none;
+}
+#botonera {
+	text-align: left;
+	background-color: #335;
+	width: 900px;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 10px 10px;
+}
+#botonera ul {
+        margin: 0 auto;
+        padding: 0;
+}
+#botonera ul li {
+	text-align: center;
+    list-style: none;
+    display: inline-block;
+    min-width: 110px;
+    padding: 5px 2px;
+	font-weight: bold;
+}
+#botonera ul li a {
+	display: block;
+	color: #ccc;
+}
+.btnTab {
+    background-color: #3446a9;
+    transition: 0.5s;
+    border-radius: 3px;
+    border: none;
+}
+.btnTab:hover {
+    background-color: #606060;
+    box-shadow: inset 0px -1px 2px #003;
+}
+.btnTab:hover a {
+    color:  #ccc;
+}
+
+/* *********************************************************** */
+#encabezado {
+    display: block;
+    margin: 0 auto;
+	background-color: #249;
+	height: 100px;
+	width: 900px;
+}
+
+/* *********************************************************** */
+
+#footer {
+    display: block;
+    margin: 0 auto;
+	background-color: #025;
+	height: 30px;
+	width: 900px;	
+	color: #aaa;
+	font-style: italic;
+}
+/* *********************************************************** */
+#contBody {
+	background-color: #999;
+	width: 900px;
+	min-height: 200px;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 10px;
+	
+}
+
+
+/* Listados en tablas *********************************************************** */
+
+.contLista {
+	display:inline-block;
+	width: 100%;
+	margin: 0 auto;
+}
+.superLista {
+	margin: 0 auto;
+	width: 100%;
+}
+.leftListCont {
+	width: 15%;
+	background-color: #f00;
+	display: table-cell;
+	margin: 0 auto;
+	
+}
+.rightListCont {
+	display: table-cell;
+	width: 800px;
+	background-color: #0f0;
+	margin: 0 auto;
+	
+}
+td.alt { 
+	background-color: rgba(150, 150,255, 0.2) !important;
+}
+
+
