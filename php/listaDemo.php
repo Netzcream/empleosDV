@@ -1,36 +1,23 @@
- 
+<link href="css/footable.standalone.css" rel="stylesheet" type="text/css" />
+<link href="css/footable.core.min.css" rel="stylesheet" type="text/css" />
+<script src="js/footable.js" type="text/javascript"></script>
+<script src="js/footable.sort.js" type="text/javascript"></script>
+<script src="js/footable.paginate.js" type="text/javascript"></script>
+<script src="js/footable.filter.js" type="text/javascript"></script>
 
-<div class="contLista">
-	<div class="superLista">
-	
-		<div class="leftListCont"> <!-- Div filtro  -->
+<link type="text/css" rel="stylesheet" href="css/bootstrap.css"></link>
 		
-<!--   -->
-		
-
-
-		
-		
-<!--   -->
-				
-		</div>
-		 
-		<div class="rightListCont"> <!-- Div del listado  -->
-		 
-		 	<label>Buscar: </label>
-		 	<input type="search" id="input-filter" size="15" placeholder="Buscador">
-		
-		
-			<table id="tablaDemo" class="tablesorter">
+			<p class="buscarTable"><input id="filter" type="text" placeholder="Buscar..."/></p>
+			<table class="tablaDemo breakpoint table toggle-circle toggle-medium" data-page-size="10" data-filter="#filter" data-filter-text-only="true">
 				<thead>
 					<tr>
-						<th class="header tablesorter-header" scope="col" title="Prueba de Listas">Orden</th>
-						<th class="header tablesorter-header" scope="col">Apellido</th>
-						<th class="header tablesorter-header" scope="col">Nombre</th>
-						<th class="header tablesorter-header" scope="col">Edad</th>
-						<th class="header tablesorter-header" scope="col">Zona</th>
-						<th class="header tablesorter-header" scope="col">Sexo</th>
-						<th scope="col">Perfil</th>
+						<th data-toggle="true" class="footable-first-column" title="Prueba de Listas" data-sort-ignore="true">Orden</th>
+						<th >Apellido</th>
+						<th >Nombre</th>
+						<th data-hide="phone">Edad</th>
+						<th data-hide="phone">Zona</th>
+						<th data-hide="phone">Sexo</th>
+						<th class="footable-last-column" data-sort-ignore="true">Perfil</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -71,28 +58,50 @@
 						<td>Femenino</td>
 						<td><a href="#">Ver</a></td>
 					</tr>
+					<?php 
+					
+					for ($i=0;$i <=30;$i++) {
+echo "<tr>
+<td>".($i+4)."</td>
+<td>Baez</td>
+<td>Ana</td>
+<td>21</td>
+<td>CABA</td>
+<td>Femenino</td>
+<td><a href='#'>Ver</a></td>
+</tr>";
+					}
+					
+					?>
 				</tbody>
+					<tfoot>
+		<tr>
+			<td colspan="7">
+				<div  class="pagination pagination-centered hide-if-no-paging"></div>
+			</td>
+		</tr>
+	</tfoot>
+				
+				
 			</table>
-		 	<script src="js/jq-2.1.1.js"></script>
-			<script src="js/jq.filtertable.min.js"></script>
-			<script src="js/jq.tablesorter.js"></script>
-			<script src="js/dropdownmenu.js"></script>
-			<script>
-			$(document).ready(function() {
-				$('#tablaDemo').filterTable({ // apply filterTable to all tables on this page
-				inputSelector: '#input-filter', // use the existing input instead of creating a new one
-				minRows: 1
-				});
-			});
-			$(document).ready(function() 
-				    { 
-				        $("#tablaDemo").tablesorter({widthFixed: true, widgets: ['zebra'], headers: { 6:{sorter: false}} }) 
-				    } 
-				); 
-		</script>
-		
-		</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<script type="text/javascript">
+	$(function () {
+		$('.tablaDemo').footable({
+			addRowToggle: true
+			})
+
 		
 		
-	</div>
-</div>
+	
+	});
+
+	
+</script>
