@@ -11,8 +11,8 @@
 			<table class="tablaDemo breakpoint table toggle-circle toggle-medium" data-page-size="10" data-filter="#filter" data-filter-text-only="true">
 				<thead>
 					<tr>
-						<th data-toggle="true" class="footable-first-column" title="Prueba de Listas" data-sort-ignore="true">Orden</th>
-						<th >Apellido</th>
+						<th style="width: 40px;" class="footable-first-column" title="Prueba de Listas" data-sort-ignore="true">Orden</th>
+						<th  data-toggle="true">Apellido</th>
 						<th >Nombre</th>
 						<th data-hide="phone">Edad</th>
 						<th data-hide="phone">Zona</th>
@@ -22,7 +22,9 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>1</td>
+						<td>
+						<img alt="" src="imagenes/no_perfil.png" width="40">
+						</td>
 						<td>Perez</td>
 						<td>Juan</td>
 						<td>23</td>
@@ -31,7 +33,9 @@
 						<td><a href="#">Ver</a></td>
 					</tr>
 					<tr>
-						<td>2</td>
+						<td>
+						<img alt="" src="imagenes/no_perfil.png" width="40">
+						</td>
 						<td>Gomez</td>
 						<td>Lucrecia</td>
 						<td>22</td>
@@ -41,7 +45,9 @@
 					</tr>
 					
 					<tr>
-						<td>3</td>
+							<td>
+						<img alt="" src="imagenes/no_perfil.png" width="40">
+						</td>
 						<td>Peralta</td>
 						<td>Horacio</td>
 						<td>23</td>
@@ -50,7 +56,9 @@
 						<td><a href="#">Ver</a></td>
 					</tr>
 					<tr>
-						<td>4</td>
+					<td>
+						<img alt="" src="imagenes/no_perfil.png" width="40">
+						</td>
 						<td>Baez</td>
 						<td>Ana</td>
 						<td>21</td>
@@ -62,7 +70,9 @@
 					
 					for ($i=0;$i <=30;$i++) {
 echo "<tr>
-<td>".($i+4)."</td>
+	<td>
+						<img alt='' src='imagenes/no_perfil.png' width='40'>
+						</td>
 <td>Baez</td>
 <td>Ana</td>
 <td>21</td>
