@@ -4,7 +4,6 @@
 <script src="js/footable.sort.js" type="text/javascript"></script>
 <script src="js/footable.paginate.js" type="text/javascript"></script>
 <script src="js/footable.filter.js" type="text/javascript"></script>
-
 <link type="text/css" rel="stylesheet" href="css/bootstrap.css"></link>
 		
 			<p class="buscarTable"><input id="filter" type="text" placeholder="Buscar..."/></p>
@@ -17,7 +16,7 @@
 						<th data-hide="phone">Edad</th>
 						<th data-hide="phone">Zona</th>
 						<th data-hide="phone">Sexo</th>
-						<th class="footable-last-column" data-sort-ignore="true">Perfil</th>
+						<th class="footable-last-column" data-sort-ignore="true" style="width: 40px !important;">Perfil</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -107,11 +106,5 @@ echo "<tr>
 		$('.tablaDemo').footable({
 			addRowToggle: true
 			})
-
-		
-		
-	
 	});
-
-	
-</script>
+	</script>

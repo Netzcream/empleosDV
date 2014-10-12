@@ -4,7 +4,9 @@ body {
 	background-color: #1D2226;
 	padding: 0px;
 	margin: 0 auto;
+		font-family: Helvetica, Arial, sans-serif;
 }
+html,body {margin:0; -webkit-backface-visibility:hidden;}
 
 .preHeader {
 	background-color: #063049;
@@ -19,8 +21,8 @@ header {
 	padding-bottom: 10px;
 	border-top:1px #273238 solid;
 	border-bottom: 1px #00BCDE solid; 
-	border-right: 1px #252525 solid;
-	border-left: 1px #252525 solid;
+	border-right: none;
+	border-left: none;
 }
 #body {
 	width: 100%;
@@ -35,5 +37,29 @@ header {
 .buscarTable {
 	margin: 10px auto 0px auto;
 	display: block;
-	
+}
+
+/* ********** footer ********** */
+
+#footer {
+
+	width: 100% !important;
+	background-color: #06141D;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-top:1px #273238 solid;
+	color: #999;
+	font-size: 0.8em;
+	text-align: center;
+	font-style: italic;
+	cursor: default;
+}
+/* ********** Loading ********** */
+.loading {
+	width: auto;
+	height: auto;
+	margin: 0 auto;
+	text-align: center;
+	padding: 0px;
+	display: none;
 }

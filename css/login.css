@@ -1,0 +1,94 @@
+@CHARSET "ISO-8859-1";
+
+/* ********** Login ********** */
+
+.prelogin {
+	width: 300px;
+	height: auto;
+	background-color: #06141D;
+	margin: 30px auto 20px auto;
+	text-align: center;
+	padding: 10px 0px;
+	box-shadow: 0px 0px 10px #000;
+	border-radius: 5px;
+		
+}
+
+.prelogin input.logInput {
+	margin:10px 0px;
+	border: 1px solid #273238;
+	padding: 0px 10px;
+	width: 250px;
+	height: 45px;
+	font-size: 1.4em;
+	background-color: #ddd;
+	transition: 0.3s;
+
+}
+.prelogin input.logInput:hover {
+	background-color: #eee;
+	
+}
+
+.prelogin input.logInput:focus {
+	border-color: #00BCDE;
+	background-color: #fff;
+}
+
+.prelogin .logInOptions {
+	width: 100%;
+	display: block	;
+
+}
+.prelogin .logInOptions p {
+	display: inline-block;
+	color: #fff;
+	margin-left: 20px;
+	margin-right: 20px;
+
+
+}
+.prelogin .logInOptions p label {
+	cursor: pointer;
+	 text-shadow: 2px 2px #444;
+	transition: 0.3s;
+}
+.prelogin .logInOptions p label:hover {
+	color: #bbf;
+	
+}
+.prelogin .logInBtn {
+	background-color: #537B9F;
+	text-shadow: 1px 1px 1px #3E587B;
+	border: 1px solid #3E587B;
+	padding: 8px 30px;
+	font-size: 15px;
+	background-image:url('../imagenes/rmm-img/sapphire-menu-bg.png');
+	background-repeat:repeat-x;
+	color: #fff;
+	cursor: pointer;	
+	transition: 0.3s;
+	font-size: 15px;
+	border-radius: 5px;
+}
+.prelogin .logInBtn:hover {
+background:#3e597b !important;
+}
+
+.prelogin .logLabelLeft {
+	color: #fff;
+	float: left;
+	margin-left: 20px;
+}
+.prelogin .regLabelNota {
+	color: #fdd;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	display: block;
+	font-size: 0.7em;
+}
+
+.regError {
+	color: #f44 !important;
+}
