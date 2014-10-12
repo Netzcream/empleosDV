@@ -6,8 +6,6 @@ $_SESSION['location'] = "registro";
 
 ?>
 
-<link href="css/login.css" rel="stylesheet" type="text/css" />
-
 <div class="prelogin">
 <label class="logLabelLeft">Ingrese Correo *:</label>
 <input class="logInput" name="email" type="email" placeholder="juan.perez@davinci.edu.ar">

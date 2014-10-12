@@ -49,7 +49,7 @@
 }
 .prelogin .logInOptions p label {
 	cursor: pointer;
-	 text-shadow: 2px 2px #444;
+	text-shadow: 2px 2px #444;
 	transition: 0.3s;
 }
 .prelogin .logInOptions p label:hover {
@@ -71,7 +71,7 @@
 	border-radius: 5px;
 }
 .prelogin .logInBtn:hover {
-background:#3e597b !important;
+	background:#3e597b !important;
 }
 
 .prelogin .logLabelLeft {

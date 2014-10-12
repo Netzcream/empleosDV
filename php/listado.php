@@ -81,7 +81,7 @@ class Listado {
 		return $temp;
 	}
 	public function getTable() {
-		$temp = "<p class='buscarTable'><input id='filter' type='text' placeholder='Buscar...'/></p>";
+		$temp = "<p class='buscarTable'><input id='filter' type='search' placeholder='Buscar...'/></p>";
 		$temp .= "<table class='tablaDemo breakpoint table toggle-circle toggle-medium' data-page-size='10' data-filter='#filter' data-filter-text-only='true'>";
 		$temp .= $this->getHeader();
 		$temp .= $this->getListado();
