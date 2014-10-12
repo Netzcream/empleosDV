@@ -1,13 +1,14 @@
 <?php
-
-
-
+if (!isset($_SESSION)) {
+	session_start();
+}
+	$_SESSION['location'] = "login";
 ?>
 <link href="css/login.css" rel="stylesheet" type="text/css" />
 
 <div class="prelogin">
 <input class="logInput" type="email" placeholder="juan.perez@davinci.edu.ar">
-<input class="logInput" type="password" placeholder="Contraseña">
+<input class="logInput" type="password" placeholder="Contrase&ntilde;a">
 <div class="logInOptions">
 <p><input id="logInCheckbox" type="checkbox">
 <label for="logInCheckbox">Recordarme</label></p>

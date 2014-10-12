@@ -1,5 +1,6 @@
 <?php
-include_once("php/conex.php");
+
+include_once("/conex.php");
 
 class Persona {
 	
@@ -9,6 +10,7 @@ class Persona {
 	public $nacimiento;
 	public $email;
 	public $foto;
+	public $sexo;
 	
 	
 	public function __construct($id) {
@@ -16,11 +18,12 @@ class Persona {
 		$this->conex = new MySQL();
 		$this->consulta = "SELECT * FROM PERSONA WHERE id=".$this->id.";";
 		$result = mysql_fetch_assoc($this->conex->consulta($this->consulta));
-		$this->apellido = $result['apellido'];
-		$this->nombre = $result['nombre'];
+		$this->apellido = utf8_encode($result['apellido']);
+		$this->nombre = utf8_encode($result['nombre']);
 		$this->nacimiento = $result['nacimiento'];
 		$this->email = $result['email'];
 		$this->foto = $result['foto'];
+		$this->sexo = $result['sexo'];
 	}
 	
 	public function getId() {
@@ -34,6 +37,9 @@ class Persona {
 	}
 	public function getNacimiento() {
 		return $this->nacimiento;
+	}
+	public function getSexo() {
+		return $this->sexo;
 	}
 	public function getEdad() {
 		//fecha actual
@@ -68,10 +74,16 @@ class Persona {
 			return "imagenes/no_perfil.png";
 		}
 	}
-	
-	public function setId($a) {
-		$this->id = $a;
+	public function getSexoImg() {
+		if ($this->getSexo() == "f") {
+			return "imagenes/f.png";
+		}
+		else if ($this->getSexo() == "m") {
+			return "imagenes/m.png";
+		}		
 	}
+	
+	
 	public function setApellido($a) {
 		$this->apellido = $a;
 	}
@@ -87,7 +99,24 @@ class Persona {
 	public function setFoto($a) {
 		$this->foto = $a;
 	}
-	
+	public function setSexo($a) {
+		$this->sexo = $a;
+	}
+	public function savePersona() {
+		
+		/* SQL */
+		/*  */
+		$temp = "UPDATE PERSONA SET ";
+		$temp .= " apellido = ".$this->apellido;
+		$temp .= " nombre = ". $this->nombre;
+		$temp .= " nacimiento = ".$this->nacimiento;
+		$temp .= " email = ".$this->email;
+		$temp .= " foto = ".$this->foto;
+		$temp .= " sexo = ".$this->sexo;
+		$temp .= " WHERE id=". $this->id;
+		
+		
+	}
 }
 
 

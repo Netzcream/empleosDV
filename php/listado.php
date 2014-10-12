@@ -1,7 +1,12 @@
 
 <?php
-include_once("php/conex.php");
-include_once("php/persona.php");
+if (!isset($_SESSION)) {
+	session_start();
+}
+$_SESSION['location'] = "listado";
+
+include_once("/conex.php");
+include_once("/persona.php");
 
 $list = new Listado();
 echo $list->getTable();
@@ -30,13 +35,13 @@ class Listado {
 		return "
 				<thead>
 					<tr>
-						<th style='width: 40px;' class='footable-first-column' title='Prueba de Listas' data-sort-ignore='true'>Foto</th>
+						<th width='40' class='footable-first-column' title='Prueba de Listas' data-sort-ignore='true'>Foto</th>
 						<th  data-toggle='true'>Apellido</th>
 						<th >Nombre</th>
-						<th data-hide='phone'>Edad</th>
+						<th data-hide='phone' width='50'>Edad</th>
 						<th data-hide='phone'>Zona</th>
-						<th data-hide='phone'>Sexo</th>
-						<th class='footable-last-column' data-sort-ignore='true' style='width: 40px !important;'>Perfil</th>
+						<th data-hide='phone'  width='50'>Sexo</th>
+						<th class='footable-last-column' data-sort-ignore='true' width='40'>Perfil</th>
 					</tr>
 				</thead>
 				";
@@ -53,10 +58,10 @@ class Listado {
 			$temp .= "</td>";
 			$temp .= "<td>".$persona->getApellido()."</td>";
 			$temp .= "<td>".$persona->getNombre()."</td>";
-			$temp .= "<td>".$persona->getEdad()."</td>";
+			$temp .= "<td style='text-align: center; vertical-align: middle;'>".$persona->getEdad()."</td>";
 			$temp .= "<td>CABA</td>";
-			$temp .= "<td>Masculino</td>";
-			$temp .= "<td><a href='#'>Ver</a></td>";
+			$temp .= "<td style='text-align: center; vertical-align: middle;' data-value='".$persona->getSexo()."'><img alt='' src='".$persona->getSexoImg()."'></td>";
+			$temp .= "<td style='text-align: center; vertical-align: middle;'><a href='#'>Ver</a></td>";
 			$temp .= "</tr>";
 			$resultado = mysql_fetch_assoc($this->result);
 		} 

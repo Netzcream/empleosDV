@@ -1,3 +1,14 @@
+<?php 
+
+if (!isset($_SESSION)) {
+	session_start();
+}
+
+if (!isset($_SESSION['location'])) {
+	$_SESSION['location'] = "login";
+}
+?>
+
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -27,9 +38,29 @@
 	<?php include_once("php/menu.php"); ?>
 </header>	
 
+
+
 <div id="body">
-	<?php include_once("php/listado.php"); ?>
+	<?php
+
+	if ($_SESSION['location'] == "login") { 
+	include_once("/php/login.php"); 
+	}
+	else if ($_SESSION['location'] == "registro") {
+		include_once("/php/registro.php");
+	}
+	else if ($_SESSION['location'] == "listado") {
+		include_once("/php/listado.php");
+	}
+	
+	
+	?>
+	
+	
 </div>
+
+
+
 	<?php include_once("php/footer.php"); ?>
 </body>
 </html>

@@ -3,8 +3,8 @@
 body {
 	background-color: #1D2226;
 	padding: 0px;
-	margin: 0 auto;
-		font-family: Helvetica, Arial, sans-serif;
+	margin: 0px auto;
+	font-family: Helvetica, Arial, sans-serif;
 }
 html,body {margin:0; -webkit-backface-visibility:hidden;}
 
@@ -25,8 +25,8 @@ header {
 	border-left: none;
 }
 #body {
-	width: 100%;
-	margin: 0 auto;
+	width: 80%;
+	margin: 0px auto;
 	
 }
 .contTabla {
