@@ -3164,6 +3164,34 @@ Insert  Into  Tarea(CodTarea,Descripcion) Values(18,'Visualizar CV de AL');
 Insert  Into  Tarea(CodTarea,Descripcion) Values(19,'Contactar AL');
 
 
+
+--
+-- Table structure for table `tarearolauditoria`
+--
+
+DROP TABLE IF EXISTS `tarearolauditoria`;
+CREATE TABLE `tarearolauditoria` (
+  `ID_TareaRolAuditoria` bigint(20) NOT NULL AUTO_INCREMENT,
+  `FechaAuditoria` datetime NOT NULL,
+  `USER` varchar(50) NOT NULL,
+  `CodTarea` smallint(6) NOT NULL,
+  `CodRol` char(2) NOT NULL,
+  `Activo` bit(1) NOT NULL,
+  `Accion` varchar(10) NOT NULL,
+  PRIMARY KEY (`ID_TareaRolAuditoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `tarearolauditoria`
+--
+
+LOCK TABLES `tarearolauditoria` WRITE;
+UNLOCK TABLES;
+
+
+
+
 --
 -- Table structure for table `tarearol`
 --
@@ -3260,29 +3288,6 @@ Insert  Into  TareaRol(CodTarea,CodRol,Activo) Values(18,'PR',1);
 Insert  Into  TareaRol(CodTarea,CodRol,Activo) Values(19,'EM',1);
 
 
---
--- Table structure for table `tarearolauditoria`
---
-
-DROP TABLE IF EXISTS `tarearolauditoria`;
-CREATE TABLE `tarearolauditoria` (
-  `ID_TareaRolAuditoria` bigint(20) NOT NULL AUTO_INCREMENT,
-  `FechaAuditoria` datetime NOT NULL,
-  `USER` varchar(50) NOT NULL,
-  `CodTarea` smallint(6) NOT NULL,
-  `CodRol` char(2) NOT NULL,
-  `Activo` bit(1) NOT NULL,
-  `Accion` varchar(10) NOT NULL,
-  PRIMARY KEY (`ID_TareaRolAuditoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
---
--- Dumping data for table `tarearolauditoria`
---
-
-LOCK TABLES `tarearolauditoria` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `telefono`
