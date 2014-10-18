@@ -49,12 +49,12 @@ CREATE TABLE `direccion` (
   `CodUsuario` bigint(20) NOT NULL,
   `ID_Provincia` int(11) NOT NULL,
   `ID_Localidad` int(11) NOT NULL,
-  `Calle` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `Calle` varchar(50) NULL,
   `Numero` smallint(6) DEFAULT NULL,
   `Coordenada1` double NOT NULL,
   `Coordenada2` double NOT NULL,
   `Piso` smallint(6) DEFAULT NULL,
-  `Departamento` varchar(1) CHARACTER SET utf8 DEFAULT NULL,
+  `Departamento` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`CodUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -72,7 +72,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `estadocivil`;
 CREATE TABLE `estadocivil` (
-  `ID_EstadoCivil` smallint(6) NOT NULL,
+  `ID_EstadoCivil` smallint(6) NOT NULL AUTO_INCREMENT,
   `EstadoCivil` varchar(30) NOT NULL,
   PRIMARY KEY (`ID_EstadoCivil`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -116,15 +116,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `experiencialaboral`;
 CREATE TABLE `experiencialaboral` (
-  `ID_Experiencia` smallint(6) NOT NULL,
+  `ID_Experiencia` smallint(6) NOT NULL AUTO_INCREMENT,
   `CodUsuario` bigint(20) NOT NULL,
-  `Puesto` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `Puesto` varchar(50)  NOT NULL,
   `ID_Seniority` smallint(6) NOT NULL DEFAULT '5',
-  `Empresa` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `Empresa` varchar(100) NOT NULL,
   `ID_Pais` int(11) NOT NULL,
   `FechaInicio` date NOT NULL,
   `FechaFin` date DEFAULT NULL,
-  `Descripcion` varchar(2000) CHARACTER SET utf8 NOT NULL,
+  `Descripcion` varchar(2000) NOT NULL,
   `PersonasACargo` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`ID_Experiencia`,`CodUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -143,7 +143,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `idioma`;
 CREATE TABLE `idioma` (
   `ID_Idioma` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Idioma` varchar(15) CHARACTER SET utf8 NOT NULL,
+  `Idioma` varchar(15) NOT NULL,
   PRIMARY KEY (`ID_Idioma`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -173,7 +173,7 @@ Insert  Into  Idioma(ID_Idioma,Idioma) Values(7 , 'Portugués' );
 
 DROP TABLE IF EXISTS `localidad`;
 CREATE TABLE `localidad` (
-  `ID_Localidad` int(11) NOT NULL,
+  `ID_Localidad` int(11) NOT NULL AUTO_INCREMENT,
   `ID_Provincia` int(11) NOT NULL,
   `Localidad` varchar(255) NOT NULL,
   PRIMARY KEY (`ID_Localidad`,`ID_Provincia`)
@@ -2582,9 +2582,9 @@ Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(2382,25,' 
 
 DROP TABLE IF EXISTS `materia`;
 CREATE TABLE `materia` (
-  `CodMateria` varchar(4) CHARACTER SET utf8 NOT NULL,
-  `CodCarrera` varchar(2) CHARACTER SET utf8 NOT NULL,
-  `Materia` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `CodMateria` varchar(4) NOT NULL,
+  `CodCarrera` varchar(2) NOT NULL,
+  `Materia` varchar(50) NOT NULL,
   `Activo` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`CodMateria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -2814,11 +2814,11 @@ Insert  Into  Materia(CodMateria,CodCarrera,Materia,Activo) Values('VJ65','VJ','
 
 DROP TABLE IF EXISTS `mensaje`;
 CREATE TABLE `mensaje` (
-  `ID_Mensaje` bigint(20) NOT NULL,
+  `ID_Mensaje` bigint(20) NOT NULL AUTO_INCREMENT,
   `CodUsuario` bigint(20) NOT NULL,
   `CodUsuario_Emisor` bigint(20) NOT NULL,
   `Fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Comentario` varchar(2000) CHARACTER SET utf8 NOT NULL,
+  `Comentario` varchar(2000) NOT NULL,
   `Visible` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`ID_Mensaje`,`CodUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -2836,7 +2836,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `nivelestudios`;
 CREATE TABLE `nivelestudios` (
-  `ID_NivelEstudio` smallint(6) NOT NULL,
+  `ID_NivelEstudio` smallint(6) NOT NULL AUTO_INCREMENT,
   `NivelEstudio` varchar(50) NOT NULL,
   PRIMARY KEY (`ID_NivelEstudio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -2874,7 +2874,7 @@ Insert  Into  NivelEstudios(ID_NivelEstudio,NivelEstudio) Values(13,'Master Grad
 DROP TABLE IF EXISTS `nivelidioma`;
 CREATE TABLE `nivelidioma` (
   `ID_NivelConocimiento` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Nivel` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `Nivel` varchar(10) NOT NULL,
   PRIMARY KEY (`ID_NivelConocimiento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -2901,7 +2901,7 @@ Insert  Into  NivelIdioma(ID_NivelConocimiento,Nivel) Values(5,'Nativo');
 
 DROP TABLE IF EXISTS `paises`;
 CREATE TABLE `paises` (
-  `ID_Pais` int(11) NOT NULL,
+  `ID_Pais` int(11) NOT NULL AUTO_INCREMENT,
   `Pais` varchar(255) NOT NULL,
   PRIMARY KEY (`ID_Pais`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -2985,7 +2985,7 @@ Insert  Into  Paises(ID_Pais,Pais) Values(60,'Venezuela');
 
 DROP TABLE IF EXISTS `profesor`;
 CREATE TABLE `profesor` (
-  `ID_Profesor` int(11) NOT NULL,
+  `ID_Profesor` int(11) NOT NULL AUTO_INCREMENT,
   `CodUsuario` bigint(20) NOT NULL,
   PRIMARY KEY (`ID_Profesor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -3005,7 +3005,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `profesormateria`;
 CREATE TABLE `profesormateria` (
   `ID_Profesor` int(11) NOT NULL,
-  `CodMateria` varchar(4) CHARACTER SET utf8 NOT NULL,
+  `CodMateria` varchar(4) NOT NULL,
   PRIMARY KEY (`ID_Profesor`,`CodMateria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3023,7 +3023,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `provincia`;
 CREATE TABLE `provincia` (
   `ID_Provincia` int(11) NOT NULL AUTO_INCREMENT,
-  `Provincia` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `Provincia` varchar(255) NOT NULL,
   PRIMARY KEY (`ID_Provincia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3090,7 +3090,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `seniority`;
 CREATE TABLE `seniority` (
   `ID_Seniority` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Seniority` varchar(15) CHARACTER SET utf8 NOT NULL,
+  `Seniority` varchar(15) NOT NULL,
   PRIMARY KEY (`ID_Seniority`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3166,6 +3166,34 @@ CREATE TABLE `tarearol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+--Triggers TareaRol
+CREATE TRIGGER TG_AuditoriaTareaRol_I
+AFTER INSERT 
+ON TareaRol 
+FOR EACH ROW 
+INSERT 
+INTO TareaRolAuditoria( FechaAuditoria, User ,CodTarea, CodRol, Activo,Accion)
+VALUES (NOW(), CURRENT_USER(),  NEW.CodTarea, NEW.CodRol, NEW.Activo, 'INSERT');
+
+CREATE TRIGGER TG_AuditoriaTareaRol_U
+BEFORE UPDATE
+ON TareaRol 
+FOR EACH ROW 
+INSERT INTO TareaRolAuditoria(FechaAuditoria, User, CodTarea, CodRol, Activo,Accion)
+ VALUES ( NOW(),CURRENT_USER(), OLD.CodTarea, OLD.CodRol, OLD.Activo,'UPDATE');
+ 
+ 
+ 
+CREATE TRIGGER TG_AuditoriaTareaRol_D 
+AFTER DELETE 
+ON TareaRol 
+FOR EACH ROW INSERT 
+INTO TareaRolAuditoria(FechaAuditoria, User, CodTarea, CodRol, Activo,Accion)
+VALUES (NOW(), CURRENT_USER(), OLD.CodTarea, OLD.CodRol, OLD.Activo, 'DELETE');
+--
+
+
+--
 -- Dumping data for table `tarearol`
 --
 
@@ -3228,8 +3256,10 @@ CREATE TABLE `tarearolauditoria` (
   `CodTarea` smallint(6) NOT NULL,
   `CodRol` char(2) NOT NULL,
   `Activo` bit(1) NOT NULL,
+  `Accion` varchar(10) NOT NULL,
   PRIMARY KEY (`ID_TareaRolAuditoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Dumping data for table `tarearolauditoria`
@@ -3237,52 +3267,6 @@ CREATE TABLE `tarearolauditoria` (
 
 LOCK TABLES `tarearolauditoria` WRITE;
 UNLOCK TABLES;
-
-
---Insert TareaRolAuditoria Inicial
-
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(1,'2014-10-09 23:10:13','VivaLaVida\Julieta',1,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(2,'2014-10-09 23:10:33','VivaLaVida\Julieta',1,'AL',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(3,'2014-10-09 23:10:37','VivaLaVida\Julieta',1,'EM',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(4,'2014-10-09 23:10:42','VivaLaVida\Julieta',1,'PR',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(5,'2014-10-09 23:10:55','VivaLaVida\Julieta',4,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(6,'2014-10-09 23:11:11','VivaLaVida\Julieta',2,'AL',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(7,'2014-10-09 23:11:26','VivaLaVida\Julieta',2,'PR',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(8,'2014-10-09 23:11:37','VivaLaVida\Julieta',2,'EM',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(9,'2014-10-09 23:11:44','VivaLaVida\Julieta',2,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(10,'2014-10-09 23:12:00','VivaLaVida\Julieta',3,'AL',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(11,'2014-10-09 23:12:05','VivaLaVida\Julieta',3,'EM',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(12,'2014-10-09 23:12:09','VivaLaVida\Julieta',3,'PR',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(13,'2014-10-09 23:12:29','VivaLaVida\Julieta',5,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(14,'2014-10-09 23:12:55','VivaLaVida\Julieta',6,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(15,'2014-10-09 23:13:28','VivaLaVida\Julieta',7,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(16,'2014-10-09 23:13:32','VivaLaVida\Julieta',8,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(17,'2014-10-09 23:13:52','VivaLaVida\Julieta',9,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(18,'2014-10-09 23:13:57','VivaLaVida\Julieta',9,'AL',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(19,'2014-10-09 23:14:02','VivaLaVida\Julieta',9,'PR',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(20,'2014-10-09 23:14:07','VivaLaVida\Julieta',9,'EM',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(21,'2014-10-09 23:14:12','VivaLaVida\Julieta',10,'AL',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(22,'2014-10-09 23:14:23','VivaLaVida\Julieta',10,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(23,'2014-10-09 23:14:30','VivaLaVida\Julieta',10,'PR',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(24,'2014-10-09 23:14:34','VivaLaVida\Julieta',10,'EM',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(25,'2014-10-09 23:14:56','VivaLaVida\Julieta',11,'AL',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(26,'2014-10-09 23:15:01','VivaLaVida\Julieta',11,'EM',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(27,'2014-10-09 23:15:06','VivaLaVida\Julieta',12,'AL',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(28,'2014-10-09 23:15:17','VivaLaVida\Julieta',12,'EM',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(29,'2014-10-09 23:15:36','VivaLaVida\Julieta',14,'PR',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(30,'2014-10-09 23:15:48','VivaLaVida\Julieta',15,'AL',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(31,'2014-10-09 23:15:53','VivaLaVida\Julieta',15,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(32,'2014-10-09 23:16:06','VivaLaVida\Julieta',16,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(33,'2014-10-09 23:16:14','VivaLaVida\Julieta',16,'EM',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(34,'2014-10-09 23:16:22','VivaLaVida\Julieta',16,'PR',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(35,'2014-10-09 23:16:38','VivaLaVida\Julieta',17,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(36,'2014-10-09 23:16:50','VivaLaVida\Julieta',18,'AD',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(37,'2014-10-09 23:16:54','VivaLaVida\Julieta',18,'EM',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(38,'2014-10-09 23:17:01','VivaLaVida\Julieta',18,'PR',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(39,'2014-10-09 23:17:06','VivaLaVida\Julieta',18,'AL',1);
-Insert  Into  TareaRolAuditoria(ID_TareaRolAuditoria,FechaAuditoria,USER,CodTarea,CodRol,Activo) Values(40,'2014-10-09 23:17:21','VivaLaVida\Julieta',19,'EM',1);
-
-
 
 --
 -- Table structure for table `telefono`
@@ -3309,7 +3293,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tipodocumento`;
 CREATE TABLE `tipodocumento` (
-  `ID_TipoDocumento` smallint(6) NOT NULL,
+  `ID_TipoDocumento` smallint(6) NOT NULL AUTO_INCREMENT,
   `Descripcion` varchar(40) NOT NULL,
   `AdmiteLetras` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`ID_TipoDocumento`)
@@ -3335,7 +3319,7 @@ Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(5,
 
 DROP TABLE IF EXISTS `tipotelefono`;
 CREATE TABLE `tipotelefono` (
-  `ID_TipoTelefono` smallint(6) NOT NULL,
+  `ID_TipoTelefono` smallint(6) NOT NULL AUTO_INCREMENT,
   `Descripcion` varchar(40) NOT NULL,
   PRIMARY KEY (`ID_TipoTelefono`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -3361,9 +3345,9 @@ Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(3,'Celular');
 
 DROP TABLE IF EXISTS `titulo`;
 CREATE TABLE `titulo` (
-  `ID_Titulo` int(11) NOT NULL,
-  `CodCarrera` varchar(2) CHARACTER SET utf8 NOT NULL,
-  `Titulo` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `ID_Titulo` int(11) NOT NULL AUTO_INCREMENT,
+  `CodCarrera` varchar(2) NOT NULL,
+  `Titulo` varchar(100) NOT NULL,
   `Activo` bit(1) NOT NULL,
   PRIMARY KEY (`ID_Titulo`,`CodCarrera`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -3392,10 +3376,10 @@ Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,Activo) Values(6,'AS','Analista
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `CodUsuario` bigint(20) NOT NULL AUTO_INCREMENT,
-  `Email` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `Nombre` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `Apellido` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `Password` varchar(15) CHARACTER SET utf8 NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Nombre` varchar(100) NOT NULL,
+  `Apellido` varchar(100) NOT NULL,
+  `Password` varchar(15) NOT NULL,
   `FechaIngreso` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `FechaNacimiento` datetime NOT NULL,
   `ID_Paises` int(11) NOT NULL DEFAULT '1',
