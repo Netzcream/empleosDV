@@ -26,7 +26,7 @@ header {
 }
 #cuerpo {
 	width: 80%;
-	margin: 0px auto;
+	margin: 0px auto 10px auto;
 	
 }
 .contTabla {
@@ -62,4 +62,35 @@ header {
 	text-align: center;
 	padding: 0px;
 	display: none;
+}
+/* ********** Alturas ********** */
+.A10 {
+	height: 10px;
+}
+.A20 {
+	height: 20px;
+}
+.A30 {
+	height: 30px;
+}
+.A40 {
+	height: 40px;
+}
+.A50 {
+	height: 50px;
+}
+.A60 {
+	height: 60px;
+}
+.A70 {
+	height: 70px;
+}
+.A80 {
+	height: 80px;
+}
+.A90 {
+	height: 90px;
+}
+.A100 {
+	height: 100px;
 }

@@ -8,11 +8,11 @@
 	
 	<script>
 	$(document).ready(function() {
-	    $("#footer").pinFooter("relative");
+	    $("#footer").pinFooter();
 	});
 
 	$(window).resize(function() {
-	    $("#footer").pinFooter("relative");
+	    $("#footer").pinFooter();
 	});
 
 	</script>
