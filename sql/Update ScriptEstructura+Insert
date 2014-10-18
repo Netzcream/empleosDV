@@ -30,8 +30,9 @@ CREATE TABLE `carrera` (
 LOCK TABLES `carrera` WRITE;
 UNLOCK TABLES;
 
-
+--
 ----Insert Carreras:
+--
 Insert  Into  Carrera(CodCarrera,Descripcion,Activo) Values('AS' , 'Analista de Sistemas' , 1);
 Insert  Into  Carrera(CodCarrera,Descripcion,Activo) Values('CA' , 'Cine de Animación' , 1);
 Insert  Into  Carrera(CodCarrera,Descripcion,Activo) Values('DG' , 'Diseño Grafico' , 1);
@@ -83,8 +84,10 @@ CREATE TABLE `estadocivil` (
 
 LOCK TABLES `estadocivil` WRITE;
 UNLOCK TABLES;
-
+--
 --Insert EstadoCivil
+--
+
 Insert  Into  EstadoCivil(ID_EstadoCivil,EstadoCivil) Values(1 , 'Soltero/a' );
 Insert  Into  EstadoCivil(ID_EstadoCivil,EstadoCivil) Values(2 , 'Casado/a' );
 Insert  Into  EstadoCivil(ID_EstadoCivil,EstadoCivil) Values(3 , 'Divorciado/a' );
@@ -155,8 +158,9 @@ CREATE TABLE `idioma` (
 LOCK TABLES `idioma` WRITE;
 UNLOCK TABLES;
 
-
+--
 --Insert Idioma
+--
 
 Insert  Into  Idioma(ID_Idioma,Idioma) Values(1 , '-' );
 Insert  Into  Idioma(ID_Idioma,Idioma) Values(2 , 'Alemán' );
@@ -187,8 +191,9 @@ CREATE TABLE `localidad` (
 LOCK TABLES `localidad` WRITE;
 UNLOCK TABLES;
 
-
+--
 --Insert Localidad
+--
 
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1,1,' 25 de Mayo');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(2,1,' 3 de febrero');
@@ -3035,7 +3040,9 @@ CREATE TABLE `provincia` (
 LOCK TABLES `provincia` WRITE;
 UNLOCK TABLES;
 
+--
 --Insert Provincia
+--
 
 Insert  Into  Provincia(ID_Provincia,Provincia) Values(1,'Buenos Aires');
 Insert  Into  Provincia(ID_Provincia,Provincia) Values(2,'Buenos Aires-GBA');
@@ -3102,7 +3109,9 @@ CREATE TABLE `seniority` (
 LOCK TABLES `seniority` WRITE;
 UNLOCK TABLES;
 
+--
 --Insert Seniority
+--
 
 Insert  Into  Seniority(ID_Seniority,Seniority) Values(1,'Training');
 Insert  Into  Seniority(ID_Seniority,Seniority) Values(2,'Junior');
@@ -3129,8 +3138,10 @@ CREATE TABLE `tarea` (
 LOCK TABLES `tarea` WRITE;
 UNLOCK TABLES;
 
-
+--
 --Insert Tarea
+--
+
 
 Insert  Into  Tarea(CodTarea,Descripcion) Values(1,'Ingresar al Sitema');
 Insert  Into  Tarea(CodTarea,Descripcion) Values(2,'Modificar Datos Personales');
@@ -3167,6 +3178,8 @@ CREATE TABLE `tarearol` (
 
 --
 --Triggers TareaRol
+--
+
 CREATE TRIGGER TG_AuditoriaTareaRol_I
 AFTER INSERT 
 ON TareaRol 
@@ -3190,7 +3203,7 @@ ON TareaRol
 FOR EACH ROW INSERT 
 INTO TareaRolAuditoria(FechaAuditoria, User, CodTarea, CodRol, Activo,Accion)
 VALUES (NOW(), CURRENT_USER(), OLD.CodTarea, OLD.CodRol, OLD.Activo, 'DELETE');
---
+
 
 
 --
@@ -3200,7 +3213,10 @@ VALUES (NOW(), CURRENT_USER(), OLD.CodTarea, OLD.CodRol, OLD.Activo, 'DELETE');
 LOCK TABLES `tarearol` WRITE;
 UNLOCK TABLES;
 
+--
 --Insert TareaRol
+--
+
 
 Insert  Into  TareaRol(CodTarea,CodRol,Activo) Values(1,'AD',1);
 Insert  Into  TareaRol(CodTarea,CodRol,Activo) Values(1,'AL',1);
@@ -3306,7 +3322,10 @@ CREATE TABLE `tipodocumento` (
 LOCK TABLES `tipodocumento` WRITE;
 UNLOCK TABLES;
 
+--
 --Insert TipoDocumento
+--
+
 Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(1,'D.N.I.',0);
 Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(2,'Cédula de Identidad',0);
 Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(3,'Libreta Cívica',0);
@@ -3331,8 +3350,9 @@ CREATE TABLE `tipotelefono` (
 LOCK TABLES `tipotelefono` WRITE;
 UNLOCK TABLES;
 
-
+--
 --Insert TipoTelefono
+--
 
 Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(1,'Particular');
 Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(2,'Laboral');
@@ -3345,9 +3365,10 @@ Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(3,'Celular');
 
 DROP TABLE IF EXISTS `titulo`;
 CREATE TABLE `titulo` (
-  `ID_Titulo` int(11) NOT NULL AUTO_INCREMENT,
-  `CodCarrera` varchar(2) NOT NULL,
-  `Titulo` varchar(100) NOT NULL,
+  `ID_Titulo` int(11) NOT NULL,
+  `CodCarrera` varchar(2) CHARACTER SET utf8 NOT NULL,
+  `Titulo` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `TotalMaterias` int(3) NOT NULL,
   `Activo` bit(1) NOT NULL,
   PRIMARY KEY (`ID_Titulo`,`CodCarrera`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -3359,14 +3380,16 @@ CREATE TABLE `titulo` (
 LOCK TABLES `titulo` WRITE;
 UNLOCK TABLES;
 
+--
 --Insert Titulo
+--
 
-Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,Activo) Values(1,'DM','Diseñador Multimedial',1);
-Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,Activo) Values(2,'DG','Técnico Superior en Diseño Gráfico y Comunicación Visual',1);
-Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,Activo) Values(3,'VJ','Diseñador y Programador de Simuladores Virtuales',1);
-Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,Activo) Values(4,'CA','Director de Cine de Animación',1);
-Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,Activo) Values(5,'DW','Técnico Superior en Diseño y Administración de Sitios Web.',1);
-Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,Activo) Values(6,'AS','Analista de Sistemas de Computación ',1);
+Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,TotalMaterias,Activo) Values(1,'DM','Diseñador Multimedial',34,1);
+Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,TotalMaterias,Activo) Values(2,'DG','Técnico Superior en Diseño Gráfico y Comunicación Visual',33,1);
+Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,TotalMaterias,Activo) Values(3,'VJ','Diseñador y Programador de Simuladores Virtuales',35,1);
+Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,TotalMaterias,Activo) Values(4,'CA','Director de Cine de Animación',36,1);
+Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,TotalMaterias,Activo) Values(5,'DW','Técnico Superior en Diseño y Administración de Sitios Web.',34,1);
+Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,TotalMaterias,Activo) Values(6,'AS','Analista de Sistemas de Computación ',33,1);
 
 
 --
