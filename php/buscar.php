@@ -5,13 +5,13 @@ if (!isset($_SESSION)) {
 $_SESSION['location'] = "buscar";
 
 ?>
-
-	<link rel="stylesheet" href="css/jslider.css" type="text/css">
-	<link rel="stylesheet" href="css/jslider.blue.css" type="text/css">
-	<link rel="stylesheet" href="css/jslider.plastic.css" type="text/css">
-	<link rel="stylesheet" href="css/jslider.round.css" type="text/css">
-	<link rel="stylesheet" href="css/jslider.round.plastic.css" type="text/css">
-	<link rel="stylesheet" href="css/magicsuggest-min.css" type="text/css">
+		<link rel="stylesheet" type="text/css" href="css/jslider.css">
+		<link rel="stylesheet" type="text/css" href="css/jslider.blue.css">
+		<link rel="stylesheet" type="text/css" href="css/jslider.plastic.css">
+		<link rel="stylesheet" type="text/css" href="css/jslider.round.css">
+		<link rel="stylesheet" type="text/css" href="css/jslider.round.plastic.css">
+		<link rel="stylesheet" type="text/css" href="css/magicsuggest-min.css">
+		
 	<script type="text/javascript" src="js/jshashtable-2.1_src.js"></script>
 	<script type="text/javascript" src="js/jq.numberformatter-1.2.3.js"></script>
 	<script type="text/javascript" src="js/tmpl.js"></script>
@@ -21,7 +21,7 @@ $_SESSION['location'] = "buscar";
 	<script type="text/javascript" src="js/magicsuggest.js"></script>
 
 	<div class="prebuscar">
-		<div class="separadorBuscar">
+		<div class="separadorBuscar A80">
 			<label class="buscarLabel">Carrera:</label>
 			<div id="bBuscarCarrera">
 	
@@ -55,7 +55,7 @@ $_SESSION['location'] = "buscar";
 			
 			</script>
 		</div>
-	<div class="separadorBuscar">
+	<div class="separadorBuscar A80">
 			<label class="buscarLabel">Orientaci&oacute;n:</label>
 			
 			<div id="bBuscarOrientacion">
@@ -72,7 +72,7 @@ $_SESSION['location'] = "buscar";
 			    	useZebraStyle: true,
 			    	maxDropHeight: 145,
 			    	toggleOnClick: true,
-			    	placeholder: 'Seleccione la orientación',
+			    	placeholder: 'Seleccionar',
 			    	valueField: 'id',
 			    	noSuggestionText: 'No se encontraron coincidencias para: {{query}}',
 			    	style: 'border-radius: 5px !important',
@@ -114,7 +114,7 @@ $_SESSION['location'] = "buscar";
      // $('#rangoEdad').slider("option", "value").val() --> Devuelve "18;37" por ejemplo
     </script>
 		</div>
-		<div class="separadorBuscar A90">
+		<div class="separadorBuscar A100">
 			<label class="buscarLabel">Sexo:</label>
 			<div id="idSexM" class="BcontSelSexo" onclick="selSexo('m');"><img alt="Masculino" src="imagenes/m.png" class="BselSexo"></div>
 			<div id="idSexFM" class="BcontSelSexo BcontSelSexoSeleccionado" onclick="selSexo('fm');"><img alt="Ambos" src="imagenes/fm.png" class="BselSexo"></div>
@@ -122,13 +122,22 @@ $_SESSION['location'] = "buscar";
 			
 			
 		</div>
-		<div class="separadorBuscar">
-			<label class="buscarLabel">Avance de Carrera:</label>
+		<div class="separadorBuscar A80">
+			<label class="buscarLabel">Avance de la Carrera </label>
+			<div class="limitRange">
+			<input id="bBuscarPorcentaje" type="range" min="0" max="100" value="50"  onchange="actualizaPorc(value);"/>
+
+			<output for=bBuscarPorcentaje id=bPorcentaje>50 %</output>
+			<script>
+			function actualizaPorc(prc) {
+				document.querySelector('#bPorcentaje').value = prc+" %";
+				}
+			</script>
 			
-			<input type="range" min="0" max="100" value="50" />
+			</div>
 		</div>
 
-		<div class="separadorBuscar">
+		<div class="separadorBuscar A80">
 			<label class="buscarLabel">Palabras Claves</label>
 			
 

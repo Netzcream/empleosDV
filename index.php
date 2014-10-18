@@ -24,6 +24,10 @@ if (!isset($_SESSION['location'])) {
 		<link rel="stylesheet" type="text/css" href="css/footable.core.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/login.css"/>
 		<link rel="stylesheet" type="text/css" href="css/buscar.css"/>
+
+
+	
+
 		
 		<!-- Distintos Scripts de JavaScript utilizados -->
 		<script type="text/javascript" src="js/jq-2.1.1.js"></script>
