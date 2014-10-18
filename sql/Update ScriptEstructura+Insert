@@ -3091,6 +3091,15 @@ LOCK TABLES `rol` WRITE;
 UNLOCK TABLES;
 
 --
+--Insert Rol
+--
+
+Insert  Into  Rol(CodRol,Descripcion) Values('AD' , 'Administrador');
+Insert  Into  Rol(CodRol,Descripcion) Values('AL' , 'Alumno');
+Insert  Into  Rol(CodRol,Descripcion) Values('EM' , 'Empresa');
+Insert  Into  Rol(CodRol,Descripcion) Values('PR' , 'Profesor');
+
+--
 -- Table structure for table `seniority`
 --
 
