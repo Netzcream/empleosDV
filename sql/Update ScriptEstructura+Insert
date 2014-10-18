@@ -16,8 +16,8 @@ USE `bolsadv`;
 DROP TABLE IF EXISTS `carrera`;
 
 CREATE TABLE `carrera` (
-  `CodCarrera` varchar(2) CHARACTER SET utf8 NOT NULL,
-  `Descripcion` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `CodCarrera` varchar(2) NOT NULL,
+  `Descripcion` varchar(50) NOT NULL,
   `Activo` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`CodCarrera`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -31,7 +31,7 @@ LOCK TABLES `carrera` WRITE;
 UNLOCK TABLES;
 
 --
-----Insert Carreras:
+-- Insert Carreras:
 --
 Insert  Into  Carrera(CodCarrera,Descripcion,Activo) Values('AS' , 'Analista de Sistemas' , 1);
 Insert  Into  Carrera(CodCarrera,Descripcion,Activo) Values('CA' , 'Cine de Animación' , 1);
@@ -85,7 +85,7 @@ CREATE TABLE `estadocivil` (
 LOCK TABLES `estadocivil` WRITE;
 UNLOCK TABLES;
 --
---Insert EstadoCivil
+-- Insert EstadoCivil
 --
 
 Insert  Into  EstadoCivil(ID_EstadoCivil,EstadoCivil) Values(1 , 'Soltero/a' );
@@ -159,7 +159,7 @@ LOCK TABLES `idioma` WRITE;
 UNLOCK TABLES;
 
 --
---Insert Idioma
+-- Insert Idioma
 --
 
 Insert  Into  Idioma(ID_Idioma,Idioma) Values(1 , '-' );
@@ -192,7 +192,7 @@ LOCK TABLES `localidad` WRITE;
 UNLOCK TABLES;
 
 --
---Insert Localidad
+-- Insert Localidad
 --
 
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1,1,' 25 de Mayo');
@@ -2601,8 +2601,10 @@ CREATE TABLE `materia` (
 LOCK TABLES `materia` WRITE;
 UNLOCK TABLES;
 
+--
+-- Insert Materia
+--
 
---Insert Materia
 
 Insert  Into  Materia(CodMateria,CodCarrera,Materia,Activo) Values('AS11','AS',' Organización Empresarial',1);
 Insert  Into  Materia(CodMateria,CodCarrera,Materia,Activo) Values('AS12','AS',' Introducción a la informática',1);
@@ -2853,7 +2855,7 @@ CREATE TABLE `nivelestudios` (
 LOCK TABLES `nivelestudios` WRITE;
 UNLOCK TABLES;
 
---Insert NivelEstudios
+-- Insert NivelEstudios
 
 
 Insert  Into  NivelEstudios(ID_NivelEstudio,NivelEstudio) Values(1,'Secundario Graduado');
@@ -2890,7 +2892,9 @@ CREATE TABLE `nivelidioma` (
 LOCK TABLES `nivelidioma` WRITE;
 UNLOCK TABLES;
 
---Insert NivelIdioma
+--
+-- Insert NivelIdioma
+--
 
 Insert  Into  NivelIdioma(ID_NivelConocimiento,Nivel) Values(1,'-');
 Insert  Into  NivelIdioma(ID_NivelConocimiento,Nivel) Values(2,'Básico');
@@ -2918,8 +2922,9 @@ CREATE TABLE `paises` (
 LOCK TABLES `paises` WRITE;
 UNLOCK TABLES;
 
-
---Insert Paises
+--
+-- Insert Paises
+--
 
 Insert  Into  Paises(ID_Pais,Pais) Values(1,'Argentina');
 Insert  Into  Paises(ID_Pais,Pais) Values(2,'Australia');
@@ -3041,7 +3046,7 @@ LOCK TABLES `provincia` WRITE;
 UNLOCK TABLES;
 
 --
---Insert Provincia
+-- Insert Provincia
 --
 
 Insert  Into  Provincia(ID_Provincia,Provincia) Values(1,'Buenos Aires');
@@ -3091,7 +3096,7 @@ LOCK TABLES `rol` WRITE;
 UNLOCK TABLES;
 
 --
---Insert Rol
+-- Insert Rol
 --
 
 Insert  Into  Rol(CodRol,Descripcion) Values('AD' , 'Administrador');
@@ -3119,7 +3124,7 @@ LOCK TABLES `seniority` WRITE;
 UNLOCK TABLES;
 
 --
---Insert Seniority
+-- Insert Seniority
 --
 
 Insert  Into  Seniority(ID_Seniority,Seniority) Values(1,'Training');
@@ -3148,7 +3153,7 @@ LOCK TABLES `tarea` WRITE;
 UNLOCK TABLES;
 
 --
---Insert Tarea
+-- Insert Tarea
 --
 
 
@@ -3214,7 +3219,7 @@ CREATE TABLE `tarearol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
---Triggers TareaRol
+-- Triggers TareaRol
 --
 
 CREATE TRIGGER TG_AuditoriaTareaRol_I
@@ -3251,7 +3256,7 @@ LOCK TABLES `tarearol` WRITE;
 UNLOCK TABLES;
 
 --
---Insert TareaRol
+-- Insert TareaRol
 --
 
 
@@ -3337,7 +3342,7 @@ LOCK TABLES `tipodocumento` WRITE;
 UNLOCK TABLES;
 
 --
---Insert TipoDocumento
+-- Insert TipoDocumento
 --
 
 Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(1,'D.N.I.',0);
@@ -3365,7 +3370,7 @@ LOCK TABLES `tipotelefono` WRITE;
 UNLOCK TABLES;
 
 --
---Insert TipoTelefono
+-- Insert TipoTelefono
 --
 
 Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(1,'Particular');
@@ -3395,7 +3400,7 @@ LOCK TABLES `titulo` WRITE;
 UNLOCK TABLES;
 
 --
---Insert Titulo
+-- Insert Titulo
 --
 
 Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,TotalMaterias,Activo) Values(1,'DM','Diseñador Multimedial',34,1);
