@@ -1,6 +1,6 @@
 /* Script para crear la estructura básica */
 /* Se usa la estructura [Año][Mes][Dia]-[Hora][Minuto]-[Estructura/Datos].sql */
-
+ 
 CREATE DATABASE  IF NOT EXISTS `bolsadv` ;
 USE `bolsadv`;
 -- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
