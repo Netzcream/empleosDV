@@ -3221,7 +3221,7 @@ CREATE TABLE `tarearol` (
 --
 -- Triggers TareaRol
 --
-
+DROP TRIGGER IF EXISTS `TG_AuditoriaTareaRol_I`;
 CREATE TRIGGER TG_AuditoriaTareaRol_I
 AFTER INSERT 
 ON TareaRol 
@@ -3230,15 +3230,18 @@ INSERT
 INTO TareaRolAuditoria( FechaAuditoria, User ,CodTarea, CodRol, Activo,Accion)
 VALUES (NOW(), CURRENT_USER(),  NEW.CodTarea, NEW.CodRol, NEW.Activo, 'INSERT');
 
+
+DROP TRIGGER IF EXISTS `TG_AuditoriaTareaRol_U`;
 CREATE TRIGGER TG_AuditoriaTareaRol_U
 BEFORE UPDATE
 ON TareaRol 
 FOR EACH ROW 
 INSERT INTO TareaRolAuditoria(FechaAuditoria, User, CodTarea, CodRol, Activo,Accion)
- VALUES ( NOW(),CURRENT_USER(), OLD.CodTarea, OLD.CodRol, OLD.Activo,'UPDATE');
+VALUES ( NOW(),CURRENT_USER(), OLD.CodTarea, OLD.CodRol, OLD.Activo,'UPDATE');
  
  
- 
+
+DROP TRIGGER IF EXISTS `TG_AuditoriaTareaRol_D`;
 CREATE TRIGGER TG_AuditoriaTareaRol_D 
 AFTER DELETE 
 ON TareaRol 
@@ -3385,8 +3388,8 @@ Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(3,'Celular');
 DROP TABLE IF EXISTS `titulo`;
 CREATE TABLE `titulo` (
   `ID_Titulo` int(11) NOT NULL,
-  `CodCarrera` varchar(2) CHARACTER SET utf8 NOT NULL,
-  `Titulo` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `CodCarrera` varchar(2) NOT NULL,
+  `Titulo` varchar(100) NOT NULL,
   `TotalMaterias` int(3) NOT NULL,
   `Activo` bit(1) NOT NULL,
   PRIMARY KEY (`ID_Titulo`,`CodCarrera`)
@@ -3444,6 +3447,197 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 UNLOCK TABLES;
+
+--
+-- AGREGO FK'S Y ALGUNOS INDICES
+--
+
+
+-- Agrego FK Titulo
+ALTER TABLE `bolsadv`.`titulo` 
+ADD INDEX `FK_Titulo_Carrera_idx` (`CodCarrera` ASC);
+ALTER TABLE `bolsadv`.`titulo` 
+ADD CONSTRAINT `FK_Titulo_Carrera`
+  FOREIGN KEY (`CodCarrera`)
+  REFERENCES `bolsadv`.`carrera` (`CodCarrera`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+-- Agrego FK Materia
+ALTER TABLE `bolsadv`.`materia` 
+ADD INDEX `FK_Materia_Carrera_idx` (`CodCarrera` ASC);
+ALTER TABLE `bolsadv`.`materia` 
+ADD CONSTRAINT `FK_Materia_Carrera`
+  FOREIGN KEY (`CodCarrera`)
+  REFERENCES `bolsadv`.`carrera` (`CodCarrera`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+-- Agrego FK ProfesorMateria
+ALTER TABLE `bolsadv`.`profesormateria` 
+ADD INDEX `FK_ProfesorMateria_Materia_idx` (`CodMateria` ASC);
+ALTER TABLE `bolsadv`.`profesormateria` 
+ADD CONSTRAINT `FK_ProfesorMateria_Profesor`
+  FOREIGN KEY (`ID_Profesor`)
+  REFERENCES `bolsadv`.`profesor` (`ID_Profesor`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_ProfesorMateria_Materia`
+  FOREIGN KEY (`CodMateria`)
+  REFERENCES `bolsadv`.`materia` (`CodMateria`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  
+-- Agrego FK EstIdioma
+  ALTER TABLE `bolsadv`.`estidioma` 
+ADD INDEX `FK_EstIdioma_NivelIdioma_idx` (`ID_NivelConocimiento` ASC),
+ADD INDEX `FK_EstIdioma_CodUsuario_idx` (`CodUsuario` ASC);
+ALTER TABLE `bolsadv`.`estidioma` 
+ADD CONSTRAINT `FK_EstIdioma_NivelIdioma`
+  FOREIGN KEY (`ID_NivelConocimiento`)
+  REFERENCES `bolsadv`.`nivelidioma` (`ID_NivelConocimiento`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_EstIdioma_Idioma`
+  FOREIGN KEY (`ID_Idioma`)
+  REFERENCES `bolsadv`.`idioma` (`ID_Idioma`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_EstIdioma_CodUsuario`
+  FOREIGN KEY (`CodUsuario`)
+  REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+-- Agrego FK ExperienciaElaboral
+ALTER TABLE `bolsadv`.`experiencialaboral` 
+ADD INDEX `FK_ExperienciaLaboral_Usuario_idx` (`CodUsuario` ASC),
+ADD INDEX `FK_ExperienciaLaboral_Seniority_idx` (`ID_Seniority` ASC);
+ALTER TABLE `bolsadv`.`experiencialaboral` 
+ADD CONSTRAINT `FK_ExperienciaLaboral_Usuario`
+  FOREIGN KEY (`CodUsuario`)
+  REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_ExperienciaLaboral_Seniority`
+  FOREIGN KEY (`ID_Seniority`)
+  REFERENCES `bolsadv`.`seniority` (`ID_Seniority`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_ExperienciaLaboral_Paises`
+  FOREIGN KEY (`ID_Pais`)
+  REFERENCES `bolsadv`.`paises` (`ID_Pais`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+-- Agrego FK Mensaje
+ALTER TABLE `bolsadv`.`mensaje` 
+ADD INDEX `FK_Mensaje_Usuario_idx` (`CodUsuario` ASC);
+ALTER TABLE `bolsadv`.`mensaje` 
+ADD CONSTRAINT `FK_Mensaje_Usuario`
+  FOREIGN KEY (`CodUsuario`)
+  REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_Mensaje_UsuarioEmisor`
+  FOREIGN KEY (`CodUsuario`)
+  REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  
+  
+
+-- Agrego FK Localidad
+ALTER TABLE `bolsadv`.`localidad` 
+ADD INDEX `FK_Localidad_Provincia_idx` (`ID_Provincia` ASC);
+ALTER TABLE `bolsadv`.`localidad` 
+ADD CONSTRAINT `FK_Localidad_Provincia`
+  FOREIGN KEY (`ID_Provincia`)
+  REFERENCES `bolsadv`.`provincia` (`ID_Provincia`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  
+ -- Agrego FK Direccion 
+ALTER TABLE `bolsadv`.`direccion` 
+ADD INDEX `FK_Direccion_Localidad_idx` (`ID_Localidad` ASC, `ID_Provincia` ASC);
+ALTER TABLE `bolsadv`.`direccion` 
+ADD CONSTRAINT `FK_Direccion_Localidad`
+  FOREIGN KEY (`ID_Localidad` , `ID_Provincia`)
+  REFERENCES `bolsadv`.`localidad` (`ID_Localidad` , `ID_Provincia`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+
+ -- Agrego FK TreaRol 
+ALTER TABLE `bolsadv`.`tarearol` 
+ADD CONSTRAINT `FK_TareaRol_Tarea`
+  FOREIGN KEY (`CodTarea`)
+  REFERENCES `bolsadv`.`tarea` (`CodTarea`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_TareaRol_Rol`
+  FOREIGN KEY (`CodRol`)
+  REFERENCES `bolsadv`.`rol` (`CodRol`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+
+ -- Agrego FK Telefono 
+ALTER TABLE `bolsadv`.`telefono` 
+ADD CONSTRAINT `FK_Telefono_Usuario`
+  FOREIGN KEY (`CodUsuario`)
+  REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_Telefono_TipoTelefono`
+  FOREIGN KEY (`ID_TipoTelefono`)
+  REFERENCES `bolsadv`.`tipotelefono` (`ID_TipoTelefono`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+  
+ -- Agrego FK Usuario
+ALTER TABLE `bolsadv`.`usuario` 
+ADD INDEX `FK_Usuario_NivelEstudios_idx` (`ID_NivelEstudios` ASC),
+ADD INDEX `FK_Usuario_Rol_idx` (`CodRol` ASC);
+ALTER TABLE `bolsadv`.`usuario` 
+ADD CONSTRAINT `FK_Usuario_Paises`
+  FOREIGN KEY (`ID_Paises`)
+  REFERENCES `bolsadv`.`paises` (`ID_Pais`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_Usuario_EstadoCivil`
+  FOREIGN KEY (`ID_EstadoCivil`)
+  REFERENCES `bolsadv`.`estadocivil` (`ID_EstadoCivil`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_Usuario_TipoDocumento`
+  FOREIGN KEY (`ID_TipoDocumento`)
+  REFERENCES `bolsadv`.`tipodocumento` (`ID_TipoDocumento`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_Usuario_NivelEstudios`
+  FOREIGN KEY (`ID_NivelEstudios`)
+  REFERENCES `bolsadv`.`nivelestudios` (`ID_NivelEstudio`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_Usuario_Rol`
+  FOREIGN KEY (`CodRol`)
+  REFERENCES `bolsadv`.`rol` (`CodRol`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
 
 --
 -- Dumping events for database 'bolsadv'
