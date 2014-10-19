@@ -26,11 +26,6 @@ $result = $conex->consulta($consulta);
 			    	
 ?>
 
-
-
-
-
-
 		<link rel="stylesheet" type="text/css" href="css/jslider.css">
 		<link rel="stylesheet" type="text/css" href="css/jslider.blue.css">
 		<link rel="stylesheet" type="text/css" href="css/jslider.plastic.css">
