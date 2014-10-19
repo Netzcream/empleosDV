@@ -3,7 +3,6 @@ header('Content-Type: text/html; charset=UTF-8');
 if (!isset($_SESSION)) {
 	session_start();
 }
-
 include_once 'conex.php';
 $_SESSION['location'] = "buscar";
 
