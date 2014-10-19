@@ -46,13 +46,15 @@
 	margin: 0px auto;
 	border-bottom: 1px #222 solid;
 	max-width: 400px;
-	padding-top: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	cursor: default;
 }
 .BselSexo {
 	width: 40px;
 	
 }
+
 .BcontSelSexo {
 	background-color: #fff;
 	display: inline-block;
@@ -68,7 +70,9 @@
 	box-shadow: 0px 0px 1px 0px #000, 0px 0px 4px 0px #fff, inset 0px 0px 3px 0px #00BCDE;
 }
 .BcontSelSexo.BcontSelSexoSeleccionado {
-	box-shadow: 0px 0px 1px 0px #000, inset 0px 0px 3px 0px #00BCDE, 0px 0px 5px 0px #00BCDE !important;
+	box-shadow: 0px 0px 1px 0px #000, 
+	inset 0px 0px 3px 2px #00BCDE, 
+	0px 0px 5px 0px #00BCDE !important;
 }
 #bBuscarCarrera, #bBuscarOrientacion, #bBuscarTags {
 width: 350px;
@@ -164,4 +168,92 @@ input[type="range"]::-ms-thumb {
 #bPorcentaje {
 	color: #fff;
 	
+}
+/*******************************/
+
+/* #2EB499 */
+.CarSelector {
+	display: block;
+	
+}
+.iconoCarrera {
+	display: inline-block;
+	width: 40px;
+	height: 36px;
+	margin: 0px auto 8px;
+	content: "";
+}
+.iconoCarrera div {
+	display: block;
+	width: 40px;
+	height: 36px;
+	margin: 0px auto 8px;
+	content: "";
+	cursor: pointer;
+	background-color: #000;
+	
+}
+.carreraDM {
+	background: url('../imagenes/imagenesDV.png') no-repeat scroll 0% 0% transparent;
+	background-position: 0px 0px;
+}
+.carreraDG {
+	background: url('../imagenes/imagenesDV.png') no-repeat scroll 0% 0% transparent;
+	background-position: 0px -36px;
+}
+.carreraVJ {
+	background: url('../imagenes/imagenesDV.png') no-repeat scroll 0% 0% transparent;
+	background-position: 0px -72px;
+}
+.carreraCA {
+	background: url('../imagenes/imagenesDV.png') no-repeat scroll 0% 0% transparent;
+	background-position: 0px -108px;
+}
+.carreraDW{
+	background: url('../imagenes/imagenesDV.png') no-repeat scroll 0% 0% transparent;
+	background-position: 0px -144px;
+}
+.carreraAS{
+	background: url('../imagenes/imagenesDV.png') no-repeat scroll 0% 0% transparent;
+	background-position: 0px -180px;
+}
+
+
+
+.carreraDM:hover {
+	background-position: -40px 0px;
+}
+.carreraDG:hover {
+	background-position: -40px -36px;
+}
+.carreraVJ:hover {
+	background-position: -40px -72px;
+}
+.carreraCA:hover {
+	background-position: -40px -108px;
+}
+.carreraDW:hover {
+	background-position: -40px -144px;
+}
+.carreraAS:hover {
+	background-position: -40px -180px;
+}
+
+.carreraDMSel {
+	background-position: -80px 0px;
+}
+.carreraDGSel {
+	background-position: -80px -36px;
+}
+.carreraVJSel {
+	background-position: -80px -72px;
+}
+.carreraCASel {
+	background-position: -80px -108px;
+}
+.carreraDWSel {
+	background-position: -80px -144px;
+}
+.carreraASSel {
+	background-position: -80px -180px;
 }

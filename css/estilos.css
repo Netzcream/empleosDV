@@ -94,3 +94,34 @@ header {
 .A100 {
 	height: 100px;
 }
+/* Alturas mínimas */
+.AM10 {
+	min-height: 10px;
+}
+.AM20 {
+	min-height: 20px;
+}
+.AM30 {
+	min-height: 30px;
+}
+.AM40 {
+	min-height: 40px;
+}
+.AM50 {
+	min-height: 50px;
+}
+.AM60 {
+	min-height: 60px;
+}
+.AM70 {
+	min-height: 70px;
+}
+.AM80 {
+	min-height: 80px;
+}
+.AM90 {
+	min-height: 90px;
+}
+.AM100 {
+	min-height: 100px;
+}

@@ -42,14 +42,28 @@ $result = $conex->consulta($consulta);
 		<script type="text/javascript" src="js/magicsuggest.js"></script>
 
 	<div class="prebuscar">
-		<div class="separadorBuscar A80">
-			<label class="buscarLabel">Carrera:</label>
+	<!-- 
+	<div class="separadorBuscar">
+	
+	<ul class="CarSelector">
+	<li class="iconoCarrera"><div class="carreraDM">Hola</div></li>
+	<li class="iconoCarrera"><div class="carreraDG"></div></li>
+	<li class="iconoCarrera"><div class="carreraVJ"></div></li>
+	<li class="iconoCarrera"><div class="carreraCA"></div></li>
+	<li class="iconoCarrera"><div class="carreraDW"></div></li>
+	<li class="iconoCarrera"><div class="carreraAS"></div></li>
+	</ul>
+	
+	</div>
+	-->
+		<div class="separadorBuscar">
+			<label class="buscarLabel">Carrera</label>
 			<div id="bBuscarCarrera">
 	
 			</div>
 			<script>
 			$(function() {
-				var ms =  $('#bBuscarCarrera').magicSuggest({
+				var msBCarrera =  $('#bBuscarCarrera').magicSuggest({
 			    	sortDir: 'asc',
 			    	sortOrder: 'name',
 			    	allowDuplicates: false,
@@ -63,15 +77,17 @@ $result = $conex->consulta($consulta);
 			    	style: 'border-radius: 5px !important',
 			    	data: <?php echo $carreras; ?>
 			    });
-				$(ms).on(
+				$(msBCarrera).on(
 				  'selectionchange', function(e, cb, s){
+
 	     		  }
 				);
 			});	    
 			
 			</script>
 		</div>
-	<div class="separadorBuscar A80">
+		<!-- 
+	<div class="separadorBuscar">
 			<label class="buscarLabel">Orientaci&oacute;n:</label>
 			
 			<div id="bBuscarOrientacion">
@@ -80,7 +96,7 @@ $result = $conex->consulta($consulta);
 			
 				<script>
 			$(function() {
-				var ms =  $('#bBuscarOrientacion').magicSuggest({
+				var msBOrientacion =  $('#bBuscarOrientacion').magicSuggest({
 			    	sortDir: 'asc',
 			    	sortOrder: 'name',
 			    	allowDuplicates: false,
@@ -94,7 +110,7 @@ $result = $conex->consulta($consulta);
 			    	style: 'border-radius: 5px !important',
 			    	data: <?php echo $carreras; ?>
 			    });
-				$(ms).on(
+				$(msBOrientacion).on(
 				  'selectionchange', function(e, cb, s){
 	     		  }
 				);
@@ -104,18 +120,21 @@ $result = $conex->consulta($consulta);
 			
 
 </div>
-<div class="separadorBuscar A80">
-			<label class="buscarLabel">Edad:</label>
+ -->
+<div class="separadorBuscar A70">
+			<label class="buscarLabel">Edad</label>
 		<div id="achicoEdad"> 
   	<div class="layout-slider">
       <input id="rangoEdad" name="area" value="18;30" />
     </div>
+    
+    
     </div>
     <script type="text/javascript" charset="utf-8">
       jQuery("#rangoEdad").slider({
-    	  from: 18,
+    	  from: 20,
     	  to: 60,
-    	  scale: [18, '|', 30, '|', '40', '|', 50, '|', 60],
+    	  scale: ['20', '|', 30, '|', '40', '|', 50, '|', 60],
     	  limits: false,
     	  step: 1,
     	  dimension: '',
@@ -125,16 +144,16 @@ $result = $conex->consulta($consulta);
      // $('#rangoEdad').slider("option", "value").val() --> Devuelve "18;37" por ejemplo
     </script>
 		</div>
-		<div class="separadorBuscar A100">
-			<label class="buscarLabel">Sexo:</label>
-			<div id="idSexM" class="BcontSelSexo" onclick="selSexo('m');"><img alt="Masculino" src="imagenes/m.png" class="BselSexo"></div>
-			<div id="idSexFM" class="BcontSelSexo BcontSelSexoSeleccionado" onclick="selSexo('fm');"><img alt="Ambos" src="imagenes/fm.png" class="BselSexo"></div>
-			<div id="idSexF" class="BcontSelSexo" onclick="selSexo('f');"><img alt="Femenino" src="imagenes/f.png" class="BselSexo"></div>
+		<div class="separadorBuscar A80">
+			<label class="buscarLabel">Sexo</label>
+			<div  id="idSexM" title="Masculino" class="BcontSelSexo" onclick="selSexo('m');"><img alt="Masculino" src="imagenes/m.png" class="BselSexo"></div>
+			<div  id="idSexFM" title="Ambos" class="BcontSelSexo BcontSelSexoSeleccionado" onclick="selSexo('fm');"><img alt="Ambos" src="imagenes/fm.png" class="BselSexo"></div>
+			<div  id="idSexF" title="Femenino" class="BcontSelSexo" onclick="selSexo('f');"><img alt="Femenino" src="imagenes/f.png" class="BselSexo"></div>
 			
 			
 		</div>
-		<div class="separadorBuscar A80">
-			<label class="buscarLabel">Avance de la Carrera </label>
+		<div class="separadorBuscar">
+			<label class="buscarLabel">Avance de la Carrera</label>
 			<div class="limitRange">
 			<input id="bBuscarPorcentaje" type="range" min="0" max="100" value="50"  onchange="actualizaPorc(value);"/>
 
@@ -148,7 +167,7 @@ $result = $conex->consulta($consulta);
 			</div>
 		</div>
 
-		<div class="separadorBuscar A80">
+		<div class="separadorBuscar">
 			<label class="buscarLabel">Palabras Claves</label>
 			
 
@@ -189,8 +208,16 @@ $result = $conex->consulta($consulta);
 			
 		</div>
 		
+						<div class="separadorBuscar">
+			<label class="buscarLabel">Apellido</label>
+
+			<input id="apellidoOpt" type="text" placeholder="Apellido"/>
+
+			
+			</div>
+		
 	<label id="logErrorNot" class="regLabelNota regError"></label>
-	<input class="buscarBtn" type="submit" value="Buscar">
+	<input class="buscarBtn" type="submit" onclick="buscar();" value="Buscar">
 </div>
 
 <div class="loading">
@@ -210,11 +237,37 @@ function selSexo(a) {
 	if (a == 'f') {
 		$('#idSexF').addClass('BcontSelSexoSeleccionado');
 	 }
-	
-
-	
 }
-	
+	function buscar() {
+		var carrera = $('#bBuscarCarrera').magicSuggest().getValue();
+		//var orientacion = JSON.stringify($('#bBuscarOrientacion').magicSuggest().getValue());
+		var minEdad = $('#rangoEdad').slider().getValue()[0]+$('#rangoEdad').slider().getValue()[1];
+		var maxEdad = $('#rangoEdad').slider().getValue()[3]+$('#rangoEdad').slider().getValue()[4];
+		var a = $(".BcontSelSexoSeleccionado").attr('id');
+		var sexo = "";
+		if (a == 'idSexM') {
+			sexo = "m";
+		 }
+		else if (a == 'idSexFM') {
+			sexo = "mf";
+		 }
+		else if (a == 'idSexF') {
+			sexo = "f";
+		 }
+		 var porcentaje = $('#bBuscarPorcentaje').val();
+
+		 var cantTags = $('#bBuscarTags').magicSuggest().getSelection().length;
+		 var tags = new Array();
+		 
+		for (var i = 0; i < cantTags; i++) {
+		
+			tags.push($('#bBuscarTags').magicSuggest().getSelection()[i]['name']);
+		}
+		var tags2 = tags;
+		var apellido = $('#apellidoOpt').val();
+//		alert("Carrera: " + carrera + " - MinEdad: "+minEdad+" - MaxEdad: "+maxEdad+" - Sexo: "+ sexo+ " - Porcentaje: "+porcentaje+" - Tags: "+tags2);
+		$('#cuerpo').load('php/temp.php', {carrera: carrera, minEdad:minEdad,maxEdad:maxEdad,sexo:sexo,avance:porcentaje,tags:tags2, apellido:apellido } );
+	}
 
 	
 	 </script>

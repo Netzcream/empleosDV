@@ -10,6 +10,8 @@
 	mysql_select_db('bolsadv', $conex); 
 	
 	
+	
+	
 	class MySQL{  
 		private $conexion;  
 		private $total_consultas;  
@@ -39,5 +41,9 @@
 			return $this->total_consultas;  
 		}  
 	}
+	
+
+	
+
 
 ?>
