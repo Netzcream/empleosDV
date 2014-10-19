@@ -1,10 +1,36 @@
 <?php
+header('Content-Type: text/html; charset=UTF-8');
 if (!isset($_SESSION)) {
 	session_start();
 }
+include_once 'conex.php';
 $_SESSION['location'] = "buscar";
 
+$conex = new MySQL();
+$consulta = "SELECT codCarrera as id, descripcion as carrera FROM carrera where Activo=1;";
+$result = $conex->consulta($consulta);
+		    $json_response = array();
+		    $row = mysql_fetch_array($result, MYSQL_ASSOC);
+		    
+		    while ($row) {
+		    	
+			        $row_array['id'] = $row['id'];
+			        $row_array['name'] = utf8_encode($row['carrera']);
+			        array_push($json_response,$row_array);
+			        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+			    }
+			    
+			   $carreras = json_encode($json_response);
+	
+			     
+			    	
 ?>
+
+
+
+
+
+
 		<link rel="stylesheet" type="text/css" href="css/jslider.css">
 		<link rel="stylesheet" type="text/css" href="css/jslider.blue.css">
 		<link rel="stylesheet" type="text/css" href="css/jslider.plastic.css">
@@ -12,13 +38,13 @@ $_SESSION['location'] = "buscar";
 		<link rel="stylesheet" type="text/css" href="css/jslider.round.plastic.css">
 		<link rel="stylesheet" type="text/css" href="css/magicsuggest-min.css">
 		
-	<script type="text/javascript" src="js/jshashtable-2.1_src.js"></script>
-	<script type="text/javascript" src="js/jq.numberformatter-1.2.3.js"></script>
-	<script type="text/javascript" src="js/tmpl.js"></script>
-	<script type="text/javascript" src="js/jq.dependClass-0.1.js"></script>
-	<script type="text/javascript" src="js/draggable-0.1.js"></script>
-	<script type="text/javascript" src="js/jq.slider.js"></script>
-	<script type="text/javascript" src="js/magicsuggest.js"></script>
+		<script type="text/javascript" src="js/jshashtable-2.1_src.js"></script>
+		<script type="text/javascript" src="js/jq.numberformatter-1.2.3.js"></script>
+		<script type="text/javascript" src="js/tmpl.js"></script>
+		<script type="text/javascript" src="js/jq.dependClass-0.1.js"></script>
+		<script type="text/javascript" src="js/draggable-0.1.js"></script>
+		<script type="text/javascript" src="js/jq.slider.js"></script>
+		<script type="text/javascript" src="js/magicsuggest.js"></script>
 
 	<div class="prebuscar">
 		<div class="separadorBuscar A80">
@@ -40,12 +66,7 @@ $_SESSION['location'] = "buscar";
 			    	valueField: 'id',
 			    	noSuggestionText: 'No se encontraron coincidencias para: {{query}}',
 			    	style: 'border-radius: 5px !important',
-			    	data: [{"id":1, "name":"Dise&ntilde;o Multimedial"},
-					    	{"id":2, "name":"Dise&ntilde;o Gráfico"},
-					    	{"id":3, "name":"Programaci&oacute;n de Videojuegos"},
-					    	{"id":4, "name":"Cine de Animaci&oacute;n"},
-					    	{"id":5, "name":"Desarrollo Web y Mobile"},
-					    	{"id":6, "name":"Analista de Sistemas"}]
+			    	data: <?php echo $carreras; ?>
 			    });
 				$(ms).on(
 				  'selectionchange', function(e, cb, s){
@@ -76,12 +97,7 @@ $_SESSION['location'] = "buscar";
 			    	valueField: 'id',
 			    	noSuggestionText: 'No se encontraron coincidencias para: {{query}}',
 			    	style: 'border-radius: 5px !important',
-			    	data: [{"id":1, "name":"Dise&ntilde;o"},
-					    	{"id":2, "name":"Desarrollo"},
-					    	{"id":3, "name":"Analisis"},
-					    	{"id":4, "name":"Video Juegos"},
-					    	{"id":5, "name":"Desarrollo Web y Mobile"},
-					    	{"id":6, "name":"Analista de Sistemas"}]
+			    	data: <?php echo $carreras; ?>
 			    });
 				$(ms).on(
 				  'selectionchange', function(e, cb, s){
