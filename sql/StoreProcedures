@@ -1,0 +1,272 @@
+USE `bolsadv`;
+DROP procedure IF EXISTS `bolsadv`.`SPDV_UsuarioInsertUpdate`;
+
+DELIMITER //
+USE `bolsadv`//
+CREATE PROCEDURE `SPDV_UsuarioInsertUpdate`(
+IN p_Email				varchar(100),
+IN p_Nombre				varchar(50),
+IN p_Apellido			varchar(50),
+IN p_Password			varchar(15), 
+IN p_FechaNacimiento	datetime, 
+IN p_Pais				INT,
+IN p_EstadoCivil		SMALLINT(6), 
+IN p_Sexo				CHAR(1), 
+IN p_TipoDocumento		SMALLINT(6) , 
+IN p_Documento			BIGINT(20), 
+IN p_NivelEstudios		SMALLINT(6),
+IN p_Foto				LONGBLOB
+)
+BEGIN 
+Insert into Usuario (Email, Nombre, Apellido, Password,  FechaNacimiento, ID_Paises, ID_EstadoCivil, Sexo, ID_TipoDocumento, Documento, ID_NivelEstudios,Foto)
+values (p_Email, p_Nombre,p_Apellido,p_Password, p_FechaNacimiento, p_Pais, p_EstadoCivil, p_Sexo, p_TipoDocumento, p_Documento, p_NivelEstudios,p_Foto)
+ON DUPLICATE KEY UPDATE
+  Password=VALUES(p_Password)
+ , ID_EstadoCivil=VALUES(p_EstadoCivil)
+ , ID_NivelEstudios=VALUES(p_NivelEstudios)
+ , Foto=VALUES(p_Foto);
+END//
+
+DELIMITER ;
+;
+
+
+USE `bolsadv`;
+DROP procedure IF EXISTS `SPDV_UsuarioSelect`;
+
+DELIMITER //
+USE `bolsadv`//
+CREATE PROCEDURE `SPDV_UsuarioSelect` ()
+BEGIN
+Select `usuario`.`CodUsuario`,
+    `usuario`.`Email`,
+    `usuario`.`Nombre`,
+    `usuario`.`Apellido`,
+    `usuario`.`Password`,
+    `usuario`.`FechaIngreso`,
+    `usuario`.`FechaNacimiento`,
+    `usuario`.`ID_Paises`,
+    `usuario`.`ID_EstadoCivil`,
+    `usuario`.`Sexo`,
+    `usuario`.`ID_TipoDocumento`,
+    `usuario`.`Documento`,
+    `usuario`.`ID_NivelEstudios`,
+    `usuario`.`CodRol`,
+    `usuario`.`FechaBaja`,
+    `usuario`.`Estado`,
+    `usuario`.`FechaCambioPassword`,
+    `usuario`.`Foto`
+FROM `bolsadv`.`usuario`;
+
+END
+//
+
+DELIMITER ;
+
+USE `bolsadv`;
+DROP procedure IF EXISTS `SPDV_UsuarioDelete`;
+
+DELIMITER //
+USE `bolsadv`//
+CREATE PROCEDURE `SPDV_UsuarioDelete` (IN p_CodUsuario bigint)
+BEGIN
+if exists (select codUsuario from Usuario WHERE CodUsuario= p_CodUusario)
+then
+DELETE FROM Usuario WHERE CodUsuario= p_CodUusario;
+Else Select 'El usuario No Existe';
+end if;
+END
+//
+
+DELIMITER ;
+
+
+USE `bolsadv`;
+DROP procedure IF EXISTS `SPDV_TareaInsertUpdate`;
+
+DELIMITER //
+USE `bolsadv`//
+CREATE PROCEDURE `SPDV_TareaInsertUpdate` (
+IN p_codTarea 		SMALLINT(6),
+IN p_Descripcion	VARCHAR (50)
+)
+BEGIN
+INSERT INTO `bolsadv`.`tarea`
+(`CodTarea`,`Descripcion`)
+VALUES(p_codTarea,p_Descripcion)
+ON DUPLICATE KEY UPDATE
+  p_Descripcion=VALUES(p_Descripcion);
+END
+//
+
+DELIMITER ;
+
+
+USE `bolsadv`;
+DROP procedure IF EXISTS `SPDV_TareaSelect`;
+
+DELIMITER //
+USE `bolsadv`//
+CREATE PROCEDURE `SPDV_TareaSelect` ()
+BEGIN
+SELECT `tarea`.`CodTarea`,
+    `tarea`.`Descripcion`
+FROM `bolsadv`.`tarea`;
+END
+//
+
+DELIMITER ;
+
+
+USE `bolsadv`;
+DROP procedure IF EXISTS `SPDV_RolInsertUpdate`;
+
+DELIMITER //
+USE `bolsadv`//
+CREATE PROCEDURE `SPDV_RolInsertUpdate` (
+IN p_codRol		CHAR(2),
+IN p_Descripcion	VARCHAR (50)
+)
+BEGIN
+INSERT INTO `bolsadv`.`Rol`
+(`CodRol`,`Descripcion`)
+VALUES(p_codRol,p_Descripcion)
+ON DUPLICATE KEY UPDATE
+  p_Descripcion=VALUES(p_Descripcion);
+END
+//
+
+DELIMITER ;
+
+USE `bolsadv`;
+DROP procedure IF EXISTS `SPDV_RolSelect`;
+
+DELIMITER //
+USE `bolsadv`//
+CREATE PROCEDURE `SPDV_RolSelect` ()
+BEGIN
+SELECT `rol`.`CodRol`,
+    `rol`.`Descripcion`
+FROM `bolsadv`.`rol`;
+END
+//
+
+DELIMITER ;
+
+
+
+USE `bolsadv`;
+DROP procedure IF EXISTS `SPDV_TareaRol`;
+
+DELIMITER //
+USE `bolsadv`//
+CREATE PROCEDURE `SPDV_TareaRol` (
+IN p_CodTarea SMALLINT (6),
+IN p_CodRol   CHAR(2),
+IN p_Activo	  bit
+)
+BEGIN
+INSERT INTO `bolsadv`.`tarearol`(`CodTarea`,`CodRol`,`Activo`)
+VALUES(p_CodTarea,p_CodRol,p_Activo);
+END
+//
+
+DELIMITER ;
+
+
+USE `bolsadv`;
+DROP procedure IF EXISTS `SPDV_TareaRolUpdateDelete`;
+
+DELIMITER //
+USE `bolsadv`//
+CREATE PROCEDURE `SPDV_TareaRolUpdateDelete` (
+IN p_CodTarea smallint(6),
+IN p_CodRol char(2)
+)
+BEGIN
+if exists (select * from TareaRol WHERE CodTarea= p_CodTarea and CodRol = p_CodRol)
+then
+Update TareaRol  
+Set Activo = 0
+WHERE CodTarea= p_CodTarea and CodRol = p_CodRol;
+Else Select 'No se puede realizar la accion solicitada';
+end if;
+END
+//
+
+DELIMITER ;
+
+
+
+
+USE `bolsadv`;
+DROP procedure IF EXISTS `bolsadv`.`SPDV_DireccionInsertUpdate`;
+
+DELIMITER //
+USE `bolsadv`//
+CREATE PROCEDURE `SPDV_DireccionInsertUpdate`(
+IN p_CodUsuario BigInt,
+IN p_Provincia int (11),
+IN p_Localidad int (11),
+IN p_Coordenada1 double,
+IN p_Coordenada2 double,
+IN p_Piso smallint (6),
+IN p_Departamento varchar (1)
+)
+BEGIN
+if exists (Select CodUsuario from Usuario where CodUsuario=p_CodUsuario)
+THEN
+INSERT INTO `bolsadv`.`direccion`
+(`CodUsuario`,`ID_Provincia`,`ID_Localidad`,`Calle`,`Numero`,`Coordenada1`,`Coordenada2`,`Piso`,`Departamento`)
+VALUES(p_CodUsuario,p_Provincia,p_Localidad,p_Coordenada1,p_Coordenada2,p_Piso,p_Departamento)
+ON DUPLICATE KEY UPDATE
+  ID_Provincia=VALUES(p_Provincia),
+  ID_Localidad=VALUES(p_Localidad),
+  Coordenada1=VALUES(p_Coordenada1),
+  Coordenada2=VALUES(p_Coordenada2),
+  Piso=VALUES(p_Piso),
+  Departamento=VALUES(p_Departamento);
+ELSE 
+SELECT 'El usuario no Existe';
+END IF;
+END//
+
+DELIMITER ;
+;
+
+
+USE `bolsadv`;
+DROP procedure IF EXISTS `SPDV_TelefonoInsertUpdate`;
+
+DELIMITER //
+USE `bolsadv`//
+CREATE PROCEDURE `SPDV_TelefonoInsertUpdate` (
+IN p_CodUsuario Bigint,
+IN p_TipoTelefono smallint(6),
+IN p_Telefono bigint
+)
+BEGIN
+if exists (Select CodUsuario from Usuario where CodUsuario=p_CodUsuario)
+THEN
+	IF Exists (Select ID_TipoTelefono From TipoTelefono where ID_TipoTelefono=p_TipoTelefono)
+    then
+		INSERT INTO `bolsadv`.`telefono`
+		(`CodUsuario`,`ID_TipoTelefono`,`Telefono`)
+		VALUES(p_CodUsuario,p_TipoTelefono,p_Telefono)
+		ON DUPLICATE KEY UPDATE
+		ID_TipoTelefono=VALUES(p_TipoTelefono),
+		Telefono=VALUES(p_Telefono);
+	ELSE
+    Select 'El Tipo de telefono No existe';
+    END IF;
+else
+SELECT 'El usuario no Existe';
+END IF;
+END
+//
+
+DELIMITER ;
+
+
+
+
