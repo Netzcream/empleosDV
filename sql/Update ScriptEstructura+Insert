@@ -3574,8 +3574,8 @@ ADD CONSTRAINT `FK_Direccion_Localidad`
   ON UPDATE NO ACTION;
 ALTER TABLE `bolsadv`.`direccion` 
 ADD CONSTRAINT `FK_Direccion_Usuario`
-  FOREIGN KEY (`CodUsaurio`)
-  REFERENCES `bolsadv`.`Usaurio` (`CodUsuario`)
+  FOREIGN KEY (`CodUsuario`)
+  REFERENCES `bolsadv`.`Usuario` (`CodUsuario`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
