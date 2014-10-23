@@ -3567,11 +3567,15 @@ ADD CONSTRAINT `FK_Localidad_Provincia`
   
  -- Agrego FK Direccion 
 ALTER TABLE `bolsadv`.`direccion` 
-ADD INDEX `FK_Direccion_Localidad_idx` (`ID_Localidad` ASC, `ID_Provincia` ASC);
-ALTER TABLE `bolsadv`.`direccion` 
 ADD CONSTRAINT `FK_Direccion_Localidad`
   FOREIGN KEY (`ID_Localidad` , `ID_Provincia`)
   REFERENCES `bolsadv`.`localidad` (`ID_Localidad` , `ID_Provincia`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+ALTER TABLE `bolsadv`.`direccion` 
+ADD CONSTRAINT `FK_Direccion_Usuario`
+  FOREIGN KEY (`CodUsaurio`)
+  REFERENCES `bolsadv`.`Usaurio` (`CodUsuario`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
