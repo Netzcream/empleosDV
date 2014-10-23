@@ -3103,6 +3103,7 @@ Insert  Into  Rol(CodRol,Descripcion) Values('AD' , 'Administrador');
 Insert  Into  Rol(CodRol,Descripcion) Values('AL' , 'Alumno');
 Insert  Into  Rol(CodRol,Descripcion) Values('EM' , 'Empresa');
 Insert  Into  Rol(CodRol,Descripcion) Values('PR' , 'Profesor');
+Insert  Into  Rol(CodRol,Descripcion) Values('SA' , 'Sin Asignar');
 
 --
 -- Table structure for table `seniority`
@@ -3422,8 +3423,8 @@ DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `CodUsuario` bigint(20) NOT NULL AUTO_INCREMENT,
   `Email` varchar(100) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Apellido` varchar(100) NOT NULL,
+  `Nombre` varchar(50) NOT NULL,
+  `Apellido` varchar(50) NOT NULL,
   `Password` varchar(15) NOT NULL,
   `FechaIngreso` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `FechaNacimiento` datetime NOT NULL,
@@ -3433,7 +3434,7 @@ CREATE TABLE `usuario` (
   `ID_TipoDocumento` smallint(6) NOT NULL DEFAULT '1',
   `Documento` bigint(20) NOT NULL,
   `ID_NivelEstudios` smallint(6) NOT NULL,
-  `CodRol` char(2) DEFAULT NULL,
+  `CodRol` char(2) NOT NULL DEFAULT 'SA',
   `FechaBaja` datetime DEFAULT NULL,
   `Estado` bit(1) NOT NULL DEFAULT b'0',
   `FechaCambioPassword` datetime DEFAULT NULL,
@@ -3636,6 +3637,27 @@ ADD CONSTRAINT `FK_Usuario_Rol`
   REFERENCES `bolsadv`.`rol` (`CodRol`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+-- 22-10-2014
+
+-- Agrego Estructura tabla Carreara Usuario
+
+CREATE TABLE `bolsadv`.`usuariocarrera` (
+  `ID_UsuarioCarrera` INT NOT NULL AUTO_INCREMENT,
+  `CodUsuario` BIGINT(20) NOT NULL,
+  `CodCarrera` VARCHAR(2) NOT NULL,
+  PRIMARY KEY (`ID_UsuarioCarrera`, `CodUsuario`, `CodCarrera`),
+  CONSTRAINT `FK_UsuarioCarrera_Usuario`
+    FOREIGN KEY (`CodUsuario`)
+    REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_UsuarioCarrera_Carrera`
+    FOREIGN KEY (`CodCarrera`)
+    REFERENCES `bolsadv`.`carrera` (`CodCarrera`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
 
 
 
