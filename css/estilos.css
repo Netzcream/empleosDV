@@ -151,7 +151,7 @@ header {
 	margin-left: 10px;
 	width: 60px;
 	height: 50px;
-	background-color: #eee;
+	background-color: #ccc;
 
 	border-radius: 30px	;
 	font-weight: bold;
@@ -161,17 +161,25 @@ header {
 	overflow: hidden;
 	
 	transition: 0.3s;
-	box-shadow: 0px 0px 3px 1px #00BCDE;
+	box-shadow: inset 0px 0px 3px 1px #333,
+	0px 0px 1px 1px #000;
 	
 }
+
+/***************************************************/
+
+
+
+/***************************************************/
 .logo:hover {
 	width: 160px;
 	color: #000;
 }
 .logo span {
-	color: #446;
-	display: inline-block;
-	text-shadow: 1px 1px 2px #666;
+color: #fff;
+	text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
+	
+	
 }
 .logo img { 
 width: 40px;

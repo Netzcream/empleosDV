@@ -49,9 +49,13 @@ if (!isset($_SESSION['usuario'])) {
 		<div class="preHeader"></div>
 
 		<header>
-		<div class="logo">
+			<div class="logo">
 			<img  alt="Bolsa DV" src="imagenes/logo/logo100.png">
+			
+			
 			<span>BolsaDV</span>
+			
+			
 			</div>
 			<?php 
 			if (isset($_SESSION['usuario'])) {
