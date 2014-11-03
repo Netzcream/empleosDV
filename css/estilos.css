@@ -2,12 +2,30 @@
 
 body {
 	background-color: #1D2226;
-	padding: 0px;
+	min-height:100%;
 	margin: 0px auto;
 	font-family: Helvetica, Arial, sans-serif;
 }
-html,body {margin:0; -webkit-backface-visibility:hidden;}
-
+html,body {
+	margin:0px auto 20px 0px; 
+	-webkit-backface-visibility:hidden;
+	padding: 0;
+    height:100%;
+	
+	position: relative;
+    min-height: 100%;
+}
+.contenedor {
+	min-height: 100%;
+	padding-bottom: 30px;
+}
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:    border-box;
+  box-sizing:         border-box;
+}
 .preHeader {
 	background-color: #063049;
 	width: 100%;
@@ -42,7 +60,10 @@ header {
 /* ********** footer ********** */
 
 #footer {
-
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	width: 100% !important;
 	background-color: #06141D;
 	padding-top: 5px;
@@ -124,4 +145,37 @@ header {
 }
 .AM100 {
 	min-height: 100px;
+}
+.logo {
+	cursor: pointer;	
+	margin-left: 10px;
+	width: 60px;
+	height: 50px;
+	background-color: #eee;
+
+	border-radius: 30px	;
+	font-weight: bold;
+	font-family:sans-serif;
+	font-style: italic;	
+	font-size: 1.5em;
+	overflow: hidden;
+	
+	transition: 0.3s;
+	box-shadow: 0px 0px 3px 1px #00BCDE;
+	
+}
+.logo:hover {
+	width: 160px;
+	color: #000;
+}
+.logo span {
+	color: #446;
+	display: inline-block;
+	text-shadow: 1px 1px 2px #666;
+}
+.logo img { 
+width: 40px;
+
+margin-top: 10px;
+	margin-left: 10px;
 }

@@ -7,12 +7,19 @@ if (!isset($_SESSION)) {
 if (!isset($_SESSION['location'])) {
 	$_SESSION['location'] = "login";
 }
+
+if (!isset($_SESSION['usuario'])) {
+	$_SESSION['location'] = "login";
+}
 ?>
 
 <!DOCTYPE html>
 	<html>
 	<head>
 		<title>Bolsa DV</title>
+		
+		<link rel="shortcut icon" href="imagenes/logo/logo32.png" />
+		
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 		
@@ -38,11 +45,19 @@ if (!isset($_SESSION['location'])) {
 		<script type="text/javascript" src="js/footable.filter.js"></script>
 	</head>
 	<body>
-	
+	<div class="contenedor">
 		<div class="preHeader"></div>
-	
+
 		<header>
-			<?php include_once("php/menu.php"); ?>
+		<div class="logo">
+			<img  alt="Bolsa DV" src="imagenes/logo/logo100.png">
+			<span>BolsaDV</span>
+			</div>
+			<?php 
+			if (isset($_SESSION['usuario'])) {
+				include_once("php/menu.php");
+				}
+			?>
 		</header>
 
 		<div id="cuerpo">
@@ -63,7 +78,9 @@ if (!isset($_SESSION['location'])) {
 			}			
 			
 			?>
+	
 		</div>
-		<?php include_once("php/footer.php"); ?>
+			<?php include_once("php/footer.php"); ?>	
+			</div>
 	</body>
 </html>

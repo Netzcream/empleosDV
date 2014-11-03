@@ -26,8 +26,6 @@ class Listado {
 		$this->result = $this->conex->consulta($this->consulta);
 		$this->cantRows = mysql_num_rows($this->result);
 		$this->cantColumnas = mysql_num_fields($this->result);
-		
-		
 		//mysql_fetch_assoc ( $devCapitulo );
 	}
 	

@@ -82,8 +82,6 @@ class Persona {
 			return "imagenes/m.png";
 		}		
 	}
-	
-	
 	public function setApellido($a) {
 		$this->apellido = $a;
 	}
@@ -103,9 +101,6 @@ class Persona {
 		$this->sexo = $a;
 	}
 	public function savePersona() {
-		
-		/* SQL */
-		/*  */
 		$temp = "UPDATE PERSONA SET ";
 		$temp .= " apellido = ".$this->apellido;
 		$temp .= " nombre = ". $this->nombre;
@@ -114,8 +109,6 @@ class Persona {
 		$temp .= " foto = ".$this->foto;
 		$temp .= " sexo = ".$this->sexo;
 		$temp .= " WHERE id=". $this->id;
-		
-		
 	}
 }
 
