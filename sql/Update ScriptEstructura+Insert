@@ -1,27 +1,125 @@
-/* Script para crear la estructura básica */
-/* Se usa la estructura [Año][Mes][Dia]-[Hora][Minuto]-[Estructura/Datos].sql */
+CREATE DATABASE  IF NOT EXISTS `bolsadv22` ;
+USE `bolsadv22`;
 
-CREATE DATABASE  IF NOT EXISTS `bolsadv` ;
-USE `bolsadv`;
--- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bolsadv
--- ------------------------------------------------------
--- Server version	5.6.20
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE `usuario` (
+  `CodUsuario` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Email` varchar(100) NOT NULL,
+  `Password` varchar(15) NOT NULL,
+  PRIMARY KEY (`CodUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+UNLOCK TABLES;
+
+
+
+--
+-- Table structure for table `tipodocumento`
+--
+
+DROP TABLE IF EXISTS `tipodocumento`;
+CREATE TABLE `tipodocumento` (
+  `ID_TipoDocumento` smallint(6) NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(40)  NOT NULL,
+  `AdmiteLetras` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`ID_TipoDocumento`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `tipodocumento`
+--
+
+LOCK TABLES `tipodocumento` WRITE;
+UNLOCK TABLES;
+
+--
+-- Insert TipoDocumento
+--
+
+Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(1,'D.N.I.',0);
+Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(2,'Cédula de Identidad',0);
+Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(3,'Libreta Cívica',0);
+Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(4,'Libreta de Enrolamiento',0);
+Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(5,'Pasaporte',0);
+
+
+--
+-- Table structure for table `tipotelefono`
+--
+
+DROP TABLE IF EXISTS `tipotelefono`;
+CREATE TABLE `tipotelefono` (
+  `ID_TipoTelefono` smallint(6) NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(40)  NOT NULL,
+  PRIMARY KEY (`ID_TipoTelefono`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `tipotelefono`
+--
+
+LOCK TABLES `tipotelefono` WRITE;
+UNLOCK TABLES;
+
+
+
+--
+-- Insert TipoTelefono
+--
+
+Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(1,'Particular');
+Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(2,'Laboral');
+Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(3,'Celular');
+
+
+
+--
+-- Table structure for table `telefono`
+--
+
+DROP TABLE IF EXISTS `telefono`;
+CREATE TABLE `telefono` (
+  `CodUsuario` bigint(20) NOT NULL,
+  `ID_TipoTelefono` smallint(6) NOT NULL,
+  `Telefono` bigint(20) NOT NULL,
+  PRIMARY KEY (`CodUsuario`,`ID_TipoTelefono`),
+  CONSTRAINT `FK_Telefono_TipoTelefono` FOREIGN KEY (`ID_TipoTelefono`) REFERENCES `tipotelefono` (`ID_TipoTelefono`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Telefono_Usuario` FOREIGN KEY (`CodUsuario`) REFERENCES `usuario` (`CodUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `telefono`
+--
+
+LOCK TABLES `telefono` WRITE;
+UNLOCK TABLES;
+
+
 
 --
 -- Table structure for table `carrera`
 --
 
 DROP TABLE IF EXISTS `carrera`;
-
 CREATE TABLE `carrera` (
-  `CodCarrera` varchar(2) NOT NULL,
-  `Descripcion` varchar(50) NOT NULL,
+  `CodCarrera` varchar(2)  NOT NULL,
+  `Descripcion` varchar(50)  NOT NULL,
   `Activo` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`CodCarrera`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 --
 -- Dumping data for table `carrera`
@@ -42,29 +140,92 @@ Insert  Into  Carrera(CodCarrera,Descripcion,Activo) Values('VJ' , 'Programació
 
 
 --
--- Table structure for table `direccion`
+-- Table structure for table `rol`
 --
 
-DROP TABLE IF EXISTS `direccion`;
-CREATE TABLE `direccion` (
-  `CodUsuario` bigint(20) NOT NULL,
-  `ID_Provincia` int(11) NOT NULL,
-  `ID_Localidad` int(11) NOT NULL,
-  `Calle` varchar(50) NULL,
-  `Numero` smallint(6) DEFAULT NULL,
-  `Coordenada1` double NOT NULL,
-  `Coordenada2` double NOT NULL,
-  `Piso` smallint(6) DEFAULT NULL,
-  `Departamento` varchar(1) DEFAULT NULL,
-  PRIMARY KEY (`CodUsuario`)
+DROP TABLE IF EXISTS `rol`;
+CREATE TABLE `rol` (
+  `CodRol` char(2) NOT NULL,
+  `Descripcion` varchar(50)  NOT NULL,
+  PRIMARY KEY (`CodRol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 --
--- Dumping data for table `direccion`
+-- Dumping data for table `rol`
 --
 
-LOCK TABLES `direccion` WRITE;
+LOCK TABLES `rol` WRITE;
+UNLOCK TABLES;
+
+
+--
+-- Insert Rol
+--
+
+Insert  Into  Rol(CodRol,Descripcion) Values('AD' , 'Administrador');
+Insert  Into  Rol(CodRol,Descripcion) Values('AL' , 'Alumno');
+Insert  Into  Rol(CodRol,Descripcion) Values('EM' , 'Empresa');
+Insert  Into  Rol(CodRol,Descripcion) Values('PR' , 'Profesor');
+Insert  Into  Rol(CodRol,Descripcion) Values('SA' , 'Sin Asignar');
+
+
+--
+-- Table structure for table `seniority`
+--
+
+DROP TABLE IF EXISTS `seniority`;
+CREATE TABLE `seniority` (
+  `ID_Seniority` smallint(6) NOT NULL AUTO_INCREMENT,
+  `Seniority` varchar(15) NOT NULL,
+  PRIMARY KEY (`ID_Seniority`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `seniority`
+--
+
+LOCK TABLES `seniority` WRITE;
+UNLOCK TABLES;
+
+
+--
+-- Insert Seniority
+--
+
+Insert  Into  Seniority(ID_Seniority,Seniority) Values(1,'Training');
+Insert  Into  Seniority(ID_Seniority,Seniority) Values(2,'Junior');
+Insert  Into  Seniority(ID_Seniority,Seniority) Values(3,'SemiSenior');
+Insert  Into  Seniority(ID_Seniority,Seniority) Values(4,'Senior');
+Insert  Into  Seniority(ID_Seniority,Seniority) Values(5,'-');
+
+
+--
+-- Table structure for table `empresa`
+--
+
+DROP TABLE IF EXISTS `empresa`;
+CREATE TABLE `empresa` (
+  `ID_Empresa` bigint(20) NOT NULL AUTO_INCREMENT,
+  `CodUsuario` bigint(20) NOT NULL,
+  `CodRol` char(2) NOT NULL DEFAULT 'SA',
+  `NombreEmpresa` varchar(50)  NOT NULL,
+  `FechaIngreso` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `CUIT` bigint(20) NOT NULL,
+  `FechaBaja` datetime DEFAULT NULL,
+  `Estado` bit(1) NOT NULL DEFAULT b'0',
+  `FechaCambioPassword` datetime DEFAULT NULL,
+  `Foto` longblob,
+  PRIMARY KEY (`ID_Empresa`,`CodUsuario`),
+  CONSTRAINT `FK_Empresa_Rol` FOREIGN KEY (`CodRol`) REFERENCES `rol` (`CodRol`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `empresa`
+--
+
+LOCK TABLES `empresa` WRITE;
 UNLOCK TABLES;
 
 --
@@ -74,9 +235,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `estadocivil`;
 CREATE TABLE `estadocivil` (
   `ID_EstadoCivil` smallint(6) NOT NULL AUTO_INCREMENT,
-  `EstadoCivil` varchar(30) NOT NULL,
+  `EstadoCivil` varchar(30)  NOT NULL,
   PRIMARY KEY (`ID_EstadoCivil`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Dumping data for table `estadocivil`
@@ -84,6 +246,7 @@ CREATE TABLE `estadocivil` (
 
 LOCK TABLES `estadocivil` WRITE;
 UNLOCK TABLES;
+
 --
 -- Insert EstadoCivil
 --
@@ -94,50 +257,6 @@ Insert  Into  EstadoCivil(ID_EstadoCivil,EstadoCivil) Values(3 , 'Divorciado/a' 
 Insert  Into  EstadoCivil(ID_EstadoCivil,EstadoCivil) Values(4 , 'Viudo/a' );
 Insert  Into  EstadoCivil(ID_EstadoCivil,EstadoCivil) Values(5 , 'Concubinato' );
 
---
--- Table structure for table `estidioma`
---
-
-DROP TABLE IF EXISTS `estidioma`;
-CREATE TABLE `estidioma` (
-  `ID_Idioma` smallint(6) NOT NULL DEFAULT '1',
-  `CodUsuario` bigint(20) NOT NULL,
-  `ID_NivelConocimiento` smallint(6) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`ID_Idioma`,`CodUsuario`,`ID_NivelConocimiento`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `estidioma`
---
-
-LOCK TABLES `estidioma` WRITE;
-UNLOCK TABLES;
-
---
--- Table structure for table `experiencialaboral`
---
-
-DROP TABLE IF EXISTS `experiencialaboral`;
-CREATE TABLE `experiencialaboral` (
-  `ID_Experiencia` smallint(6) NOT NULL AUTO_INCREMENT,
-  `CodUsuario` bigint(20) NOT NULL,
-  `Puesto` varchar(50)  NOT NULL,
-  `ID_Seniority` smallint(6) NOT NULL DEFAULT '5',
-  `Empresa` varchar(100) NOT NULL,
-  `ID_Pais` int(11) NOT NULL,
-  `FechaInicio` date NOT NULL,
-  `FechaFin` date DEFAULT NULL,
-  `Descripcion` varchar(2000) NOT NULL,
-  `PersonasACargo` bit(1) NOT NULL DEFAULT b'0',
-  PRIMARY KEY (`ID_Experiencia`,`CodUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `experiencialaboral`
---
-
-LOCK TABLES `experiencialaboral` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `idioma`
@@ -146,7 +265,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `idioma`;
 CREATE TABLE `idioma` (
   `ID_Idioma` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Idioma` varchar(15) NOT NULL,
+  `Idioma` varchar(15)  NOT NULL,
   PRIMARY KEY (`ID_Idioma`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -157,6 +276,7 @@ CREATE TABLE `idioma` (
 
 LOCK TABLES `idioma` WRITE;
 UNLOCK TABLES;
+
 
 --
 -- Insert Idioma
@@ -170,6 +290,56 @@ Insert  Into  Idioma(ID_Idioma,Idioma) Values(5 , 'Italiano' );
 Insert  Into  Idioma(ID_Idioma,Idioma) Values(6 , 'Japonés' );
 Insert  Into  Idioma(ID_Idioma,Idioma) Values(7 , 'Portugués' );
 
+--
+-- Table structure for table `provincia`
+--
+
+DROP TABLE IF EXISTS `provincia`;
+CREATE TABLE `provincia` (
+  `ID_Provincia` int(11) NOT NULL AUTO_INCREMENT,
+  `Provincia` varchar(255)  NOT NULL,
+  PRIMARY KEY (`ID_Provincia`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `provincia`
+--
+
+LOCK TABLES `provincia` WRITE;
+UNLOCK TABLES;
+
+--
+-- Insert Provincia
+--
+
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(1,'Buenos Aires');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(2,'Buenos Aires-GBA');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(3,'Capital Federal');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(4,'Catamarca');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(5,'Chaco');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(6,'Chubut');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(7,'Córdoba');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(8,'Corrientes');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(9,'Entre Ríos');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(10,'Formosa');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(11,'Jujuy');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(12,'La Pampa');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(13,'La Rioja');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(14,'Mendoza');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(15,'Misiones');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(16,'Neuquén');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(17,'Río Negro');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(18,'Salta');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(19,'San Juan');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(20,'San Luis');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(21,'Santa Cruz');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(22,'Santa Fe');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(23,'Santiago del Estero');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(24,'Tierra del Fuego');
+Insert  Into  Provincia(ID_Provincia,Provincia) Values(25,'Tucumán');
+
+
 
 --
 -- Table structure for table `localidad`
@@ -179,8 +349,9 @@ DROP TABLE IF EXISTS `localidad`;
 CREATE TABLE `localidad` (
   `ID_Localidad` int(11) NOT NULL AUTO_INCREMENT,
   `ID_Provincia` int(11) NOT NULL,
-  `Localidad` varchar(255) NOT NULL,
-  PRIMARY KEY (`ID_Localidad`,`ID_Provincia`)
+  `Localidad` varchar(255)  NOT NULL,
+  PRIMARY KEY (`ID_Localidad`,`ID_Provincia`),
+  CONSTRAINT `FK_Localidad_Provincia` FOREIGN KEY (`ID_Provincia`) REFERENCES `provincia` (`ID_Provincia`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -190,6 +361,7 @@ CREATE TABLE `localidad` (
 
 LOCK TABLES `localidad` WRITE;
 UNLOCK TABLES;
+
 
 --
 -- Insert Localidad
@@ -2587,12 +2759,14 @@ Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(2382,25,' 
 
 DROP TABLE IF EXISTS `materia`;
 CREATE TABLE `materia` (
-  `CodMateria` varchar(4) NOT NULL,
-  `CodCarrera` varchar(2) NOT NULL,
-  `Materia` varchar(50) NOT NULL,
+  `CodMateria` varchar(4)  NOT NULL,
+  `CodCarrera` varchar(2)  NOT NULL,
+  `Materia` varchar(50)  NOT NULL,
   `Activo` bit(1) NOT NULL DEFAULT b'1',
-  PRIMARY KEY (`CodMateria`)
+  PRIMARY KEY (`CodMateria`),
+  CONSTRAINT `FK_Materia_Carrera` FOREIGN KEY (`CodCarrera`) REFERENCES `carrera` (`CodCarrera`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Dumping data for table `materia`
@@ -2600,6 +2774,7 @@ CREATE TABLE `materia` (
 
 LOCK TABLES `materia` WRITE;
 UNLOCK TABLES;
+
 
 --
 -- Insert Materia
@@ -2814,29 +2989,6 @@ Insert  Into  Materia(CodMateria,CodCarrera,Materia,Activo) Values('VJ65','VJ','
 
 
 
-
---
--- Table structure for table `mensaje`
---
-
-DROP TABLE IF EXISTS `mensaje`;
-CREATE TABLE `mensaje` (
-  `ID_Mensaje` bigint(20) NOT NULL AUTO_INCREMENT,
-  `CodUsuario` bigint(20) NOT NULL,
-  `CodUsuario_Emisor` bigint(20) NOT NULL,
-  `Fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Comentario` varchar(2000) NOT NULL,
-  `Visible` bit(1) NOT NULL DEFAULT b'0',
-  PRIMARY KEY (`ID_Mensaje`,`CodUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `mensaje`
---
-
-LOCK TABLES `mensaje` WRITE;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `nivelestudios`
 --
@@ -2844,9 +2996,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `nivelestudios`;
 CREATE TABLE `nivelestudios` (
   `ID_NivelEstudio` smallint(6) NOT NULL AUTO_INCREMENT,
-  `NivelEstudio` varchar(50) NOT NULL,
+  `NivelEstudio` varchar(50)  NOT NULL,
   PRIMARY KEY (`ID_NivelEstudio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Dumping data for table `nivelestudios`
@@ -2854,6 +3007,8 @@ CREATE TABLE `nivelestudios` (
 
 LOCK TABLES `nivelestudios` WRITE;
 UNLOCK TABLES;
+
+
 
 -- Insert NivelEstudios
 
@@ -2881,9 +3036,10 @@ Insert  Into  NivelEstudios(ID_NivelEstudio,NivelEstudio) Values(13,'Master Grad
 DROP TABLE IF EXISTS `nivelidioma`;
 CREATE TABLE `nivelidioma` (
   `ID_NivelConocimiento` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Nivel` varchar(10) NOT NULL,
+  `Nivel` varchar(10)  NOT NULL,
   PRIMARY KEY (`ID_NivelConocimiento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Dumping data for table `nivelidioma`
@@ -2904,6 +3060,7 @@ Insert  Into  NivelIdioma(ID_NivelConocimiento,Nivel) Values(5,'Nativo');
 
 
 
+
 --
 -- Table structure for table `paises`
 --
@@ -2911,9 +3068,10 @@ Insert  Into  NivelIdioma(ID_NivelConocimiento,Nivel) Values(5,'Nativo');
 DROP TABLE IF EXISTS `paises`;
 CREATE TABLE `paises` (
   `ID_Pais` int(11) NOT NULL AUTO_INCREMENT,
-  `Pais` varchar(255) NOT NULL,
+  `Pais` varchar(255)  NOT NULL,
   PRIMARY KEY (`ID_Pais`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Dumping data for table `paises`
@@ -2921,6 +3079,8 @@ CREATE TABLE `paises` (
 
 LOCK TABLES `paises` WRITE;
 UNLOCK TABLES;
+
+
 
 --
 -- Insert Paises
@@ -2989,151 +3149,6 @@ Insert  Into  Paises(ID_Pais,Pais) Values(60,'Venezuela');
 
 
 
---
--- Table structure for table `profesor`
---
-
-DROP TABLE IF EXISTS `profesor`;
-CREATE TABLE `profesor` (
-  `ID_Profesor` int(11) NOT NULL AUTO_INCREMENT,
-  `CodUsuario` bigint(20) NOT NULL,
-  PRIMARY KEY (`ID_Profesor`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
---
--- Dumping data for table `profesor`
---
-
-LOCK TABLES `profesor` WRITE;
-UNLOCK TABLES;
-
---
--- Table structure for table `profesormateria`
---
-
-DROP TABLE IF EXISTS `profesormateria`;
-CREATE TABLE `profesormateria` (
-  `ID_Profesor` int(11) NOT NULL,
-  `CodMateria` varchar(4) NOT NULL,
-  PRIMARY KEY (`ID_Profesor`,`CodMateria`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `profesormateria`
---
-
-LOCK TABLES `profesormateria` WRITE;
-UNLOCK TABLES;
-
---
--- Table structure for table `provincia`
---
-
-DROP TABLE IF EXISTS `provincia`;
-CREATE TABLE `provincia` (
-  `ID_Provincia` int(11) NOT NULL AUTO_INCREMENT,
-  `Provincia` varchar(255) NOT NULL,
-  PRIMARY KEY (`ID_Provincia`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
---
--- Dumping data for table `provincia`
---
-
-LOCK TABLES `provincia` WRITE;
-UNLOCK TABLES;
-
---
--- Insert Provincia
---
-
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(1,'Buenos Aires');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(2,'Buenos Aires-GBA');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(3,'Capital Federal');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(4,'Catamarca');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(5,'Chaco');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(6,'Chubut');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(7,'Córdoba');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(8,'Corrientes');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(9,'Entre Ríos');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(10,'Formosa');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(11,'Jujuy');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(12,'La Pampa');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(13,'La Rioja');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(14,'Mendoza');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(15,'Misiones');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(16,'Neuquén');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(17,'Río Negro');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(18,'Salta');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(19,'San Juan');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(20,'San Luis');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(21,'Santa Cruz');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(22,'Santa Fe');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(23,'Santiago del Estero');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(24,'Tierra del Fuego');
-Insert  Into  Provincia(ID_Provincia,Provincia) Values(25,'Tucumán');
-
-
-
---
--- Table structure for table `rol`
---
-
-DROP TABLE IF EXISTS `rol`;
-CREATE TABLE `rol` (
-  `CodRol` char(2) NOT NULL,
-  `Descripcion` varchar(50) NOT NULL,
-  PRIMARY KEY (`CodRol`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `rol`
---
-
-LOCK TABLES `rol` WRITE;
-UNLOCK TABLES;
-
---
--- Insert Rol
---
-
-Insert  Into  Rol(CodRol,Descripcion) Values('AD' , 'Administrador');
-Insert  Into  Rol(CodRol,Descripcion) Values('AL' , 'Alumno');
-Insert  Into  Rol(CodRol,Descripcion) Values('EM' , 'Empresa');
-Insert  Into  Rol(CodRol,Descripcion) Values('PR' , 'Profesor');
-Insert  Into  Rol(CodRol,Descripcion) Values('SA' , 'Sin Asignar');
-
---
--- Table structure for table `seniority`
---
-
-DROP TABLE IF EXISTS `seniority`;
-CREATE TABLE `seniority` (
-  `ID_Seniority` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Seniority` varchar(15) NOT NULL,
-  PRIMARY KEY (`ID_Seniority`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
---
--- Dumping data for table `seniority`
---
-
-LOCK TABLES `seniority` WRITE;
-UNLOCK TABLES;
-
---
--- Insert Seniority
---
-
-Insert  Into  Seniority(ID_Seniority,Seniority) Values(1,'Training');
-Insert  Into  Seniority(ID_Seniority,Seniority) Values(2,'Junior');
-Insert  Into  Seniority(ID_Seniority,Seniority) Values(3,'SemiSenior');
-Insert  Into  Seniority(ID_Seniority,Seniority) Values(4,'Senior');
-Insert  Into  Seniority(ID_Seniority,Seniority) Values(5,'-');
-
 
 --
 -- Table structure for table `tarea`
@@ -3146,12 +3161,14 @@ CREATE TABLE `tarea` (
   PRIMARY KEY (`CodTarea`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
 --
 -- Dumping data for table `tarea`
 --
 
 LOCK TABLES `tarea` WRITE;
 UNLOCK TABLES;
+
 
 --
 -- Insert Tarea
@@ -3180,30 +3197,6 @@ Insert  Into  Tarea(CodTarea,Descripcion) Values(19,'Contactar AL');
 
 
 
---
--- Table structure for table `tarearolauditoria`
---
-
-DROP TABLE IF EXISTS `tarearolauditoria`;
-CREATE TABLE `tarearolauditoria` (
-  `ID_TareaRolAuditoria` bigint(20) NOT NULL AUTO_INCREMENT,
-  `FechaAuditoria` datetime NOT NULL,
-  `USER` varchar(50) NOT NULL,
-  `CodTarea` smallint(6) NOT NULL,
-  `CodRol` char(2) NOT NULL,
-  `Activo` bit(1) NOT NULL,
-  `Accion` varchar(10) NOT NULL,
-  PRIMARY KEY (`ID_TareaRolAuditoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
---
--- Dumping data for table `tarearolauditoria`
---
-
-LOCK TABLES `tarearolauditoria` WRITE;
-UNLOCK TABLES;
-
 
 
 
@@ -3216,8 +3209,45 @@ CREATE TABLE `tarearol` (
   `CodTarea` smallint(6) NOT NULL,
   `CodRol` char(2) NOT NULL,
   `Activo` bit(1) NOT NULL,
-  PRIMARY KEY (`CodTarea`,`CodRol`)
+  PRIMARY KEY (`CodTarea`,`CodRol`),
+  CONSTRAINT `FK_TareaRol_Rol` FOREIGN KEY (`CodRol`) REFERENCES `rol` (`CodRol`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_TareaRol_Tarea` FOREIGN KEY (`CodTarea`) REFERENCES `tarea` (`CodTarea`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `tarearol`
+--
+
+LOCK TABLES `tarearol` WRITE;
+UNLOCK TABLES;
+
+
+
+
+--
+-- Table structure for table `tarearolauditoria`
+--
+
+DROP TABLE IF EXISTS `tarearolauditoria`;
+CREATE TABLE `tarearolauditoria` (
+  `ID_TareaRolAuditoria` bigint(20) NOT NULL AUTO_INCREMENT,
+  `FechaAuditoria` datetime NOT NULL,
+  `USER` varchar(50)  NOT NULL,
+  `CodTarea` smallint(6) NOT NULL,
+  `CodRol` char(2) NOT NULL,
+  `Activo` bit(1) NOT NULL,
+  `Accion` varchar(10)  NOT NULL,
+  PRIMARY KEY (`ID_TareaRolAuditoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `tarearolauditoria`
+--
+
+LOCK TABLES `tarearolauditoria` WRITE;
+UNLOCK TABLES;
 
 --
 -- Triggers TareaRol
@@ -3307,79 +3337,6 @@ Insert  Into  TareaRol(CodTarea,CodRol,Activo) Values(19,'EM',1);
 
 
 
---
--- Table structure for table `telefono`
---
-
-DROP TABLE IF EXISTS `telefono`;
-CREATE TABLE `telefono` (
-  `CodUsuario` bigint(20) NOT NULL,
-  `ID_TipoTelefono` smallint(6) NOT NULL,
-  `Telefono` bigint(20) NOT NULL,
-  PRIMARY KEY (`CodUsuario`,`ID_TipoTelefono`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `telefono`
---
-
-LOCK TABLES `telefono` WRITE;
-UNLOCK TABLES;
-
---
--- Table structure for table `tipodocumento`
---
-
-DROP TABLE IF EXISTS `tipodocumento`;
-CREATE TABLE `tipodocumento` (
-  `ID_TipoDocumento` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Descripcion` varchar(40) NOT NULL,
-  `AdmiteLetras` bit(1) NOT NULL DEFAULT b'0',
-  PRIMARY KEY (`ID_TipoDocumento`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tipodocumento`
---
-
-LOCK TABLES `tipodocumento` WRITE;
-UNLOCK TABLES;
-
---
--- Insert TipoDocumento
---
-
-Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(1,'D.N.I.',0);
-Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(2,'Cédula de Identidad',0);
-Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(3,'Libreta Cívica',0);
-Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(4,'Libreta de Enrolamiento',0);
-Insert  Into  TipoDocumento(ID_TipoDocumento,Descripcion,AdmiteLetras) Values(5,'Pasaporte',0);
-
---
--- Table structure for table `tipotelefono`
---
-
-DROP TABLE IF EXISTS `tipotelefono`;
-CREATE TABLE `tipotelefono` (
-  `ID_TipoTelefono` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Descripcion` varchar(40) NOT NULL,
-  PRIMARY KEY (`ID_TipoTelefono`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tipotelefono`
---
-
-LOCK TABLES `tipotelefono` WRITE;
-UNLOCK TABLES;
-
---
--- Insert TipoTelefono
---
-
-Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(1,'Particular');
-Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(2,'Laboral');
-Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(3,'Celular');
 
 
 --
@@ -3389,12 +3346,14 @@ Insert  Into  TipoTelefono(ID_TipoTelefono,Descripcion) Values(3,'Celular');
 DROP TABLE IF EXISTS `titulo`;
 CREATE TABLE `titulo` (
   `ID_Titulo` int(11) NOT NULL,
-  `CodCarrera` varchar(2) NOT NULL,
-  `Titulo` varchar(100) NOT NULL,
+  `CodCarrera` varchar(2)  NOT NULL,
+  `Titulo` varchar(100)  NOT NULL,
   `TotalMaterias` int(3) NOT NULL,
   `Activo` bit(1) NOT NULL,
-  PRIMARY KEY (`ID_Titulo`,`CodCarrera`)
+  PRIMARY KEY (`ID_Titulo`,`CodCarrera`),
+  CONSTRAINT `FK_Titulo_Carrera` FOREIGN KEY (`CodCarrera`) REFERENCES `carrera` (`CodCarrera`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Dumping data for table `titulo`
@@ -3402,6 +3361,8 @@ CREATE TABLE `titulo` (
 
 LOCK TABLES `titulo` WRITE;
 UNLOCK TABLES;
+
+
 
 --
 -- Insert Titulo
@@ -3416,16 +3377,45 @@ Insert  Into  Titulo(ID_Titulo,CodCarrera,Titulo,TotalMaterias,Activo) Values(6,
 
 
 --
--- Table structure for table `usuario`
+-- Table structure for table `direccion`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE `usuario` (
-  `CodUsuario` bigint(20) NOT NULL AUTO_INCREMENT,
-  `Email` varchar(100) NOT NULL,
+DROP TABLE IF EXISTS `direccion`;
+CREATE TABLE `direccion` (
+  `CodUsuario` bigint(20) NOT NULL,
+  `ID_Provincia` int(11) NOT NULL,
+  `ID_Localidad` int(11) NOT NULL,
+  `Calle` varchar(50) DEFAULT NULL,
+  `Numero` smallint(6) DEFAULT NULL,
+  `Coordenada1` double NOT NULL,
+  `Coordenada2` double NOT NULL,
+  `Piso` smallint(6) DEFAULT NULL,
+  `Departamento` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`CodUsuario`),
+  CONSTRAINT `FK_Direccion_Localidad` FOREIGN KEY (`ID_Localidad`, `ID_Provincia`) REFERENCES `localidad` (`ID_Localidad`, `ID_Provincia`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Direccion_Usuario` FOREIGN KEY (`CodUsuario`) REFERENCES `usuario` (`CodUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `direccion`
+--
+
+LOCK TABLES `direccion` WRITE;
+UNLOCK TABLES;
+
+
+--
+-- Table structure for table `alumno`
+--
+
+DROP TABLE IF EXISTS `alumno`;
+CREATE TABLE `alumno` (
+  `ID_Alumno` bigint(20) NOT NULL AUTO_INCREMENT,
+  `CodUsuario` bigint(20) NOT NULL,
+  `CodRol` char(2) NOT NULL DEFAULT 'SA',
   `Nombre` varchar(50) NOT NULL,
   `Apellido` varchar(50) NOT NULL,
-  `Password` varchar(15) NOT NULL,
   `FechaIngreso` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `FechaNacimiento` datetime NOT NULL,
   `ID_Paises` int(11) NOT NULL DEFAULT '1',
@@ -3434,241 +3424,201 @@ CREATE TABLE `usuario` (
   `ID_TipoDocumento` smallint(6) NOT NULL DEFAULT '1',
   `Documento` bigint(20) NOT NULL,
   `ID_NivelEstudios` smallint(6) NOT NULL,
-  `CodRol` char(2) NOT NULL DEFAULT 'SA',
   `FechaBaja` datetime DEFAULT NULL,
   `Estado` bit(1) NOT NULL DEFAULT b'0',
   `FechaCambioPassword` datetime DEFAULT NULL,
   `Foto` longblob,
-  PRIMARY KEY (`CodUsuario`)
+  PRIMARY KEY (`ID_Alumno`,`CodUsuario`),
+  CONSTRAINT `FK_Alumno_EstadoCivil` FOREIGN KEY (`ID_EstadoCivil`) REFERENCES `estadocivil` (`ID_EstadoCivil`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Alumno_NivelEstudios` FOREIGN KEY (`ID_NivelEstudios`) REFERENCES `nivelestudios` (`ID_NivelEstudio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Alumno_Paises` FOREIGN KEY (`ID_Paises`) REFERENCES `paises` (`ID_Pais`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Alumno_Rol` FOREIGN KEY (`CodRol`) REFERENCES `rol` (`CodRol`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Alumno_TipoDocumento` FOREIGN KEY (`ID_TipoDocumento`) REFERENCES `tipodocumento` (`ID_TipoDocumento`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `usuario`
+-- Dumping data for table `alumno`
 --
 
-LOCK TABLES `usuario` WRITE;
+LOCK TABLES `alumno` WRITE;
+UNLOCK TABLES;
+
+
+
+--
+-- Table structure for table `profesor`
+--
+
+DROP TABLE IF EXISTS `profesor`;
+CREATE TABLE `profesor` (
+  `ID_Profesor` bigint(20) NOT NULL AUTO_INCREMENT,
+  `CodUsuario` bigint(20) NOT NULL,
+  `CodRol` char(2) NOT NULL DEFAULT 'PR',
+  `Nombre` varchar(50) NOT NULL,
+  `Apellido` varchar(50) NOT NULL,
+  `FechaIngreso` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `FechaNacimiento` datetime NOT NULL,
+  `ID_Paises` int(11) NOT NULL DEFAULT '1',
+  `ID_EstadoCivil` smallint(6) NOT NULL DEFAULT '1',
+  `Sexo` char(1) NOT NULL,
+  `ID_TipoDocumento` smallint(6) NOT NULL DEFAULT '1',
+  `Documento` bigint(20) NOT NULL,
+  `FechaBaja` datetime DEFAULT NULL,
+  `Estado` bit(1) NOT NULL DEFAULT b'0',
+  `FechaCambioPassword` datetime DEFAULT NULL,
+  `Foto` longblob,
+  PRIMARY KEY (`ID_Profesor`,`CodUsuario`),
+  CONSTRAINT `FK_Profesor_EstadoCivil` FOREIGN KEY (`ID_EstadoCivil`) REFERENCES `estadocivil` (`ID_EstadoCivil`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Profesor_Paises` FOREIGN KEY (`ID_Paises`) REFERENCES `paises` (`ID_Pais`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Profesor_Rol` FOREIGN KEY (`CodRol`) REFERENCES `rol` (`CodRol`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Profesor_TipoDocumento` FOREIGN KEY (`ID_TipoDocumento`) REFERENCES `tipodocumento` (`ID_TipoDocumento`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `profesor`
+--
+
+LOCK TABLES `profesor` WRITE;
 UNLOCK TABLES;
 
 --
--- AGREGO FK'S Y ALGUNOS INDICES
+-- Table structure for table `estidioma`
+--
+
+DROP TABLE IF EXISTS `estidioma`;
+CREATE TABLE `estidioma` (
+  `ID_Idioma` smallint(6) NOT NULL DEFAULT '1',
+  `ID_Alumno` bigint(20) NOT NULL,
+  `ID_NivelConocimiento` smallint(6) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`ID_Idioma`,`ID_Alumno`,`ID_NivelConocimiento`),
+  CONSTRAINT `FK_EstIdioma_ID_Alumno` FOREIGN KEY (`ID_Alumno`) REFERENCES `alumno` (`ID_Alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_EstIdioma_Idioma` FOREIGN KEY (`ID_Idioma`) REFERENCES `idioma` (`ID_Idioma`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_EstIdioma_NivelIdioma` FOREIGN KEY (`ID_NivelConocimiento`) REFERENCES `nivelidioma` (`ID_NivelConocimiento`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `estidioma`
+--
+
+LOCK TABLES `estidioma` WRITE;
+UNLOCK TABLES;
+
+
+
+--
+-- Table structure for table `experiencialaboral`
+--
+
+DROP TABLE IF EXISTS `experiencialaboral`;
+CREATE TABLE `experiencialaboral` (
+  `ID_Experiencia` smallint(6) NOT NULL AUTO_INCREMENT,
+  `ID_Alumno` bigint(20) NOT NULL,
+  `Puesto` varchar(50) NOT NULL,
+  `ID_Seniority` smallint(6) NOT NULL DEFAULT '5',
+  `Empresa` varchar(100) NOT NULL,
+  `ID_Pais` int(11) NOT NULL,
+  `FechaInicio` date NOT NULL,
+  `FechaFin` date DEFAULT NULL,
+  `Descripcion` varchar(2000) NOT NULL,
+  `PersonasACargo` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`ID_Experiencia`,`ID_Alumno`),
+  CONSTRAINT `FK_ExperienciaLaboral_Alumno` FOREIGN KEY (`ID_Alumno`) REFERENCES `alumno` (`ID_Alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_ExperienciaLaboral_Paises` FOREIGN KEY (`ID_Pais`) REFERENCES `paises` (`ID_Pais`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_ExperienciaLaboral_Seniority` FOREIGN KEY (`ID_Seniority`) REFERENCES `seniority` (`ID_Seniority`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `experiencialaboral`
+--
+
+LOCK TABLES `experiencialaboral` WRITE;
+UNLOCK TABLES;
+--
+-- Table structure for table `profesormateria`
+--
+
+DROP TABLE IF EXISTS `profesormateria`;
+CREATE TABLE `profesormateria` (
+  `ID_Profesor` bigint(20) NOT NULL,
+  `CodMateria` varchar(4) NOT NULL,
+  PRIMARY KEY (`ID_Profesor`,`CodMateria`),
+  CONSTRAINT `FK_ProfesorMateria_Profesor` FOREIGN KEY (`ID_Profesor`) REFERENCES `profesor` (`ID_Profesor`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `profesormateria`
+--
+
+LOCK TABLES `profesormateria` WRITE;
+UNLOCK TABLES;
+
+
+
+--
+-- Dumping routines for database 'bolsadv2'
 --
 
 
--- Agrego FK Titulo
-ALTER TABLE `bolsadv`.`titulo` 
-ADD INDEX `FK_Titulo_Carrera_idx` (`CodCarrera` ASC);
-ALTER TABLE `bolsadv`.`titulo` 
-ADD CONSTRAINT `FK_Titulo_Carrera`
-  FOREIGN KEY (`CodCarrera`)
-  REFERENCES `bolsadv`.`carrera` (`CodCarrera`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
-
--- Agrego FK Materia
-ALTER TABLE `bolsadv`.`materia` 
-ADD INDEX `FK_Materia_Carrera_idx` (`CodCarrera` ASC);
-ALTER TABLE `bolsadv`.`materia` 
-ADD CONSTRAINT `FK_Materia_Carrera`
-  FOREIGN KEY (`CodCarrera`)
-  REFERENCES `bolsadv`.`carrera` (`CodCarrera`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
-
--- Agrego FK ProfesorMateria
-ALTER TABLE `bolsadv`.`profesormateria` 
-ADD INDEX `FK_ProfesorMateria_Materia_idx` (`CodMateria` ASC);
-ALTER TABLE `bolsadv`.`profesormateria` 
-ADD CONSTRAINT `FK_ProfesorMateria_Profesor`
-  FOREIGN KEY (`ID_Profesor`)
-  REFERENCES `bolsadv`.`profesor` (`ID_Profesor`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_ProfesorMateria_Materia`
-  FOREIGN KEY (`CodMateria`)
-  REFERENCES `bolsadv`.`materia` (`CodMateria`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-  
-  
--- Agrego FK EstIdioma
-  ALTER TABLE `bolsadv`.`estidioma` 
-ADD INDEX `FK_EstIdioma_NivelIdioma_idx` (`ID_NivelConocimiento` ASC),
-ADD INDEX `FK_EstIdioma_CodUsuario_idx` (`CodUsuario` ASC);
-ALTER TABLE `bolsadv`.`estidioma` 
-ADD CONSTRAINT `FK_EstIdioma_NivelIdioma`
-  FOREIGN KEY (`ID_NivelConocimiento`)
-  REFERENCES `bolsadv`.`nivelidioma` (`ID_NivelConocimiento`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_EstIdioma_Idioma`
-  FOREIGN KEY (`ID_Idioma`)
-  REFERENCES `bolsadv`.`idioma` (`ID_Idioma`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_EstIdioma_CodUsuario`
-  FOREIGN KEY (`CodUsuario`)
-  REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
-
--- Agrego FK ExperienciaElaboral
-ALTER TABLE `bolsadv`.`experiencialaboral` 
-ADD INDEX `FK_ExperienciaLaboral_Usuario_idx` (`CodUsuario` ASC),
-ADD INDEX `FK_ExperienciaLaboral_Seniority_idx` (`ID_Seniority` ASC);
-ALTER TABLE `bolsadv`.`experiencialaboral` 
-ADD CONSTRAINT `FK_ExperienciaLaboral_Usuario`
-  FOREIGN KEY (`CodUsuario`)
-  REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_ExperienciaLaboral_Seniority`
-  FOREIGN KEY (`ID_Seniority`)
-  REFERENCES `bolsadv`.`seniority` (`ID_Seniority`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_ExperienciaLaboral_Paises`
-  FOREIGN KEY (`ID_Pais`)
-  REFERENCES `bolsadv`.`paises` (`ID_Pais`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
-
--- Agrego FK Mensaje
-ALTER TABLE `bolsadv`.`mensaje` 
-ADD INDEX `FK_Mensaje_Usuario_idx` (`CodUsuario` ASC);
-ALTER TABLE `bolsadv`.`mensaje` 
-ADD CONSTRAINT `FK_Mensaje_Usuario`
-  FOREIGN KEY (`CodUsuario`)
-  REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_Mensaje_UsuarioEmisor`
-  FOREIGN KEY (`CodUsuario`)
-  REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-  
-  
-  
-
--- Agrego FK Localidad
-ALTER TABLE `bolsadv`.`localidad` 
-ADD INDEX `FK_Localidad_Provincia_idx` (`ID_Provincia` ASC);
-ALTER TABLE `bolsadv`.`localidad` 
-ADD CONSTRAINT `FK_Localidad_Provincia`
-  FOREIGN KEY (`ID_Provincia`)
-  REFERENCES `bolsadv`.`provincia` (`ID_Provincia`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-  
-  
- -- Agrego FK Direccion 
-ALTER TABLE `bolsadv`.`direccion` 
-ADD CONSTRAINT `FK_Direccion_Localidad`
-  FOREIGN KEY (`ID_Localidad` , `ID_Provincia`)
-  REFERENCES `bolsadv`.`localidad` (`ID_Localidad` , `ID_Provincia`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-ALTER TABLE `bolsadv`.`direccion` 
-ADD CONSTRAINT `FK_Direccion_Usuario`
-  FOREIGN KEY (`CodUsuario`)
-  REFERENCES `bolsadv`.`Usuario` (`CodUsuario`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
 
 
 
- -- Agrego FK TreaRol 
-ALTER TABLE `bolsadv`.`tarearol` 
-ADD CONSTRAINT `FK_TareaRol_Tarea`
-  FOREIGN KEY (`CodTarea`)
-  REFERENCES `bolsadv`.`tarea` (`CodTarea`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_TareaRol_Rol`
-  FOREIGN KEY (`CodRol`)
-  REFERENCES `bolsadv`.`rol` (`CodRol`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
+--
+-- Table structure for table `comentario`
+--
+
+DROP TABLE IF EXISTS `comentario`;
+CREATE TABLE `comentario` (
+  `ID_Comentario` bigint(20) NOT NULL AUTO_INCREMENT,
+  `ID_Alumno` bigint(20) NOT NULL,
+  `ID_Profesor` bigint(20) NOT NULL,
+  `Fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Comentario` varchar(2000)  NOT NULL,
+  `Visible` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`ID_Comentario`,`ID_Alumno`),
+  CONSTRAINT `FK_Comentario_Alumno` FOREIGN KEY (`ID_Alumno`) REFERENCES `alumno` (`ID_Alumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Comentario_Profesor` FOREIGN KEY (`ID_Profesor`) REFERENCES `profesor` (`ID_Profesor`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comentario`
+--
+
+LOCK TABLES `comentario` WRITE;
+UNLOCK TABLES;
 
 
+--
+-- Table structure for table `Alumnocarrera`
+--
 
- -- Agrego FK Telefono 
-ALTER TABLE `bolsadv`.`telefono` 
-ADD CONSTRAINT `FK_Telefono_Usuario`
-  FOREIGN KEY (`CodUsuario`)
-  REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_Telefono_TipoTelefono`
-  FOREIGN KEY (`ID_TipoTelefono`)
-  REFERENCES `bolsadv`.`tipotelefono` (`ID_TipoTelefono`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
-
-  
- -- Agrego FK Usuario
-ALTER TABLE `bolsadv`.`usuario` 
-ADD INDEX `FK_Usuario_NivelEstudios_idx` (`ID_NivelEstudios` ASC),
-ADD INDEX `FK_Usuario_Rol_idx` (`CodRol` ASC);
-ALTER TABLE `bolsadv`.`usuario` 
-ADD CONSTRAINT `FK_Usuario_Paises`
-  FOREIGN KEY (`ID_Paises`)
-  REFERENCES `bolsadv`.`paises` (`ID_Pais`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_Usuario_EstadoCivil`
-  FOREIGN KEY (`ID_EstadoCivil`)
-  REFERENCES `bolsadv`.`estadocivil` (`ID_EstadoCivil`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_Usuario_TipoDocumento`
-  FOREIGN KEY (`ID_TipoDocumento`)
-  REFERENCES `bolsadv`.`tipodocumento` (`ID_TipoDocumento`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_Usuario_NivelEstudios`
-  FOREIGN KEY (`ID_NivelEstudios`)
-  REFERENCES `bolsadv`.`nivelestudios` (`ID_NivelEstudio`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_Usuario_Rol`
-  FOREIGN KEY (`CodRol`)
-  REFERENCES `bolsadv`.`rol` (`CodRol`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
--- 22-10-2014
-
--- Agrego Estructura tabla Carreara Usuario
-
-CREATE TABLE `bolsadv`.`usuariocarrera` (
-  `ID_UsuarioCarrera` INT NOT NULL AUTO_INCREMENT,
-  `CodUsuario` BIGINT(20) NOT NULL,
+CREATE TABLE `Alumnocarrera` (
+  `ID_Alumnocarrera` INT NOT NULL AUTO_INCREMENT,
+  `ID_Alumno` BIGINT(20) NOT NULL,
   `CodCarrera` VARCHAR(2) NOT NULL,
-  PRIMARY KEY (`ID_UsuarioCarrera`, `CodUsuario`, `CodCarrera`),
-  CONSTRAINT `FK_UsuarioCarrera_Usuario`
-    FOREIGN KEY (`CodUsuario`)
-    REFERENCES `bolsadv`.`usuario` (`CodUsuario`)
+  PRIMARY KEY (`ID_Alumnocarrera`, `ID_Alumno`, `CodCarrera`),
+  CONSTRAINT `FK_Alumnocarrera_Usuario`
+    FOREIGN KEY (`ID_Alumno`)
+    REFERENCES `Alumno` (`ID_Alumno`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `FK_UsuarioCarrera_Carrera`
+  CONSTRAINT `FK_Alumnocarrera_Carrera`
     FOREIGN KEY (`CodCarrera`)
-    REFERENCES `bolsadv`.`carrera` (`CodCarrera`)
+    REFERENCES `carrera` (`CodCarrera`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
-
-
 --
--- Dumping events for database 'bolsadv'
+-- Dumping data for table `Alumnocarrera`
 --
 
--- Dump completed on 2014-10-15 22:51:30
-Status API Training Shop Blog About
-© 2014 GitHub, Inc. Terms Privacy Security Contact
+LOCK TABLES `Alumnocarrera` WRITE;
+UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'bolsadv2'
+--
+
+
