@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `bolsadv22` ;
-USE `bolsadv22`;
+CREATE DATABASE  IF NOT EXISTS `bolsadv` ;
+USE `bolsadv`;
 
 --
 -- Table structure for table `usuario`
@@ -3556,15 +3556,6 @@ LOCK TABLES `profesormateria` WRITE;
 UNLOCK TABLES;
 
 
-
---
--- Dumping routines for database 'bolsadv2'
---
-
-
-
-
-
 --
 -- Table structure for table `comentario`
 --
@@ -3618,7 +3609,7 @@ LOCK TABLES `Alumnocarrera` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'bolsadv2'
+-- Dumping routines for database 'bolsadv'
 --
 
 
