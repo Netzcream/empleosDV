@@ -4,15 +4,20 @@ if (!isset($_SESSION)) {
 }
 $_SESSION['location'] = "registro";
 
+
+	
+
+
+
 ?>
 
 <div class="prelogin">
 <label class="logLabelLeft">Ingrese Correo *:</label>
-<input id="Regemail" onkeypress="getEnter(event);" class="logInput" name="email" type="email" placeholder="juan.perez@davinci.edu.ar">
+<input id="Regemail" onkeypress="getEnter(event);" class="logInput" name="email" type="email" placeholder="juan.perez@davinci.edu.ar" maxlength="100">
 <label class="logLabelLeft">Ingrese Clave:</label>
-<input id="RegPass1" onkeypress="getEnter(event);" class="logInput" name="pass" type="password" placeholder="Ingrese contrase&ntilde;a">
+<input id="RegPass1" onkeypress="getEnter(event);" class="logInput" name="pass" type="password" placeholder="Ingrese contrase&ntilde;a" maxlength="15">
 <label class="logLabelLeft">Repita Clave:</label>
-<input id="RegPass2" onkeypress="getEnter(event);" class="logInput" name="pass2" type="password" placeholder="Repita contrase&ntilde;a">
+<input id="RegPass2" onkeypress="getEnter(event);" class="logInput" name="pass2" type="password" placeholder="Repita contrase&ntilde;a" maxlength="15">
 	<div class="logInOptions">
 		<p><label onclick="gotologin();">Ya estoy registrado</label></p>
 	</div>
@@ -37,9 +42,19 @@ function registerme() {
 	else if (email == "" && pass != "" && pass2 != "") { $("#regErrorNot").load ("php/regmein.php", {error : "5" }); }
 	else if (email == "" && pass == "" && pass2 != "") { $("#regErrorNot").load ("php/regmein.php", {error : "6" }); }
 	else if (email == "" && pass != "" && pass2 == "") { $("#regErrorNot").load ("php/regmein.php", {error : "7" }); }
+	else if (email.indexOf("@") <0) { $("#regErrorNot").load ("php/regmein.php", {error : "9" });  }
 	else if (email != "" && pass != "" && pass2 != "" ) { 
 		if (pass != pass2) {
 			$("#regErrorNot").load ("php/regmein.php", {error : "8" }); 
+		}
+		else if (pass.length > 15) {
+			$("#regErrorNot").load ("php/regmein.php", {error : "10" });
+		}
+		else if (pass.length < 5) {
+			$("#regErrorNot").load ("php/regmein.php", {error : "10" });
+		}
+		else if (email.length >100) {
+			$("#regErrorNot").load ("php/regmein.php", {error : "11" });
 		}
 		else {
 			$("#regErrorNot").load ("php/regmein.php", { email:email,pass:pass,pass2:pass2 });

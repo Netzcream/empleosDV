@@ -22,11 +22,12 @@ if (isset($_POST)) {
 		
 	}
 	$usr = $_POST['usr'];
-	$usr = substr($usr,0,32);
+	$usr = substr($usr,0,100);
 	$usr = stripslashes($usr);
+	$usr = htmlentities($usr,ENT_QUOTES);
 	$pwd = $_POST['pwd'];
 	$pwd = stripslashes($pwd);
-	$pwd = SHA1(substr($pwd,0,32));
+	$pwd = SHA1(substr($pwd,0,15));
 
 	if ($usr == "" AND $pwd == "") { echo "Error: No ingreso usuario y contrase&ntilde;a"; }
 	else if ($usr == "") { echo "Error: No ingreso usuario"; }

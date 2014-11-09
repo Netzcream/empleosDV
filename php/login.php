@@ -5,8 +5,8 @@ if (!isset($_SESSION)) {
 	$_SESSION['location'] = "login";
 ?>
 <div class="prelogin">
-	<input id="usuario" class="logInput" onkeypress="getEnter(event)" type="email" placeholder="juan.perez@davinci.edu.ar">
-	<input id="clave" class="logInput" onkeypress="getEnter(event)" type="password" placeholder="Contrase&ntilde;a">
+	<input id="usuario" class="logInput" onkeypress="getEnter(event)" type="email" placeholder="juan.perez@davinci.edu.ar" maxlength="100">
+	<input id="clave" class="logInput" onkeypress="getEnter(event)" type="password" placeholder="Contrase&ntilde;a" maxlength="15">
 	<div class="logInOptions">
 		<p><input id="logInCheckbox" type="checkbox">
 		<label for="logInCheckbox">Recordarme</label></p>

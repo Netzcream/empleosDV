@@ -11,6 +11,28 @@ if (!isset($_SESSION['location'])) {
 if (!isset($_SESSION['usuario'])) {
 	$_SESSION['location'] = "login";
 }
+
+
+if (isset($_GET)) {
+
+	if (isset($_GET['m']) && isset($_GET['c']) ) {
+
+		$_SESSION['location'] = "verificar";
+		$email = $_GET['m'];
+		$codigo = $_GET['c'];
+		$email = substr($email,0,100);
+		$email = stripslashes($email);
+		$email = htmlentities($email,ENT_QUOTES);
+		$codigo = stripslashes($codigo);
+		$codigo = htmlentities($codigo,ENT_QUOTES);
+		$_SESSION['vmail'] = $email;
+		$_SESSION['vcode'] = $codigo;
+	}
+
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -79,8 +101,11 @@ if (!isset($_SESSION['usuario'])) {
 			}
 			else if ($_SESSION['location'] == "buscar") {
 				include_once("/php/buscar.php");
-			}			
-			
+			}	
+			else if ($_SESSION['location'] == "verificar") {
+				include_once("/php/verificoMail.php");
+			}		
+
 			?>
 	
 		</div>

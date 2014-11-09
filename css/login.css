@@ -86,7 +86,19 @@
 	margin-bottom: 10px;
 	display: block;
 	font-size: 0.7em;
+	cursor: default;
 }
+
+.prelogin .regLabelNotificar {
+	color: #fdd;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	display: block;
+	font-size: 0.9em;
+	cursor: default;
+}
+
 
 .regError {
 	color: #f44 !important;
