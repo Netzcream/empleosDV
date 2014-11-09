@@ -12,6 +12,7 @@ $_SESSION['location'] = "registro";
 ?>
 
 <div class="prelogin">
+<div class="openLogin">
 <label class="logLabelLeft">Ingrese Correo *:</label>
 <input id="Regemail" onkeypress="getEnter(event);" class="logInput" name="email" type="email" placeholder="juan.perez@davinci.edu.ar" maxlength="100">
 <label class="logLabelLeft">Ingrese Clave:</label>
@@ -23,15 +24,26 @@ $_SESSION['location'] = "registro";
 	</div>
 
 <label class="regLabelNota" title="Para poder registrarse debe poseer correo electrónico de la institución">* Para poder registrarse debe poseer correo @davinci.edu.ar</label>
-<label id="regErrorNot" class="regLabelNota regError"></label>
 <input class="logInBtn" type="submit" value="Registrarme" onclick="registerme();">
 </div>
+
+
 <div class="loading">
 <img alt="" src="imagenes/loading.gif" width=30>
 </div>
+<div id="regErrorNot" ></div>
+<div id='reLabelNot'></div>
+
+
+</div>
+
+
 
 <script>
 function registerme() {
+	
+	$('.openLogin').hide("fast");
+	$('.loading').show();
 	var email = $('#Regemail').val();
 	var pass = $('#RegPass1').val();
 	var pass2 = $('#RegPass2').val();

@@ -58,6 +58,7 @@ if (isset($_GET)) {
 
 		
 		<!-- Distintos Scripts de JavaScript utilizados -->
+		<script type="text/javascript" src="js/scripts.js"></script>
 		<script type="text/javascript" src="js/jq-2.1.1.js"></script>
 		<script type="text/javascript" src="js/jq.min.js"></script>
 		<script type="text/javascript" src="js/jq.ez-pinned-footer.js"></script>
@@ -71,10 +72,8 @@ if (isset($_GET)) {
 		<div class="preHeader"></div>
 
 		<header>
-			<div class="logo">
+			<div class="logo" onclick="goTo(-1);">
 			<img  alt="Bolsa DV" src="imagenes/logo/logo100.png">
-			
-			
 			<span>BolsaDV</span>
 			
 			
