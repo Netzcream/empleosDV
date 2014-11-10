@@ -30,9 +30,6 @@ if (isset($_GET)) {
 	}
 
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +68,7 @@ if (isset($_GET)) {
 	<div class="contenedor">
 		<div class="preHeader"></div>
 
-		<header>
+		<header id='headDa'>
 			<div class="logo" onclick="goTo(-1);">
 			<img  alt="Bolsa DV" src="imagenes/logo/logo100.png">
 			<span>BolsaDV</span>

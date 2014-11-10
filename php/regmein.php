@@ -44,8 +44,9 @@ if (isset($_POST)) {
 			return;
 		}
 		$email = htmlentities($email,ENT_QUOTES);
+		$email = strtolower($email);
 		$pass = htmlentities($_POST['pass']);
-		$pass = SHA1(substr($pass,0,32));
+		$pass = SHA1(substr($pass,0,40));
 		$consulta = "SELECT * FROM usuario WHERE Email='".$email."';";
 		$conex = new MySQL();
 		

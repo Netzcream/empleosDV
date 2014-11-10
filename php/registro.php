@@ -5,6 +5,10 @@ if (!isset($_SESSION)) {
 $_SESSION['location'] = "registro";
 
 
+$usuario = "";
+if (isset($_POST['usr'])) {
+	$usuario = $_POST['usr'];
+}
 	
 
 
@@ -14,7 +18,7 @@ $_SESSION['location'] = "registro";
 <div class="prelogin">
 <div class="openLogin">
 <label class="logLabelLeft">Ingrese Correo *:</label>
-<input id="Regemail" onkeypress="getEnter(event);" class="logInput" name="email" type="email" placeholder="juan.perez@davinci.edu.ar" maxlength="100">
+<input id="Regemail" onkeypress="getEnter(event);" class="logInput" name="email" type="email" placeholder="juan.perez@davinci.edu.ar" value="<?php echo $usuario; ?>" maxlength="100">
 <label class="logLabelLeft">Ingrese Clave:</label>
 <input id="RegPass1" onkeypress="getEnter(event);" class="logInput" name="pass" type="password" placeholder="Ingrese contrase&ntilde;a" maxlength="15">
 <label class="logLabelLeft">Repita Clave:</label>

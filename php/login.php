@@ -5,19 +5,23 @@ if (!isset($_SESSION)) {
 	$_SESSION['location'] = "login";
 ?>
 <div class="prelogin">
+<div class="openLogin">
 	<input id="usuario" class="logInput" onkeypress="getEnter(event)" type="email" placeholder="juan.perez@davinci.edu.ar" maxlength="100">
-	<input id="clave" class="logInput" onkeypress="getEnter(event)" type="password" placeholder="Contrase&ntilde;a" maxlength="15">
+	<input id="clave" class="logInput" onkeypress="getEnter(event)" type="password" placeholder="Contrase&ntilde;a" maxlength="10">
 	<div class="logInOptions">
 		<p><input id="logInCheckbox" type="checkbox">
 		<label for="logInCheckbox">Recordarme</label></p>
 		<p><label onclick="registro();">Registrarme</label></p>
 	</div>
-	<label id="logErrorNot" class="regLabelNota regError"></label>
 	<input class="logInBtn" type="submit" value="Ingresar" onclick="logmeIn();">
 </div>
 <div class="loading">
 	<img alt="" src="imagenes/loading.gif" width=30>
 </div>
+<div id="logErrorNot" ></div>
+<div id='reLabelNot'></div>
+</div>
+
 
 <script>
 
@@ -26,6 +30,10 @@ function getEnter(e) {
 }
 
 function logmeIn() {
+	$('.openLogin').hide("fast");
+	$('.loading').show();
+	$('#reLabelNot').hide("fast");
+	
 	var usr = $("#usuario").val();
 	var pwd = $("#clave").val();
 	
@@ -33,10 +41,15 @@ function logmeIn() {
 	else if (usr == "") { $("#logErrorNot").load ("php/logmein.php", {error : "2" }); }
 	else if (pwd == "") { $("#logErrorNot").load ("php/logmein.php", {error : "3" }); }
 	else {
-		$("#logErrorNot").load ("php/logmein.php", {usr : usr, pwd:pwd });
+		var checkbox =  document.getElementById("logInCheckbox").checked;
+		var chb = 0;
+		if (checkbox == true) { chb = 1; }
+		
+		$("#logErrorNot").load ("php/logmein.php", {usr : usr, pwd:pwd, recuerda: chb });
 	}
 }
 function registro() {
-	$("#cuerpo").load ("php/registro.php");
+	var usr = $("#usuario").val();
+	$("#cuerpo").load ("php/registro.php", {usr : usr });
 }
 </script>

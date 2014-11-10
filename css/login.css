@@ -78,6 +78,7 @@
 	color: #fff;
 	float: left;
 	margin-left: 20px;
+	cursor: default;
 }
 .prelogin .regLabelNota {
 	color: #fdd;
@@ -98,8 +99,6 @@
 	font-size: 0.9em !important;
 	cursor: default;
 }
-
-
 .regError {
 	color: #f44 !important;
 }
