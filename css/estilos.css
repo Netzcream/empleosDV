@@ -211,6 +211,8 @@ header {
 	display: inline-block;
 	float: right;
 	margin-right: 10px;
+	width: 80%;
+	text-align: right;
 }
 #menuDa div {
 	display: inline-table;
