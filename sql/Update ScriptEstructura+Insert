@@ -8,12 +8,14 @@ USE `bolsadv`;
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `CodUsuario` bigint(20) NOT NULL AUTO_INCREMENT,
-  `Email` varchar(100) NOT NULL,
-  `Password` varchar(15) NOT NULL,
+  `Email` nvarchar(100) NOT NULL,
+  `Password` nvarchar(40) NOT NULL,
+  `Estado` tinyint(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`CodUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
+ALTER TABLE `usuario` 
+ADD COLUMN `CodConfirmacion` VARCHAR(100) NULL AFTER `Estado`;
 --
 -- Dumping data for table `usuario`
 --
@@ -21,6 +23,32 @@ CREATE TABLE `usuario` (
 LOCK TABLES `usuario` WRITE;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `EstadoUsuario`
+--
+
+DROP TABLE IF EXISTS `EstadoUsuario`;
+CREATE TABLE `EstadoUsuario` (
+  `ID_EstadoUsuario` smallint(6) NOT NULL AUTO_INCREMENT,
+  `Descripcion` nvarchar(40)  NOT NULL,
+   PRIMARY KEY (`ID_EstadoUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `EstadoUsuario`
+--
+
+LOCK TABLES `EstadoUsuario` WRITE;
+UNLOCK TABLES;
+--
+-- Insert EstadoUsuario
+--
+Insert  Into  EstadoUsuario(ID_EstadoUsuario,Descripcion) Values(1,'Pendiente de Confirmación de Registro');
+Insert  Into  EstadoUsuario(ID_EstadoUsuario,Descripcion) Values(2,'Activo sin asignacion de Rol');
+Insert  Into  EstadoUsuario(ID_EstadoUsuario,Descripcion) Values(3,'Activo');
+Insert  Into  EstadoUsuario(ID_EstadoUsuario,Descripcion) Values(4,'Bloqueado');
+Insert  Into  EstadoUsuario(ID_EstadoUsuario,Descripcion) Values(5,'Dado de Baja');
 
 
 --
@@ -30,7 +58,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `tipodocumento`;
 CREATE TABLE `tipodocumento` (
   `ID_TipoDocumento` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Descripcion` varchar(40)  NOT NULL,
+  `Descripcion` nvarchar(40)  NOT NULL,
   `AdmiteLetras` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`ID_TipoDocumento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -171,6 +199,27 @@ Insert  Into  Rol(CodRol,Descripcion) Values('SA' , 'Sin Asignar');
 
 
 --
+-- Table structure for table `UsuarioRol`
+--
+
+DROP TABLE IF EXISTS `UsuarioRol`;
+CREATE TABLE `UsuarioRol` (
+  `CodUsuario` bigint(20) NOT NULL,
+  `CodRol` char(2) NOT NULL,
+  PRIMARY KEY (`CodUsuario`,`CodRol`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Dumping data for table `UsuarioRol`
+--
+
+LOCK TABLES `UsuarioRol` WRITE;
+UNLOCK TABLES;
+
+
+
+--
 -- Table structure for table `seniority`
 --
 
@@ -214,11 +263,9 @@ CREATE TABLE `empresa` (
   `FechaIngreso` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `CUIT` bigint(20) NOT NULL,
   `FechaBaja` datetime DEFAULT NULL,
-  `Estado` bit(1) NOT NULL DEFAULT b'0',
   `FechaCambioPassword` datetime DEFAULT NULL,
   `Foto` longblob,
-  PRIMARY KEY (`ID_Empresa`,`CodUsuario`),
-  CONSTRAINT `FK_Empresa_Rol` FOREIGN KEY (`CodRol`) REFERENCES `rol` (`CodRol`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`ID_Empresa`,`CodUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -3425,15 +3472,13 @@ CREATE TABLE `alumno` (
   `Documento` bigint(20) NOT NULL,
   `ID_NivelEstudios` smallint(6) NOT NULL,
   `FechaBaja` datetime DEFAULT NULL,
-  `Estado` bit(1) NOT NULL DEFAULT b'0',
   `FechaCambioPassword` datetime DEFAULT NULL,
   `Foto` longblob,
   PRIMARY KEY (`ID_Alumno`,`CodUsuario`),
   CONSTRAINT `FK_Alumno_EstadoCivil` FOREIGN KEY (`ID_EstadoCivil`) REFERENCES `estadocivil` (`ID_EstadoCivil`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_Alumno_NivelEstudios` FOREIGN KEY (`ID_NivelEstudios`) REFERENCES `nivelestudios` (`ID_NivelEstudio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_Alumno_Paises` FOREIGN KEY (`ID_Paises`) REFERENCES `paises` (`ID_Pais`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Alumno_Rol` FOREIGN KEY (`CodRol`) REFERENCES `rol` (`CodRol`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Alumno_TipoDocumento` FOREIGN KEY (`ID_TipoDocumento`) REFERENCES `tipodocumento` (`ID_TipoDocumento`) ON DELETE NO ACTION ON UPDATE NO ACTION
+   CONSTRAINT `FK_Alumno_TipoDocumento` FOREIGN KEY (`ID_TipoDocumento`) REFERENCES `tipodocumento` (`ID_TipoDocumento`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -3464,13 +3509,11 @@ CREATE TABLE `profesor` (
   `ID_TipoDocumento` smallint(6) NOT NULL DEFAULT '1',
   `Documento` bigint(20) NOT NULL,
   `FechaBaja` datetime DEFAULT NULL,
-  `Estado` bit(1) NOT NULL DEFAULT b'0',
   `FechaCambioPassword` datetime DEFAULT NULL,
   `Foto` longblob,
   PRIMARY KEY (`ID_Profesor`,`CodUsuario`),
   CONSTRAINT `FK_Profesor_EstadoCivil` FOREIGN KEY (`ID_EstadoCivil`) REFERENCES `estadocivil` (`ID_EstadoCivil`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_Profesor_Paises` FOREIGN KEY (`ID_Paises`) REFERENCES `paises` (`ID_Pais`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Profesor_Rol` FOREIGN KEY (`CodRol`) REFERENCES `rol` (`CodRol`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_Profesor_TipoDocumento` FOREIGN KEY (`ID_TipoDocumento`) REFERENCES `tipodocumento` (`ID_TipoDocumento`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3556,6 +3599,15 @@ LOCK TABLES `profesormateria` WRITE;
 UNLOCK TABLES;
 
 
+
+--
+-- Dumping routines for database 'bolsadv'
+--
+
+
+
+
+
 --
 -- Table structure for table `comentario`
 --
@@ -3581,9 +3633,7 @@ LOCK TABLES `comentario` WRITE;
 UNLOCK TABLES;
 
 
---
--- Table structure for table `Alumnocarrera`
---
+
 
 CREATE TABLE `Alumnocarrera` (
   `ID_Alumnocarrera` INT NOT NULL AUTO_INCREMENT,
@@ -3601,12 +3651,21 @@ CREATE TABLE `Alumnocarrera` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
---
--- Dumping data for table `Alumnocarrera`
---
+-- 
+-- FK UsuarioRol
+-- 
 
-LOCK TABLES `Alumnocarrera` WRITE;
-UNLOCK TABLES;
+ALTER TABLE `usuariorol` 
+ADD CONSTRAINT `FK_UsuarioRol_Usuario`
+  FOREIGN KEY (`CodUsuario`)
+  REFERENCES `usuario` (`CodUsuario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_UsuarioRol_Rol`
+  FOREIGN KEY (`CodRol`)
+  REFERENCES`rol` (`CodRol`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
 
 --
 -- Dumping routines for database 'bolsadv'
