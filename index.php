@@ -49,10 +49,6 @@ if (isset($_GET)) {
 		<link rel="stylesheet" type="text/css" href="css/footable.core.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/login.css"/>
 		<link rel="stylesheet" type="text/css" href="css/buscar.css"/>
-
-
-	
-
 		
 		<!-- Distintos Scripts de JavaScript utilizados -->
 		<script type="text/javascript" src="js/scripts.js"></script>
@@ -66,43 +62,47 @@ if (isset($_GET)) {
 	</head>
 	<body>
 	<div class="contenedor">
-		<div class="preHeader"></div>
+		<div class="preHeader">
+		<div id="partOfMenu"></div>
+		</div>
 
 		<header id='headDa'>
-			<div class="logo" onclick="goTo(-1);">
-			<img  alt="Bolsa DV" src="imagenes/logo/logo100.png">
-			<span>BolsaDV</span>
-			
-			
+			<div class="logo" onclick="GoTo(0);">
+				<img  alt="Bolsa DV" src="imagenes/logo/logo100.png">
+				<span>BolsaDV</span>
 			</div>
+			<div id="contMenu">
 			<?php 
 			if (isset($_SESSION['usuario'])) {
 				include_once("php/menu.php");
 				}
 			?>
+			</div>
 		</header>
 
 		<div id="cuerpo">
 		
-			<?php
-		
-			if ($_SESSION['location'] == "login") { 
-				include_once("/php/login.php"); 
-			}
-			else if ($_SESSION['location'] == "registro") {
-				include_once("/php/registro.php");
-			}
-			else if ($_SESSION['location'] == "listado") {
-				include_once("/php/listado.php");
-			}
-			else if ($_SESSION['location'] == "buscar") {
-				include_once("/php/buscar.php");
-			}	
-			else if ($_SESSION['location'] == "verificar") {
-				include_once("/php/verificoMail.php");
-			}		
-
+			<?php 
+				if ($_SESSION['location'] == "home") {
+					include_once("/php/home.php");
+				}
+				if ($_SESSION['location'] == "login") {
+					include_once("/php/login.php");
+				}
+				else if ($_SESSION['location'] == "registro") {
+					include_once("/php/registro.php");
+				}
+				else if ($_SESSION['location'] == "listado") {
+					include_once("/php/listado.php");
+				}
+				else if ($_SESSION['location'] == "buscar") {
+					include_once("/php/buscar.php");
+				}
+				else if ($_SESSION['location'] == "verificar") {
+					include_once("/php/verificoMail.php");
+				}
 			?>
+
 	
 		</div>
 			<?php include_once("php/footer.php"); ?>	

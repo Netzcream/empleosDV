@@ -64,7 +64,7 @@ if (isset($_POST)) {
 			
 			$confirmacion = SHA1($email."".date("YmdHis"));
 			$consulta = "INSERT INTO usuario (Email,Password,Estado,CodConfirmacion)
-					VALUES ('".$email."','".$pass."',0,'".$confirmacion."');";
+					VALUES ('".$email."','".$pass."',1,'".$confirmacion."');";
 			
 			
 			$conex->consulta($consulta);

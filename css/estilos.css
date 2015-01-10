@@ -11,7 +11,6 @@ html,body {
 	-webkit-backface-visibility:hidden;
 	padding: 0;
     height:100%;
-	
 	position: relative;
     min-height: 100%;
 }
@@ -37,7 +36,7 @@ header {
 	
 	background-color: #06141D;
 	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-bottom: 5px;
 	border-top:1px #273238 solid;
 	border-bottom: 1px #00BCDE solid; 
 	border-right: none;
@@ -206,38 +205,169 @@ header {
 
 
 /* ************* Menu *************** */
-#menuDa {
 
-	display: inline-block;
-	float: right;
-	margin-right: 10px;
-	width: 80%;
-	text-align: right;
-}
-#menuDa div {
-	display: inline-table;
-	cursor: pointer;
-	background-color: #fff;
-	transition: 0.3s;	
-}
-#menuDa div:hover {
-	background-color: #aaa;
-	
-}
-.menuDaInd {
-	display: inline-table;
-	min-width: 80px;
-	padding: 15px;
-	font-size: 1.1em;
-	font-weight: bold;
-	vertical-align: middle;
-	margin-left: 2px;
-	text-align: center;
 
-}
-@media only screen and (max-device-width: 480px) {
-	
+
+@media (min-width: 481px) {
+	#menuDa {
+		display: inline-block;
+		float: right;
+		margin-right: 10px;
+		width: 80%;
+		text-align: right;
+	}
+	#menuDa .menuDaInd {
+		display: inline-table;
+		cursor: pointer;
+		background-color: #fff;
+		transition: 0.3s;	
+	}
+	#menuDa .menuDaInd:hover {
+		background-color: #aaa;
+		text-shadow: 0px 0px 2px #777;
+	}
 	.menuDaInd {
-		display: none !important;
+		display: inline-table;
+		min-width: 80px;
+		padding: 10px 15px;
+		font-size: 1.1em;
+		font-weight: bold;
+		vertical-align: middle;
+		margin-left: 2px;
+		text-align: center;
+	}
+	.menuDaInd.selected {
+		background-color: #99a !important;
+		color: #ffe;
+		text-shadow: 0px 0px 2px #333;
+	}
+	#contMenu {
+		position:relative;
+		top: -50px;
+	}	
+	.preHeader {
+		text-align: right;
+	}
+	#partOfMenu {
+		color: #fff;
+		padding: 0px 5px 0px 10px;
+		display: block;
+	}
+	.logoutLink {
+		padding: 2px 5px 2px 5px;
+		cursor: pointer;
+		transition: 0.3s;	
+	}
+	.logoutLink:hover {
+		background-color: #fff;;
+		color: #000;
+		text-shadow: 0px 0px 2px #aaa;
+	}
+	
+
+		.btnIcono {
+		display: inline-block;
+		cursor: pointer;
+		background-color: #fff;
+		transition: 0.3s;	
+		vertical-align: middle;
+		margin-left: 2px;
+		text-align: center;
+		width: 55px;
+		height: 40px !important;
+		overflow-y: hidden;
+	}
+		.btnIcono:hover {
+		background-color: #aaa;
+	}
+		.btnIcono:hover img {
+		margin-top: 5px;
+		width: 30px;
+		height: 30px;
+	}
+		#perfilImg img {
+		border-radius: 50%;
+		background-color: #fff;
+		}
+		.btnIcono img {
+			transition: 0.3s;	
+			width: 18px;
+			height: 18px;
+			margin-top: 5px;
+			/*box-shadow: 0px 0px 0px 1px #000;*/
+	}
+		
+		.btnIcono span {
+			transition: 0.3s;	
+			display: block;
+			font-size: 0.7em;
+			font-weight: bold;
+			overflow: hidden;
+	}
+		
+}
+
+/* Media */
+@media (max-width: 480px) {
+	#menuDa {
+		display: inline-block;
+		float: right;
+		margin-right: 10px;
+		width: 80%;
+		text-align: right;
+	}
+	#menuDa div {
+		display: inline-table;
+		cursor: pointer;
+		background-color: #fff;
+		transition: 0.3s;	
+	}
+	#menuDa div:hover {
+		background-color: #aaa;
+		
+	}
+	.menuDaInd {
+		display: inline-table;
+		min-width: 60px;
+		padding: 5px;
+		font-size: 0.8em;
+		font-weight: normal;
+		vertical-align: middle;
+		margin-left: 2px;
+		text-align: center;
+	}
+	#contMenu {
+		position:relative;
+		top: -43px;
+	}	
+	
+	
+	
+		.btnIcono {
+		display: inline-table;
+		cursor: pointer;
+		background-color: #fff;
+		transition: 0.3s;	
+		vertical-align: middle;
+		margin-left: 2px;
+		text-align: center;
+		min-width: 20px;
+		padding: 4px 5px 5px 5px;
+	}
+		.btnIcono:hover {
+		background-color: #aaa;
+		text-shadow: 0px 0px 2px #777;
+	}
+		#perfilImg img {
+		border-radius: 50%;
+		background-color: #fff;
+		}
+		.btnIcono img {
+			width: 20px;
+		}
+	
+	.btnIcono span {
+			display: none;
+		overflow: hidden;
 	}
 }
