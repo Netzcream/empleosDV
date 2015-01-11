@@ -40,16 +40,16 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 	
 	} 
  
-	$textLogOut = 'Admin - <span class="logoutLink" onclick="GoTo(5);">Desconectarse</span>';
+	$textLogOut = 'Admin - <span onmouseover="hover()" onmouseout="unhover()" class="logoutLink" onclick="GoTo(5);">Desconectarse<img id="logOutIcon" class="logoutIcon" alt="Desconectarse" src="imagenes/iconos/logout_blanco.png"></span>';
  
 	
 	
 	
 	
 
-	echo '<div class="btnIcono" title="Listados"><img alt="Listados"src="imagenes/iconos/listado.png"><span>Listado</span></div>';
-	echo '<div class="btnIcono" title="Buscador"><img alt="Buscador"src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
-	echo '<div class="btnIcono" id="perfilImg" title="Perfil"><img alt="Perfil"src="imagenes/no_perfil.png"><span>Perfil</span></div>';
+	echo '<div class="btnIcono" title="Listados" onclick="GoTo(3);"><img alt="Listados" src="imagenes/iconos/listado.png"><span>Listado</span></div>';
+	echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
+	echo '<div class="btnIcono" id="perfilImg" title="Perfil"><img alt="Perfil" src="imagenes/no_perfil.png"><span>Perfil</span></div>';
 	echo '</div>';
 	
 	
@@ -70,6 +70,13 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 		else if (a == 5) $('#cuerpo').load('php/logmein.php',{ logout:true });
 	}
 	$('#partOfMenu').html('". $textLogOut."');
+		
+	function hover() {
+	    document.getElementById('logOutIcon').setAttribute('src', 'imagenes/iconos/logout.png');
+	}
+	function unhover() {
+    	document.getElementById('logOutIcon').setAttribute('src', 'imagenes/iconos/logout_blanco.png');
+	}
 	</script>";
 	
 	

@@ -146,9 +146,9 @@ $result = $conex->consulta($consulta);
 		</div>
 		<div class="separadorBuscar A80">
 			<label class="buscarLabel">Sexo</label>
-			<div  id="idSexM" title="Masculino" class="BcontSelSexo" onclick="selSexo('m');"><img alt="Masculino" src="imagenes/m.png" class="BselSexo"></div>
-			<div  id="idSexFM" title="Ambos" class="BcontSelSexo BcontSelSexoSeleccionado" onclick="selSexo('fm');"><img alt="Ambos" src="imagenes/fm.png" class="BselSexo"></div>
-			<div  id="idSexF" title="Femenino" class="BcontSelSexo" onclick="selSexo('f');"><img alt="Femenino" src="imagenes/f.png" class="BselSexo"></div>
+			<div  id="idSexM" title="Masculino" class="BcontSelSexo" onclick="selSexo('m');"><img alt="Masculino" src="imagenes/iconos/m.png" class="BselSexo"></div>
+			<div  id="idSexFM" title="Ambos" class="BcontSelSexo BcontSelSexoSeleccionado" onclick="selSexo('fm');"><img alt="Ambos" src="imagenes/iconos/fm.png" class="BselSexo"></div>
+			<div  id="idSexF" title="Femenino" class="BcontSelSexo" onclick="selSexo('f');"><img alt="Femenino" src="imagenes/iconos/f.png" class="BselSexo"></div>
 			
 			
 		</div>
