@@ -750,7 +750,6 @@ Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(333,4,' An
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(334,4,' Belén');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(335,4,' Capayán');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(336,4,' Capital');
-Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(337,4,' 4');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(338,4,' Corral Quemado');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(339,4,' El Alto');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(340,4,' El Rodeo');
@@ -1000,7 +999,6 @@ Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(583,7,' Co
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(584,7,' Comechingones');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(585,7,' Conlara');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(586,7,' Copacabana');
-Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(587,7,' 7');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(588,7,' Coronel Baigorria');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(589,7,' Coronel Moldes');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(590,7,' Corral de Bustos');
@@ -1078,7 +1076,6 @@ Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(661,7,' La
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(662,7,' La Laguna');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(663,7,' La Paisanita');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(664,7,' La Palestina');
-Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(665,7,' 12');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(666,7,' La Paquita');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(667,7,' La Para');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(668,7,' La Paz');
@@ -1791,7 +1788,6 @@ Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1374,12,' 
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1375,12,' La Adela');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1376,12,' La Humada');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1377,12,' La Maruja');
-Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1378,12,' 12');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1379,12,' La Reforma');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1380,12,' Limay Mahuida');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1381,12,' Lonquimay');
@@ -1924,7 +1920,6 @@ Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1507,15,' 
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1508,15,' Loreto');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1509,15,' Los Helechos');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1510,15,' Mártires');
-Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1511,15,' 15');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1512,15,' Mojón Grande');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1513,15,' Montecarlo');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1514,15,' Nueve de Julio');
@@ -1981,7 +1976,6 @@ Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1564,16,' 
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1565,16,' Los Chihuidos');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1566,16,' Los Miches');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1567,16,' Manzano Amargo');
-Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1568,16,' 16');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1569,16,' Octavio Pico');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1570,16,' Paso Aguerre');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1571,16,' Picún Leufú');
@@ -2133,7 +2127,6 @@ Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1716,18,' 
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1717,18,' Rosario de La Frontera');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1718,18,' Rosario de Lerma');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1719,18,' Saclantás');
-Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1720,18,' 18');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1721,18,' San Antonio');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1722,18,' San Carlos');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1723,18,' San José De Metán');
@@ -2157,7 +2150,6 @@ Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1740,19,' 
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1741,19,' Pocito');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1742,19,' Rawson');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1743,19,' Rivadavia');
-Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1744,19,' 19');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1745,19,' San Martín');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1746,19,' Santa Lucía');
 Insert  Into  Localidad(ID_Localidad, ID_Provincia, Localidad) Values(1747,19,' Sarmiento');
