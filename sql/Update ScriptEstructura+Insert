@@ -3663,4 +3663,42 @@ ADD CONSTRAINT `FK_UsuarioRol_Rol`
 -- Dumping routines for database 'bolsadv'
 --
 
+
+
 DELETE FROM Localidad WHERE ID_Localidad in (1252,665,1378,1511,1568,1720,1744,337,587,1078);
+
+CREATE TABLE foto (
+CodUsuario bigint(20) NOT NULL,
+Foto text,
+Foreign Key (CodUsuario) References usuario (CodUsuario)
+);
+ALTER TABLE alumno
+DROP COLUMN foto;
+
+--
+--
+--
+DELETE FROM tipoDocumento WHERE Descripcion in ('Cédula de
+Identidad','Libreta Cívica','Libreta de Enrolamiento');
+INSERT INTO tipoDocumento values
+(null,'CUIL',0),
+(null,'CUIT',0);
+UPDATE tipoDocumento set AdmiteLetras=1 WHERE Descripcion = 'Pasaporte';
+
+ALTER TABLE alumno 
+MODIFY FechaNacimiento datetime NULL DEFAULT NULL,
+MODIFY ID_Paises int(11) NULL DEFAULT NULL,
+MODIFY ID_EstadoCivil smallint(6) NULL DEFAULT NULL,
+MODIFY ID_NivelEstudios smallint(6) NULL DEFAULT NULL;
+
+ALTER TABLE profesor 
+MODIFY FechaNacimiento datetime NULL DEFAULT NULL,
+MODIFY ID_Paises int(11) NULL DEFAULT NULL,
+MODIFY ID_EstadoCivil smallint(6) NULL DEFAULT NULL;
+
+--
+-- Usuario Administrador:
+--
+insert into usuario 
+values (null,'admin',SHA1('admin'),3,null);
+insert into usuarioRol values((SELECT CodUsuario from usuario where email='admin'),'AD');
