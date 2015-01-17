@@ -3703,6 +3703,10 @@ MODIFY Documento varchar(50) NOT NULL;
 ALTER TABLE empresa
 MODIFY CUIT varchar(50) NOT NULL;
 
+ALTER TABLE direccion
+MODIFY Coordenada1 double NOT NULL;
+ALTER TABLE direccion
+MODIFY Coordenada2 double NOT NULL;
 --
 -- Usuario Administrador:
 --
