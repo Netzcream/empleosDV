@@ -3696,6 +3696,13 @@ MODIFY FechaNacimiento datetime NULL DEFAULT NULL,
 MODIFY ID_Paises int(11) NULL DEFAULT NULL,
 MODIFY ID_EstadoCivil smallint(6) NULL DEFAULT NULL;
 
+ALTER TABLE alumno 
+MODIFY Documento varchar(50) NOT NULL;
+ALTER TABLE profesor 
+MODIFY Documento varchar(50) NOT NULL;
+ALTER TABLE empresa
+MODIFY CUIT varchar(50) NOT NULL;
+
 --
 -- Usuario Administrador:
 --
