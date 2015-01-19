@@ -1,5 +1,5 @@
-
 <?php
+
 if (!isset($_SESSION)) {
 	session_start();
 }
@@ -36,9 +36,9 @@ class Listado {
 						<th width='40' class='footable-first-column' title='Prueba de Listas' data-sort-ignore='true'>Foto</th>
 						<th  data-toggle='true'>Apellido</th>
 						<th >Nombre</th>
-						<th data-hide='phone' width='50'>Edad</th>
+						<th data-hide='phone' width='70'>Edad</th>
 						<th data-hide='phone'>Zona</th>
-						<th data-hide='phone'  width='50'>Sexo</th>
+						<th data-hide='phone'  width='70'>Sexo</th>
 						<th class='footable-last-column' data-sort-ignore='true' width='40'>Perfil</th>
 					</tr>
 				</thead>
@@ -101,3 +101,4 @@ class Listado {
 
 
 ?>
+

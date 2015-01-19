@@ -48,7 +48,12 @@ if (isset($_GET)) {
 		<link rel="stylesheet" type="text/css" href="css/footable.standalone.css"/>
 		<link rel="stylesheet" type="text/css" href="css/footable.core.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jq.Jcrop.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/perfil.css"/>
 		<link rel="stylesheet" type="text/css" href="css/buscar.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jq.toastmessage.css"/>
+		
+		
 		
 		<!-- Distintos Scripts de JavaScript utilizados -->
 		<script type="text/javascript" src="js/scripts.js"></script>
@@ -59,6 +64,10 @@ if (isset($_GET)) {
 		<script type="text/javascript" src="js/footable.sort.js"></script>
 		<script type="text/javascript" src="js/footable.paginate.js"></script>
 		<script type="text/javascript" src="js/footable.filter.js"></script>
+		<script type="text/javascript" src="js/jq.toastmessage.js"></script>
+
+
+		
 	</head>
 	<body>
 	<div class="contenedor">
@@ -67,9 +76,9 @@ if (isset($_GET)) {
 		</div>
 
 		<header id='headDa'>
-			<div class="logo" onclick="GoTo(0);">
+			<div title="Bolsa DV" class="logo" onclick="GoTo(0);">
 				<img  alt="Bolsa DV" src="imagenes/logo/logo100.png">
-				<span>BolsaDV</span>
+				<span class="logoText">BolsaDV</span>
 			</div>
 			<div id="contMenu">
 			<?php 
@@ -95,11 +104,17 @@ if (isset($_GET)) {
 				else if ($_SESSION['location'] == "listado") {
 					include_once("/php/listado.php");
 				}
+				else if ($_SESSION['location'] == "listadoAUTH") {
+					include_once("/php/authUsuarios.php");
+				}
 				else if ($_SESSION['location'] == "buscar") {
 					include_once("/php/buscar.php");
 				}
 				else if ($_SESSION['location'] == "verificar") {
 					include_once("/php/verificoMail.php");
+				}
+				else if ($_SESSION['location'] == "perfilHome") {
+					include_once("/php/perfilHome.php");
 				}
 			?>
 

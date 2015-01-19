@@ -161,7 +161,7 @@ header {
 	height: 50px;
 	background-color: #ccc;
 
-	border-radius: 30px	;
+	border-radius: 5px	;
 	font-weight: bold;
 	font-family:sans-serif;
 	font-style: italic;	
@@ -170,15 +170,18 @@ header {
 	
 	transition: 0.3s;
 	box-shadow: inset 0px 0px 3px 1px #333, 0px 0px 1px 1px #000;
-	background: rgb(206,220,231); /* Old browsers */
-	background: -moz-linear-gradient(top,  rgba(206,220,231,1) 0%, rgba(89,106,114,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(206,220,231,1)), color-stop(100%,rgba(89,106,114,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(206,220,231,1) 0%,rgba(89,106,114,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(206,220,231,1) 0%,rgba(89,106,114,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(206,220,231,1) 0%,rgba(89,106,114,1) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgba(206,220,231,1) 0%,rgba(89,106,114,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', endColorstr='#596a72',GradientType=0 ); /* IE6-9 */
-
+	background-color: rgba(256,256,256,0.8);
+	/*
+	background: rgb(256,256,256); 
+	background: -moz-linear-gradient(top,  rgba(256,256,256,1) 0%, rgba(89,106,114,1) 100%); 
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(256,256,256,1)), color-stop(100%,rgba(89,106,114,1))); 
+	background: -webkit-linear-gradient(top,  rgba(256,256,256,1) 0%,rgba(89,106,114,1) 100%); 
+	background: -o-linear-gradient(top,  rgba(256,256,256,1) 0%,rgba(89,106,114,1) 100%); 
+	background: -ms-linear-gradient(top,  rgba(256,256,256,1) 0%,rgba(89,106,114,1) 100%);
+	background: linear-gradient(to bottom,  rgba(256,256,256,1) 0%,rgba(89,106,114,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', endColorstr='#596a72',GradientType=0 ); 
+	*/
+		transition: 0.3s;	
 	
 }
 
@@ -186,6 +189,7 @@ header {
 
 	color:#063049;
 	text-shadow: 0px 1px 1px #aaa, 0px -1px 1px #333;
+	
 	
 
 }
@@ -203,7 +207,9 @@ header {
 
 @media (min-width: 481px) {
 	.logo:hover {
-		width: 160px;
+		/*width: 160px;*/
+		background-color: rgba(256,256,256,1);
+		background: rgba(256,256,256,1);
 	}
 	#menuDa {
 		display: inline-block;
@@ -404,14 +410,17 @@ header {
 		top: -2px;
 	}
 }
+#toLoadLoc {
+	display: inline-block;
+}
 
 /* ****** Seleccionar Rol ****** */
-@media (min-width: 481px) {
+@media (min-width: 601px) {
 	.contSelRolUsuario.selActivo {
 		display: block;
 	}
 	.selRolUsuario.notSelected {
-		box-shadow: 0px 0px 3px 1px #c00;
+		box-shadow: 0px 0px 5px 3px #c00;
 		
 	}
 	.contSelRolUsuario {
@@ -488,8 +497,10 @@ header {
 	}
 	.contBtnsSelRoles {
 		padding: 20px 0px;
+		min-width: 200px; 
 	}
 	.nextBtnRoles {
+		display: inline-block;
 		background-color: #fff;
 		border: none;
 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -509,6 +520,35 @@ header {
 		background-color: #aaa;
 		background: #aaa url('../imagenes/iconos/flecha.png') no-repeat 128px;
 		background-size: 25px 25px;	
+
+	}
+	.backBtnRoles {
+		display: inline-block;
+		background-color: #fff;
+		border: none;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 1.5em;
+		padding: 10px 15px;
+		min-width: 30px;
+		color: #333;
+		font-weight: bold;
+		transition: 0.3s;
+		background: #fff url('../imagenes/iconos/flecha.png') no-repeat 2px;
+		background-size: 25px 25px;
+		
+		-webkit-transform: rotate(180deg);
+		-moz-transform: rotate(180deg);
+		-ms-transform: rotate(180deg);
+		-o-transform: rotate(180deg);
+		transform: rotate(180deg);
+		
+		
+	}
+	.backBtnRoles:hover {
+		background-color: #aaa;
+		background: #aaa url('../imagenes/iconos/flecha.png') no-repeat 5px;
+		background-size: 25px 25px;	
+
 	}
 	.paginacionDot {
 		
@@ -543,7 +583,11 @@ header {
 	}
 	.inputFillDP.notSelected {
 		box-shadow: inset 1px 1px 1px 1px #000, 
-		0px 0px 3px 1px #c00 !important;
+		0px 0px 5px 3px #c00 !important;
+	}
+	#dpNroDoc.notSelected {
+		box-shadow: inset 1px 1px 1px 1px #000, 
+		0px 0px 5px 3px #c00 !important;
 	}
 	.selSexoOnStart {
 		border-radius: 2px;
@@ -562,7 +606,7 @@ header {
 		background-color: #afa;
 	}
 	.selSexoOnStart.notSelected {
-		box-shadow: 0px 0px 3px 1px #c00;
+		box-shadow: 0px 0px 5px 3px #c00;
 	}
 	.selDocDP {
 		width: 200px;
@@ -593,8 +637,62 @@ header {
 		padding: 10px 30px;
 		
 	}
+	#loadingRoll  {
+		display: inline-block;
+		margin: 100px auto 0 auto;
+		background-color: #fff;
+		border-radius: 50%;
+		padding: 20px;
+		box-shadow: 0px 0px 2px 1px #fff;
+	}
+	#loadingRoll  img {
+		width: 100px;
+		height: 100px;
+	}
+	.btnAuth {
+		display: inline-block;
+		padding: 5px;
+		border-radius: 50%;
+		margin: 0px 3px;
+		cursor: pointer;
+	}
+	.btnAuth:hover {
+		box-shadow: 0px 0px 1px 1px #666;
+		transition: 0.3s;
+		
+	}
+	.btnAuth.aceptar {
+		background-color: #090;
+		
+	}
+	.btnAuth.cancelar {
+		background-color: #900;
+	}
 }
+
+
 /* Media de Roles */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+	.btnAuth {
+		display: inline-block;
+		padding: 5px 10px;
+		border-radius: 2px;
+		margin: 1px 1px;
+		cursor: pointer;
+	}
+	.btnAuth:hover {
+		box-shadow: 0px 0px 1px 1px #666;
+		transition: 0.3s;
+		
+	}
+	.btnAuth.aceptar {
+		background-color: #090;
+		
+	}
+	.btnAuth.cancelar {
+		background-color: #900;
+	}
+
+
 	
 }

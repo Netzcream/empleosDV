@@ -86,18 +86,59 @@ if (isset($_POST)) {
 	else {
 		$msj = "Ingres&oacute; correctamente.";
 		
-		$msj = '<label class="regLabelNotificar">'.$msj.'</label>';
+		
 
 		$result3 = mysql_fetch_assoc($result);
+		
 		$_SESSION['usuario'] = $result3['Email'];
 		$_SESSION['estadoUsuario'] = $result3['Estado'];
 		$_SESSION['CodUsuario'] = $result3['CodUsuario'];
+		
 		$consulta = "SELECT * FROM usuarioRol where CodUsuario='".$result3['CodUsuario']."';";
 		$result = $conex->consulta($consulta);
 		$result3 = mysql_fetch_assoc($result);
 		$_SESSION['UsuarioRol'] = $result3['CodRol'];
+		//Foto de perfil
+		
+		$consulta = "SELECT Foto FROM foto WHERE CodUsuario=".$_SESSION['CodUsuario'].";";
+		$result = $conex->consulta($consulta);
+		$result2 = mysql_num_rows($result);
+		if ($result2 >0) {
+			$result3 = mysql_fetch_assoc($result);
+			$_SESSION['fotoPerfil'] = $result3['Foto'];
+		}
+		else { 
+			$_SESSION['fotoPerfil'] = 'imagenes/iconos/no_perfil.png';
+		}
 		
 		
+		/* Si es alumno */
+		if ($_SESSION['UsuarioRol'] == "AL") {
+			$consulta = "SELECT * FROM alumno WHERE CodUsuario = '".$_SESSION['CodUsuario']."';";
+			$result = $conex->consulta($consulta);
+			$result3 = mysql_fetch_assoc($result);
+			$_SESSION['MostrarNombre'] = $result3['Apellido'].", ".$result3['Nombre'];
+			;
+			
+		}
+		if ($_SESSION['UsuarioRol'] == "PR") {
+			$consulta = "SELECT * FROM profesor WHERE CodUsuario = '".$_SESSION['CodUsuario']."';";
+			$result = $conex->consulta($consulta);
+			$result3 = mysql_fetch_assoc($result);
+			$_SESSION['MostrarNombre'] = $result3['Apellido'].", ".$result3['Nombre'];
+				
+				
+		}
+		if ($_SESSION['UsuarioRol'] == "EM") {
+				
+			$consulta = "SELECT * FROM empresa WHERE CodUsuario = '".$_SESSION['CodUsuario']."';";
+			$result = $conex->consulta($consulta);
+			$result3 = mysql_fetch_assoc($result);
+			$_SESSION['MostrarNombre'] = $result3['NombreEmpresa'];
+		}
+		
+		
+		$msj = '<label class="regLabelNotificar">'.$msj.'</label>';
 		echo "<script>
 			$('.loading').hide();
 			$('.openLogin').hide();

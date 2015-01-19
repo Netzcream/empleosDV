@@ -33,6 +33,7 @@ if (isset($_POST)) {
 		
 		$email = $_POST['email'];
 		list($user, $dominio) = explode("@", $email);
+		/*
 		if ($dominio != "davinci.edu.ar") {
 			$error = "Actualmente no se encuentra permitido el registro a personas ajenas a la instituci&oacute;n";
 			echo "<script>
@@ -43,6 +44,7 @@ if (isset($_POST)) {
 				
 			return;
 		}
+		*/
 		$email = htmlentities($email,ENT_QUOTES);
 		$email = strtolower($email);
 		$pass = htmlentities($_POST['pass']);

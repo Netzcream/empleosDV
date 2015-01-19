@@ -6,6 +6,9 @@ if (isset($_SESSION['UsuarioRol'])) {
 		$_SESSION['UsuarioRol'] = "SA";
 	}
 }
+
+include_once("/conex.php");
+
 ?>
 
 
@@ -19,37 +22,50 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 //AD Administrador
 
  	if ($_SESSION['UsuarioRol'] == "AD") {
-		echo '<div class="btnIcono" title="Autorizar"><img alt="Autorizar"src="imagenes/iconos/auth.png"><span>Autorizar</span></div>';
-		echo '<div class="btnIcono" title="Bolsa"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
  		
+ 		$consulta = "SELECT * FROM usuario u"
+					." INNER JOIN usuarioRol ur on (ur.CodUsuario = u.CodUsuario)"
+					." WHERE u.estado = 2 AND ur.CodRol NOT IN ('SA','AD');";
+ 		
+ 		$conex = new MySQL();
+ 		$result = $conex->consulta($consulta);
+ 		$result2 = mysql_num_rows($result);
+ 		$auth = "";
+ 		if ($result2 > 0) {
+ 			$auth = "_rojo";
+ 		}
+		echo '<div class="btnIcono" title="Autorizar" onclick="GoTo(6);"><img alt="Autorizar"src="imagenes/iconos/auth'.$auth.'.png"><span>Autorizar</span></div>';
+		echo '<div class="btnIcono" title="Bolsa"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
+		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
+		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['fotoPerfil'].'"><span>Perfil</span></div>';
 	}
 //AL Alumno
-	else if ($_SESSION['UsuarioRol'] == "AL") {
+	else if ($_SESSION['UsuarioRol'] == "AL" AND $_SESSION['estadoUsuario'] == '3') {
 		echo '<div class="btnIcono" title="Bolsa"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
+		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['fotoPerfil'].'"><span>Perfil</span></div>';
 	}
 //EM Empresa
-	else if ($_SESSION['UsuarioRol'] == "EM") {
+	else if ($_SESSION['UsuarioRol'] == "EM" AND $_SESSION['estadoUsuario'] == '3') {
 		echo '<div class="btnIcono" title="Bolsa"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
+		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
+		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['fotoPerfil'].'"><span>Perfil</span></div>';
+		
 	}
 //PR Profesor
-	else if ($_SESSION['UsuarioRol'] == "PR") {
-	
+	else if ($_SESSION['UsuarioRol'] == "PR" AND $_SESSION['estadoUsuario'] == '3') {
+		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
+		echo '<div class="btnIcono" onclick="GoTo(7);" id="perfilImg" title="Perfil"><img alt="Perfil" src="'.$_SESSION['fotoPerfil'].'"><span>Perfil</span></div>';
 	}
 //SA Sin Asignar
 	else if ($_SESSION['UsuarioRol'] == "SA") {
 	
 	} 
- 
-	$textLogOut = 'Admin - <span onmouseover="hover()" onmouseout="unhover()" class="logoutLink" onclick="GoTo(5);">Desconectarse<img id="logOutIcon" class="logoutIcon" alt="Desconectarse" src="imagenes/iconos/logout_blanco.png"></span>';
- 
+	 $mostrarUsuario = $_SESSION['usuario'];
+	 if (isset($_SESSION['MostrarNombre'])) {
+	 	$mostrarUsuario = $_SESSION['MostrarNombre'];
+	 }
+	$textLogOut = $mostrarUsuario.' - <span onmouseover="hover()" onmouseout="unhover()" class="logoutLink" onclick="GoTo(5);">Desconectarse<img id="logOutIcon" class="logoutIcon" alt="Desconectarse" src="imagenes/iconos/logout_blanco.png"></span>';
 	
-	
-	
-	
-
-	echo '<div class="btnIcono" title="Listados" onclick="GoTo(3);"><img alt="Listados" src="imagenes/iconos/listado.png"><span>Listado</span></div>';
-	echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
-	echo '<div class="btnIcono" id="perfilImg" title="Perfil"><img alt="Perfil" src="imagenes/no_perfil.png"><span>Perfil</span></div>';
 	echo '</div>';
 	
 	
@@ -68,6 +84,8 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 			$('#cuerpo').load('php/buscar.php');
 		}
 		else if (a == 5) $('#cuerpo').load('php/logmein.php',{ logout:true });
+		else if (a == 6) $('#cuerpo').load('php/authUsuarios.php');
+		else if (a == 7) $('#cuerpo').load('php/perfilHome.php');
 	}
 	$('#partOfMenu').html('". $textLogOut."');
 		

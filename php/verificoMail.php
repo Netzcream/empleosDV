@@ -24,17 +24,25 @@ if (mysql_num_rows($result) == 1) {
 	$_SESSION['location'] = "login";
 	//header('Location: ../');
 	$notificoque = "Se verific&oacute; correctamente el registro. Puede loguearse ";
+	
 }
 else {
 	$notificoque = "Error: No existe registro pendiente de confirmaci&oacute;n que se coincidan con los datos propuestos.";
 	$_SESSION['location'] = "registro";
 }
 
+$goto = "window.location.href = 'http://www.bolsadv.com'";
 
+$texst = '<label class="regLabelNotificar">'.$notificoque.'</label> <input class="logInBtn" type="submit" value="Ir a Log In" onclick="'.$goto.'">';
+echo "<script>
+		$('.loading').hide();
+		$('.openLogin').hide();
+			</script>";
 echo "<div class='prelogin'>
-		<label class='regLabelNotificar'>
-		".$notificoque."
-		</label>
-		</div>"
+		".$texst."
+		
+		</div>";
+				
+
 
 ?>
