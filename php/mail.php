@@ -15,12 +15,15 @@ class Email {
 	public $param;
 	
 	
-	public function __construct($tipo,$to,$param = 'nulo') {
+	
+	public function __construct($tipo,$to,$content = "nulo",$subject = "nulo") {
 		$this->fromName = "BolsaDV Info";
 		$this->from = "info@bolsadv.com";
 		$this->to = $to;
 		$this->tipo = $tipo;
-		$this->param = $param;
+		$this->param = $content;
+		$this->contenido = $content;
+		$this->subject = $subject;
 		/*
 		 * r = registro;
 		 * v = verificado;
@@ -28,10 +31,13 @@ class Email {
 		 * e = error;
 		 * c = confirmar Email
 		 * n = Notificar
+		 * p = por parametro
 		 * */
 		$this->setContent($this->tipo);
 		$this->cambioDatos();
 	}
+	
+	
 	
 	public function setContent($a) {
 		switch ($a) {
@@ -52,6 +58,15 @@ class Email {
 					$this->header .= "Mime-Version: 1.0\n";
 					$this->header .= "Content-Type: text/plain";
 					$this->subject = "Email verificado";
+					break;
+					
+				case 'p':
+					$this->setContenido("Usuario autorizado; ya puede ingresar:
+						\nhttp://www.bolsadv.com/
+						\n\nMuchas gracias.");
+					$this->header = "From: ". $this->fromName . " <" . $this->from . ">\nReply-To:".$this->from."\n";
+					$this->header .= "Mime-Version: 1.0\n";
+					$this->header .= "Content-Type: text/plain";
 					break;
 			case 'bloqueo':
 				$this->setContenido("");

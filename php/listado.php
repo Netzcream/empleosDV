@@ -6,7 +6,7 @@ if (!isset($_SESSION)) {
 $_SESSION['location'] = "listado";
 
 include_once("/conex.php");
-include_once("/persona.php");
+include_once("/CPersona.php");
 
 $list = new Listado();
 echo $list->getTable();
@@ -49,7 +49,7 @@ class Listado {
 		$temp = "<tbody>";
 		$resultado = mysql_fetch_assoc($this->result);
 		while ($resultado) {
-			$persona = new Persona($resultado['id']);
+			$persona = new CPersona($resultado['id']);
 			$temp .= "<tr>";
 			$temp .= "<td>";
 			$temp .= "<img alt='' src='".$persona->getFoto()."' width='40'>";
