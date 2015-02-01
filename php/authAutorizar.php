@@ -1,11 +1,15 @@
 <?php 
 
-include_once("php/mail.php");
+include_once("mail.php");
 
 if (isset($_POST['codUsr'])) {
 	$codUsr = htmlentities($_POST['codUsr'],ENT_QUOTES);
-	include_once("/conex.php");
+	
+	if (!class_exists('MySQL')) {
+		require_once 'conex.php';
+	}
 	$conex = new MySQL();
+
 	$conex->consulta("START TRANSACTION;");
 	$consulta = "UPDATE usuario SET Estado = 3 WHERE CodUsuario =".$codUsr.";";
 	$a1 = $conex->consulta($consulta);

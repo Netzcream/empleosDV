@@ -3,19 +3,6 @@
 if (!isset($_SESSION)) {
 	session_start();
 }
-
-
-/**
- *
- * HTML5 Image uploader with Jcrop
- *
- * Licensed under the MIT license.
- * http://www.opensource.org/licenses/mit-license.php
- * 
- * Copyright 2012, Script Tutorials
- * http://www.script-tutorials.com/
- */
-
 function uploadImageFile() { // Note: GD library is required for this function
 	$codUsuario = $_SESSION['CodUsuario'];
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -93,7 +80,7 @@ function uploadImageFile() { // Note: GD library is required for this function
 $sImage = uploadImageFile();
 
 $_SESSION['fotoPerfil'] =  substr($sImage, 3);
-echo "hola ".$sImage;
+
 //<script>window.close();</script>
 ?>
 

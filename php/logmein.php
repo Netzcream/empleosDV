@@ -1,5 +1,9 @@
 <?php
 
+if (!class_exists('Persona')) {
+	include_once 'clases/Persona.php';
+}
+
 /* Sistema de Logueo */
 if (!isset($_SESSION)) { session_start(); }
 $_SESSION['usuario'] = null;
@@ -93,13 +97,27 @@ if (isset($_POST)) {
 		$_SESSION['usuario'] = $result3['Email'];
 		$_SESSION['estadoUsuario'] = $result3['Estado'];
 		$_SESSION['CodUsuario'] = $result3['CodUsuario'];
-		
+	
 		$consulta = "SELECT * FROM usuarioRol where CodUsuario='".$result3['CodUsuario']."';";
 		$result = $conex->consulta($consulta);
 		$result3 = mysql_fetch_assoc($result);
 		$_SESSION['UsuarioRol'] = $result3['CodRol'];
-		//Foto de perfil
+
+	
+		/* Si es alumno */
+		if ($_SESSION['UsuarioRol'] == "AL" || $_SESSION['UsuarioRol'] == "PR") {
+			$_SESSION['usr'] = new Persona($result3['CodUsuario']);
+			$_SESSION['fotoPerfil'] = $_SESSION['usr']->getFoto();
+			$_SESSION['MostrarNombre'] = $_SESSION['usr']->getApellido() .", ".$_SESSION['usr']->getNombre();
+		}
+		else  {
+			$_SESSION['usr'] = new Persona($result3['CodUsuario']);
+			$_SESSION['MostrarNombre'] = $_SESSION['usr']->getNombre(); 
+			$_SESSION['fotoPerfil'] = $_SESSION['usr']->getFoto();
+		}
 		
+	if (!isset($_SESSION['fotoPerfil'])) {
+		//Foto de perfil
 		$consulta = "SELECT Foto FROM foto WHERE CodUsuario=".$_SESSION['CodUsuario'].";";
 		$result = $conex->consulta($consulta);
 		$result2 = mysql_num_rows($result);
@@ -107,35 +125,10 @@ if (isset($_POST)) {
 			$result3 = mysql_fetch_assoc($result);
 			$_SESSION['fotoPerfil'] = $result3['Foto'];
 		}
-		else { 
+		else {
 			$_SESSION['fotoPerfil'] = 'imagenes/iconos/no_perfil.png';
 		}
-		
-		
-		/* Si es alumno */
-		if ($_SESSION['UsuarioRol'] == "AL") {
-			$consulta = "SELECT * FROM alumno WHERE CodUsuario = '".$_SESSION['CodUsuario']."';";
-			$result = $conex->consulta($consulta);
-			$result3 = mysql_fetch_assoc($result);
-			$_SESSION['MostrarNombre'] = $result3['Apellido'].", ".$result3['Nombre'];
-			;
-			
-		}
-		if ($_SESSION['UsuarioRol'] == "PR") {
-			$consulta = "SELECT * FROM profesor WHERE CodUsuario = '".$_SESSION['CodUsuario']."';";
-			$result = $conex->consulta($consulta);
-			$result3 = mysql_fetch_assoc($result);
-			$_SESSION['MostrarNombre'] = $result3['Apellido'].", ".$result3['Nombre'];
-				
-				
-		}
-		if ($_SESSION['UsuarioRol'] == "EM") {
-				
-			$consulta = "SELECT * FROM empresa WHERE CodUsuario = '".$_SESSION['CodUsuario']."';";
-			$result = $conex->consulta($consulta);
-			$result3 = mysql_fetch_assoc($result);
-			$_SESSION['MostrarNombre'] = $result3['NombreEmpresa'];
-		}
+	}
 		
 		
 		$msj = '<label class="regLabelNotificar">'.$msj.'</label>';

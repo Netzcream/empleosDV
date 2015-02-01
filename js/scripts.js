@@ -82,12 +82,12 @@ function fileSelectHandler() {
     }
 
     // check for file size
-    /*
+
     if (oFile.size > 250 * 1024) {
         $('.error').html('Imagen demasiado grande. Por favor, seleccione una imagen m&aacute;s peque&ntilde;a').show();
         return;
     }
-    */
+
 
     // preview element
     var oImage = document.getElementById('preview');
@@ -125,7 +125,7 @@ function fileSelectHandler() {
                 onChange: updateInfo,
                 onSelect: updateInfo,
                 boxWidth: 500, 
-                boxHeight: 250,
+                boxHeight: 200,
                 onRelease: clearInfo
             }, function(){
 

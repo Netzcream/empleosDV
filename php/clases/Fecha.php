@@ -9,7 +9,6 @@ class Fecha {
 		}
 		else {
 			$this->ofecha = null;
-			
 		}
 	}
 	
@@ -121,9 +120,7 @@ class Fecha {
 			return $edad;
 		}
 		else return null;
-		
 	}
-
 }
 
 ?>

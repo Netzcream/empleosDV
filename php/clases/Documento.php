@@ -1,6 +1,6 @@
 <?php
 
-include_once("../conex.php");
+//include_once("conex.php");
 
 class Documento {
 	private $id;

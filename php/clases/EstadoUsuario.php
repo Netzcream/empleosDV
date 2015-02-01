@@ -1,7 +1,7 @@
 
 <?php
 
-include_once("../conex.php");
+//include_once("conex.php");
 
 class EstadoUsuario {
 	private $id;

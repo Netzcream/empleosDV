@@ -7,6 +7,7 @@ $email = $_SESSION['vmail'];
 $codigo = $_SESSION['vcode'];
 include_once("php/conex.php");
 include_once("php/mail.php");
+
 $consulta = "SELECT * FROM usuario WHERE Email='".$email."' AND CodConfirmacion='".$codigo."' AND Estado=1";
 $conex = new MySQL();
 $result = $conex->consulta($consulta);
@@ -40,9 +41,5 @@ echo "<script>
 			</script>";
 echo "<div class='prelogin'>
 		".$texst."
-		
 		</div>";
-				
-
-
 ?>

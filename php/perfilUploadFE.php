@@ -1,5 +1,5 @@
 				<script type="text/javascript" src="js/jq.min1.7.2.js"></script>
-						<script type="text/javascript" src="js/jq.Jcrop.min.js"></script>
+				<script type="text/javascript" src="js/jq.Jcrop.min.js"></script>
 		<div class="demo">
 				<div class="titleSelRol">Cargar imagen de perfil</div>
 					<div class="bbody">
@@ -31,12 +31,22 @@
 							<input class="perfilBtnSeeMyCV" type="submit" value="Subir" />
 							<div id="loadAllAndClose"></div>
 							<iframe id="iframeAdios" name="LoadTheForm"></iframe>
+					
 						</div>
-                </form>
+							<div class="finRecuadroPerfil">
+								<input type="button" class="perfilBtnSeeMyCV" value="Cancelar" onclick="backtoPerfil();">
+								</div>
+					</form>
             </div>
         </div>
         
         <script>
 
-
+    	function backtoPerfil() {
+    			$('#uploadFileCont').fadeOut();
+    			setTimeout(function() {
+    				$('#homePerfil').show();
+    				$('#homePerfil').animate({'left': '50%', 'margin-left': -$('#homePerfil').width()/2 });
+    			}, 500);
+    	}
         </script>

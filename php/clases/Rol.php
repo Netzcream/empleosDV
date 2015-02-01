@@ -1,5 +1,5 @@
 <?php 
-include_once("../conex.php");
+//include_once("conex.php");
 
 class Rol {
 	private $id;

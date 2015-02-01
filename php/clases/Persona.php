@@ -1,6 +1,8 @@
 <?php
+if (!class_exists('MySQL')) {
+	require_once '../php/conex.php';
+}
 
-include_once("../conex.php");
 include_once("/Rol.php");
 include_once("/EstadoCivil.php");
 include_once("/EstadoUsuario.php");
@@ -10,16 +12,13 @@ include_once("/Pais.php");
 include_once("/Fecha.php");
 include_once("/FotoPerfil.php");
 
-$persona = new Persona(2);
+/*
+$persona = new Persona(3);
 echo "id: " .$persona->getRol()->getId();
 echo "<br>Rol: " .$persona->getRol()->getRol();
-echo "<br>EstadoCivil: " .$persona->getEstadoCivil()->getEstadoCivil();
-echo "<br>Pais: " .$persona->getPais()->getId();
 echo "<br>Estado: " .$persona->getEstado()->getEstado(); 
-echo "<br>Documento: " .$persona->getDocumento()->getTipoDocumento() . " ".$persona->getDocumento()->getDocumento();
-echo "<br>Nacimiento: " .$persona->getFechaNac();
 echo "<br>Foto: " .$persona->getFoto();
-
+*/
 class Persona {
 	
 	private $id;
@@ -40,27 +39,37 @@ class Persona {
 	public function __construct($id) {
 		$this->id = $id; 
 		$this->conex = new MySQL();
-		
-		
 		$this->consulta = "SELECT CodRol as rol FROM usuarioRol WHERE CodUsuario = ".$this->id.";";
 		$result = mysql_fetch_assoc($this->conex->consulta($this->consulta));
 		$this->rol = new Rol($result['rol']);
 		
 		$this->consulta  = " SELECT "
 						  ." u.CodUsuario as id, " 
-						  ." u.Email as email, "
-						  ." u.Estado as estado, "
-						  ." res.Nombre as nombre, "
+						  ." u.Email as email, ";
+		if ($this->rol->getId() == "AL") {
+			$this->consulta   .= " res.ID_NivelEstudios as nivelEstudioID, ";
+		}
+	if ($this->rol->getId() == "AL" || $this->rol->getId() == "PR") {						  		
+		$this->consulta   .= " res.Nombre as nombre, "
 						  ." res.Apellido as apellido, "
 						  ." res.FechaNacimiento as nacimiento, "
 						  ." res.ID_Paises as paisID, "
 						  ." res.Sexo as sexo, "
-						  ." res.ID_EstadoCivil as estadoCivilID, "		
+						  ." res.ID_EstadoCivil as estadoCivilID, "
 						  ." res.ID_TipoDocumento as tipoDocumentoID, "
-						  ." res.Documento as documento, "
-						  ." res.ID_NivelEstudios as nivelEstudioID, "
-						  ." res.FechaBaja as fechaBaja, "
-						  ." res.FechaCambioPassword as fechaCambioPassword ";
+						  ." res.Documento as documento, ";
+	}
+	if ($this->rol->getId() != "AD") {
+		$this->consulta .= " res.FechaBaja as fechaBaja, "
+						." res.FechaCambioPassword as fechaCambioPassword, ";
+	}
+	if ($this->rol->getId() == "EM") {
+		$this->consulta .= " res.CUIT as documento, ";
+		$this->consulta .= " res.NombreEmpresa as nombre, ";
+		$this->consulta .= " td.ID_TipoDocumento as tipoDocumentoID, ";
+		
+	}
+		$this->consulta .= " u.Estado as estado ";
 		$this->consulta .= " FROM usuario u ";
 		
 		if ($this->rol->getId() == "AL") {
@@ -71,26 +80,45 @@ class Persona {
 		}
 		else if ($this->rol->getId() == "EM") {
 			$this->consulta .= " INNER JOIN empresa res ON (u.CodUsuario=res.CodUsuario)";
+			$this->consulta .= " LEFT JOIN tipodocumento td ON (td.descripcion='CUIT')";
 		}
-		$this->consulta .= " WHERE u.CodUsuario=".$this->id;
 		
+		$this->consulta .= " WHERE u.CodUsuario=".$this->id;
 		
 		$result = mysql_fetch_assoc($this->conex->consulta($this->consulta));
 		
-		$this->apellido = utf8_encode($result['apellido']);
-		$this->nombre = utf8_encode($result['nombre']);
+		if ($this->rol->getId() == "AL") {
+			$this->nivelEstudio = new NivelEstudios($result['nivelEstudioID']);
+		}
+		
+		if ($this->rol->getId() == "AL" || $this->rol->getId() == "PR") {
+			$this->sexo = $result['sexo'];
+			$this->nacimiento = new Fecha($result['nacimiento']);
+			$this->pais = new Pais($result['paisID']);
+				$this->estadoCivil = new EstadoCivil($result['estadoCivilID']);
+			$this->apellido = utf8_encode($result['apellido']);
+		}
+		else {
+			$this->sexo = null;
+			$this->nacimiento = null;
+			$this->pais = null;
+			$this->nivelEstudio = null;
+			$this->estadoCivil = null;
+			$this->apellido = null;
+		}
+		if ($this->rol->getId() == "AD") {
+			$this->nombre = $result['email'];
+			$this->documento = null;
+			$this->baja = new Fecha();
+		}
+		else {
+			$this->nombre = utf8_encode($result['nombre']);
+			$this->documento = new Documento(utf8_encode($result['tipoDocumentoID']), utf8_encode($result['documento']));
+			$this->baja = new Fecha($result['fechaBaja']);
+		}
 		$this->email = $result['email'];
-		$this->sexo = $result['sexo'];
-		$this->nacimiento = new Fecha($result['nacimiento']);
-		$this->baja = new Fecha($result['fechaBaja']);
-		$this->estadoCivil = new EstadoCivil($result['estadoCivilID']);
-		$this->pais = new Pais($result['paisID']);
 		$this->estado = new EstadoUsuario($result['estado']);
-		$this->documento = new Documento(utf8_encode($result['tipoDocumentoID']), utf8_encode($result['documento']));
-		$this->nivelEstudio = new NivelEstudios($result['nivelEstudioID']);
 		$this->foto = new FotoPerfil($this->id);
-		
-		
 	}
 
 	public function getDocumento() {
@@ -103,10 +131,13 @@ class Persona {
 		return $this->pais;
 	}
 	public function getEstadoCivil() {
-		return $this->estadoCivil;
+		if ($this->estadoCivil) {
+			return $this->estadoCivil->getEstadoCivil();
+		}
+		else return null;
 	}
 	public function getRol() {
-		return $this->rol;
+		return $this->rol->getRol();
 	}
 	public function getId() {
 		return $this->id;
@@ -127,7 +158,10 @@ class Persona {
 		return $this->nacimiento->getEdad();	
 	}
 	public function getFechaNac() {
-		return $this->nacimiento->getFecha();
+		if ($this->nacimiento) {
+			return $this->nacimiento->getFecha();
+		}
+		else return null;
 	}
 	public function getFechaNacLong() {
 		return $this->nacimiento->getFechaLong();
@@ -155,8 +189,10 @@ class Persona {
 			return "imagenes/m.png";
 		}		
 	}
-
-
+	public function setFoto($foto) {
+		$this->foto->setFoto($foto);
+		$this->foto->saveFoto();
+	}
 	public function savePersona() {
 		$temp = "UPDATE PERSONA SET ";
 		$temp .= " apellido = ".$this->apellido;
