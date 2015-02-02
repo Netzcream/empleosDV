@@ -10,6 +10,22 @@
 	box-shadow: 0px 0px 10px #000;
 	border-radius: 5px;
 }
+.buscarLabel {
+	display: block;	
+	color: #fff;
+	font-size: 0.9em;
+	font-weight: bold;
+	cursor: default;
+	
+}
+.contBuscarInd {
+	padding-bottom: 10px;
+}
+.adjustBuscarInd {
+	display: inline;
+	margin: 0 auto;
+	
+}
 
 .prebuscar .buscarBtn {
 	background-color: #537B9F;
@@ -25,24 +41,20 @@
 	font-size: 15px;
 	border-radius: 5px;
 }
-.prebuscar .buscarBtn:hover {
-	background:#3e597b !important;
-}
-.prebuscar .buscarLabel {
-	cursor: default;
-	color: #fff;
-	margin-bottom: 10px;
-}
-.buscarLabelRow {
-	text-align: left;
+
+.contBuscarMidRow {
+	padding: 0px 10px;
+	display: table-cell;
+	height: 75px;
+	width: 220px;
 	
 }
 #achicoEdad {
 	width: 200px;
+	height: 30px;
 	margin: 0 auto;
 }
 .separadorBuscar {
-
 	margin: 0px auto;
 	border-bottom: 1px #222 solid;
 	max-width: 400px;
@@ -75,12 +87,55 @@
 	0px 0px 5px 0px #00BCDE !important;
 }
 #bBuscarCarrera, #bBuscarOrientacion, #bBuscarTags {
-width: 350px;
-max-width: 80%;	
-margin: 0 auto;	
-background-color: #fff;
-
+	width: 350px;
+	max-width: 80%;	
+	margin: 0 auto;	
+	background-color: #fff;
 }
+	.titleBuscador {
+		font-size: 2em;
+		padding: 5px 0px 10px 0px;
+		color: #eee;
+		text-shadow: 0px 0px 5px #777;
+		cursor: default;
+	}
+.nextBtnBuscar {
+		display: inline-block;
+		padding: 5px 15px;
+		background-color: #fff;
+		border: none;
+		font-size: 1em;
+		font-weight: bold;
+		margin: 10px auto;
+		transition: 0.3s;
+		color: #333;
+	}
+
+	.nextBtnBuscar:hover {
+		background-color: #aaa;
+	}
+
+	.inputFillBuscar {
+		display: inline-block;
+		padding: 0px 10px !important;
+		width: 200px;
+		background-color: #ddd !important;
+		height: 30px !important;	
+		border-radius: 0px !important;
+		border: none !important;
+		font-size: 1.1em !important;
+		transition: 0.3s !important;
+		box-shadow: inset 1px 1px 1px 1px #000 !important;
+	}
+	.inputFillBuscar:ACTIVE, .inputFillBuscar:FOCUS {
+		background-color: #fff !important;
+		
+	}
+	.inputFillBuscar.notSelected {
+		box-shadow: inset 1px 1px 1px 1px #000, 
+		0px 0px 5px 3px #c00 !important;
+	}
+	
 
 @media only screen and (max-device-width: 600px) {
 	.prebuscar {

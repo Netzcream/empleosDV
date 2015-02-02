@@ -35,7 +35,6 @@ if (isset($_POST)) {
 		}
 		
 		$_SESSION['location'] = "login";
-		var_dump($_SESSION);
 		echo "<script>
 				$('#cuerpo').load('php/login.php');
 				$('#contMenu').load('php/menu.php');

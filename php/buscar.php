@@ -41,25 +41,11 @@ $result = $conex->consulta($consulta);
 		<script type="text/javascript" src="js/jq.slider.js"></script>
 		<script type="text/javascript" src="js/magicsuggest.js"></script>
 
-	<div class="prebuscar">
-	<!-- 
-	<div class="separadorBuscar">
-	
-	<ul class="CarSelector">
-	<li class="iconoCarrera"><div class="carreraDM">Hola</div></li>
-	<li class="iconoCarrera"><div class="carreraDG"></div></li>
-	<li class="iconoCarrera"><div class="carreraVJ"></div></li>
-	<li class="iconoCarrera"><div class="carreraCA"></div></li>
-	<li class="iconoCarrera"><div class="carreraDW"></div></li>
-	<li class="iconoCarrera"><div class="carreraAS"></div></li>
-	</ul>
-	
-	</div>
-	-->
-		<div class="separadorBuscar">
+	<div class="contSelRolUsuario selActivo">
+			<div class="titleBuscador">Buscar alumnos</div>
+		<div class="contBuscarInd">
 			<label class="buscarLabel">Carrera</label>
 			<div id="bBuscarCarrera">
-	
 			</div>
 			<script>
 			$(function() {
@@ -87,7 +73,7 @@ $result = $conex->consulta($consulta);
 			</script>
 		</div>
 		<!-- 
-	<div class="separadorBuscar">
+	<div class="">
 			<label class="buscarLabel">Orientaci&oacute;n:</label>
 			
 			<div id="bBuscarOrientacion">
@@ -121,7 +107,8 @@ $result = $conex->consulta($consulta);
 
 </div>
  -->
-<div class="separadorBuscar A70">
+<div class="contBuscarInd">
+
 			<label class="buscarLabel">Edad</label>
 		<div id="achicoEdad"> 
   	<div class="layout-slider">
@@ -144,30 +131,31 @@ $result = $conex->consulta($consulta);
      // $('#rangoEdad').slider("option", "value").val() --> Devuelve "18;37" por ejemplo
     </script>
 		</div>
-		<div class="separadorBuscar A80">
-			<label class="buscarLabel">Sexo</label>
-			<div  id="idSexM" title="Masculino" class="BcontSelSexo" onclick="selSexo('m');"><img alt="Masculino" src="imagenes/iconos/m.png" class="BselSexo"></div>
-			<div  id="idSexFM" title="Ambos" class="BcontSelSexo BcontSelSexoSeleccionado" onclick="selSexo('fm');"><img alt="Ambos" src="imagenes/iconos/fm.png" class="BselSexo"></div>
-			<div  id="idSexF" title="Femenino" class="BcontSelSexo" onclick="selSexo('f');"><img alt="Femenino" src="imagenes/iconos/f.png" class="BselSexo"></div>
+		
+		<div class="contBuscarInd">
+		<div class="adjustBuscarInd">
+			<div class="contBuscarMidRow">
+				<label class="buscarLabel">Sexo</label>
+				<div  id="idSexM" title="Masculino" class="BcontSelSexo" onclick="selSexo('m');"><img alt="Masculino" src="imagenes/iconos/m.png" class="BselSexo"></div>
+				<div  id="idSexFM" title="Ambos" class="BcontSelSexo BcontSelSexoSeleccionado" onclick="selSexo('fm');"><img alt="Ambos" src="imagenes/iconos/fm.png" class="BselSexo"></div>
+				<div  id="idSexF" title="Femenino" class="BcontSelSexo" onclick="selSexo('f');"><img alt="Femenino" src="imagenes/iconos/f.png" class="BselSexo"></div>
+			</div>
 			
-			
-		</div>
-		<div class="separadorBuscar">
-			<label class="buscarLabel">Avance de la Carrera</label>
-			<div class="limitRange">
-			<input id="bBuscarPorcentaje" type="range" min="0" max="100" value="50"  onchange="actualizaPorc(value);"/>
-
-			<output for=bBuscarPorcentaje id=bPorcentaje>50 %</output>
-			<script>
-			function actualizaPorc(prc) {
-				document.querySelector('#bPorcentaje').value = prc+" %";
-				}
-			</script>
-			
+			<div class="contBuscarMidRow">
+				<label class="buscarLabel">Avance de la Carrera</label>
+				<div class="limitRange">
+					<input id="bBuscarPorcentaje" type="range" min="0" max="100" value="50"  onchange="actualizaPorc(value);"/>
+					<output for=bBuscarPorcentaje id=bPorcentaje>50 %</output>
+				<script>
+				function actualizaPorc(prc) {
+					document.querySelector('#bPorcentaje').value = prc+" %";
+					}
+				</script>
+				</div>
 			</div>
 		</div>
-
-		<div class="separadorBuscar">
+</div>	
+		<div class="contBuscarInd">
 			<label class="buscarLabel">Palabras Claves</label>
 			
 
@@ -208,17 +196,17 @@ $result = $conex->consulta($consulta);
 			
 		</div>
 		
-						<div class="separadorBuscar">
-			<label class="buscarLabel">Apellido</label>
-
-			<input id="apellidoOpt" type="text" placeholder="Apellido"/>
-
-			
+			<div class="contBuscarInd">
+				<label class="buscarLabel">Apellido</label>
+				<input class="inputFillBuscar" id="apellidoOpt" type="text" placeholder="Apellido"/>
 			</div>
 		
-	<label id="logErrorNot" class="regLabelNota regError"></label>
-	<input class="buscarBtn" type="submit" onclick="buscar();" value="Buscar">
-</div>
+			
+			<div class="finRecuadroPerfil">
+				<label id="logErrorNot" class="regLabelNota regError"></label>
+				<input class="nextBtnBuscar" type="submit" onclick="buscar();" value="Buscar">
+			</div>	
+	</div>
 
 <div class="loading">
 	<img alt="" src="imagenes/loading.gif" width=30>
