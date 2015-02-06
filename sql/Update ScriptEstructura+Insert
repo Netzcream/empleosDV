@@ -3672,3 +3672,36 @@ ADD CONSTRAINT `FK_UsuarioRol_Rol`
 --
 
 
+-- Alter de domicilio para que el mismo objeto sirva para muchas instancias.
+
+ALTER TABLE direccion ADD ID_Direccion int FIRST;
+
+CREATE TABLE direccionUsuario (
+id int not null auto_increment,
+CodUsuario int not null,
+ID_Direccion int not null,
+primary key (id)
+);
+
+set @id = 0;
+UPDATE direccion set ID_Direccion=(@id:=@id+1);
+
+INSERT INTO direccionUsuario
+SELECT  null, d.CodUsuario,d.ID_Direccion from direccion d;
+
+ALTER TABLE direccion
+DROP FOREIGN KEY FK_Direccion_Usuario;
+ALTER TABLE direccion 
+DROP PRIMARY KEY, 
+ADD PRIMARY KEY (ID_Direccion);
+ALTER TABLE direccion
+modify ID_Direccion int not null auto_increment;
+
+ALTER TABLE direccionUsuario
+ADD FOREIGN KEY (ID_Direccion) References direccion (ID_Direccion);
+ALTER TABLE direccionUsuario
+Modify CodUsuario bigint(20) not null,
+ADD FOREIGN KEY (CodUsuario) References usuario (CodUsuario);
+
+ALTER TABLE direccion
+DROP column CodUsuario;
