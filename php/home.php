@@ -4,15 +4,17 @@ if (!isset($_SESSION)) {
 }
 $_SESSION['location'] = "home";
 
-if (($_SESSION['estadoUsuario'] == 2) AND ($_SESSION['UsuarioRol'] == "SA")) {
-	include_once("primerosDatos.php");
+if (isset($_SESSION['estadoUsuario']) AND $_SESSION['UsuarioRol'] AND ($_SESSION['estadoUsuario'] == 2) AND ($_SESSION['UsuarioRol'] == "SA")) {
+		include_once("primerosDatos.php");
 }
 else {
-	
-	echo "sss";
+	echo "HOME";
 }
 
 
 
 
 ?>
+<script>
+errorToas('Prueba de Home');
+</script>

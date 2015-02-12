@@ -1,8 +1,15 @@
 <?php
 if (!isset($_SESSION)) { session_start(); }
 $_SESSION['usuario'] = null;
-include_once("/conex.php");
-include_once("/mail.php");
+
+if (!class_exists('MySQL')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+}
+if (!class_exists('Persona')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php";
+}
+
+require_once $_SERVER["DOCUMENT_ROOT"]."/php/mail.php";
 
 if (isset($_POST)) {
 	if (isset($_POST['error'])) {

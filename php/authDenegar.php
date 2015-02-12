@@ -5,10 +5,12 @@ if (isset($_POST['codUsr'])) {
 	$codUsr = htmlentities($_POST['codUsr'],ENT_QUOTES);
 		
 
-	include_once("/conex.php");
+	if (!class_exists('MySQL')) {
+		require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+	}
 	$conex = new MySQL();
 	$conex->consulta("START TRANSACTION;");
-	$consulta = "DELETE FROM direccion WHERE CodUsuario =".$codUsr.";";
+	$consulta = "DELETE FROM direccionUsuario WHERE CodUsuario =".$codUsr.";";
 	$a1 = $conex->consulta($consulta);
 	
 	

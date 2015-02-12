@@ -6,7 +6,7 @@ if (isset($_POST['codUsr'])) {
 	$codUsr = htmlentities($_POST['codUsr'],ENT_QUOTES);
 	
 	if (!class_exists('MySQL')) {
-		require_once 'conex.php';
+		require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
 	}
 	$conex = new MySQL();
 

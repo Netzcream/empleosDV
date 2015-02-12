@@ -5,8 +5,12 @@ if (!isset($_SESSION)) {
 }
 $_SESSION['location'] = "listado";
 
-include_once("/conex.php");
-include_once("/Persona.php");
+if (!class_exists('MySQL')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+}
+if (!class_exists('Persona')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php";
+}
 
 $list = new Listado();
 echo $list->getTable();

@@ -1,27 +1,91 @@
 
 <?php
 
-//include_once("conex.php");
+if (!class_exists('MySQL')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+}
 
 class EstadoUsuario {
 	private $id;
 	private $estado;
 
-	public function __construct($id) {
-		$this->id = $id;
-		$this->conex = new MySQL();
-		$this->consulta = " SELECT ID_EstadoUsuario as id, Descripcion as estado FROM EstadoUsuario "
-					     ." WHERE ID_EstadoUsuario= '".$this->id."';";
-		$this->result = $this->conex->consulta($this->consulta);
-		$result = mysql_fetch_assoc($this->result);
-		$this->estado = utf8_encode($result['estado']);
+	public function __construct() { 
+		$this->id = null;
+		$this->estado = null;
 	}
 
+	public function getEstadoById($id) {
+		$temp = new EstadoUsuario();
+		if ($id) {
+			$conex = new MySQL();
+			$consulta = " SELECT ID_EstadoUsuario as id, Descripcion as estado FROM EstadoUsuario "
+					." WHERE ID_EstadoUsuario= '".$id."';";
+			$result1 = $conex->consulta($consulta);
+			$result = mysql_fetch_assoc($result1);
+			$temp->id = $result['id'];
+			$temp->estado = utf8_encode($result['estado']);
+		}
+		return $temp;
+	}
+	public function getAndSetEstadoById($id) {
+		if ($id) {
+			$conex = new MySQL();
+			$consulta = " SELECT ID_EstadoUsuario as id, Descripcion as estado FROM EstadoUsuario "
+					." WHERE ID_EstadoUsuario= '".$id."';";
+			$result1 = $conex->consulta($consulta);
+			$result = mysql_fetch_assoc($result1);
+			$this->id = $result['id'];
+			$this->estado = utf8_encode($result['estado']);
+		}
+	}
+	public function getAndSetEstadoByUsuarioId($id) {
+		if ($id) {
+			$conex = new MySQL();
+			$consulta = " SELECT eu.ID_EstadoUsuario as id, eu.Descripcion as estado FROM EstadoUsuario eu
+						INNER JOIN usuario u on (u.Estado=eu.ID_EstadoUsuario)
+						WHERE u.CodUsuario= '".$id."';";
+			$result1 = $conex->consulta($consulta);
+			$result = mysql_fetch_assoc($result1);
+			$this->id = $result['id'];
+			$this->estado = utf8_encode($result['estado']);
+		}
+	}
+	public function getEstadoByUsuarioId($id) {
+		$temp = new EstadoUsuario();
+		if ($id) {
+			$conex = new MySQL();
+			$consulta = " SELECT eu.ID_EstadoUsuario as id, eu.Descripcion as estado FROM EstadoUsuario eu
+						INNER JOIN usuario u on (u.Estado=eu.ID_EstadoUsuario)
+						WHERE u.CodUsuario= '".$id."';";
+			$result1 = $conex->consulta($consulta);
+			$result = mysql_fetch_assoc($result1);
+			$temp->id = $result['id'];
+			$temp->estado = utf8_encode($result['estado']);
+		}
+		return $temp;
+	}
 	public function getId() {
 		return $this->id;
 	}
+	public function setId($id) {
+		if ($id) {
+			$this->id = $id;	
+		}
+		else {
+			//LOGERROR
+		}
+	}
 	public function getEstado() {
 		return $this->estado;
+	}
+	public function setEstado($est) {
+		if ($est) {
+			$this->estado = $est;	
+		}
+		else {
+			//LOGERROR
+		}
+		
 	}
 
 }

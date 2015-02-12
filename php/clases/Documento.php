@@ -1,6 +1,8 @@
 <?php
 
-//include_once("conex.php");
+if (!class_exists('MySQL')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+}
 
 class Documento {
 	private $id;
@@ -8,29 +10,86 @@ class Documento {
 	private $documento;
 	private $letras;
 
-	public function __construct($id,$documento) {
-		$this->id = $id;
-		$this->documento = $documento;
-		$this->conex = new MySQL();
-		$this->consulta = " SELECT Descripcion as tipo, AdmiteLetras as letras FROM tipodocumento "
-					     ." WHERE ID_TipoDocumento= '".$this->id."';";
-		$this->result = $this->conex->consulta($this->consulta);
-		$result = mysql_fetch_assoc($this->result);
-		$this->tipoDocumento = utf8_encode($result['tipo']);
-		$this->letras = utf8_encode($result['letras']);
+	public function __construct() { 
+		$this->id = null;
+		$this->tipoDocumento = null;
+		$this->documento = null;
+		$this->letras = null;
+		
+	}
+	public function getDocumentoByData($id,$documento) {
+		$temp = new Documento();
+		if ($id and $documento) {
+			$conex = new MySQL();
+			$consulta = " SELECT Descripcion as tipo, AdmiteLetras as letras FROM tipodocumento "
+					." WHERE ID_TipoDocumento= '".$id."';";
+			$result1 = $conex->consulta(consulta);
+			$result = mysql_fetch_assoc(result1);
+			$temp->setId($id);
+			$temp->setDocumento($documento);
+			$temp->setTipoDocumento(utf8_encode($result['tipo']));
+			$temp->setLetras(utf8_encode($result['letras']));
+		}
+		
+		return $temp;
+	}
+	public function getAndSetDocumentoByData($id,$documento) {
+		if ($id and $documento) {
+			$conex = new MySQL();
+			$consulta = " SELECT Descripcion as tipo, AdmiteLetras as letras FROM tipodocumento "
+					." WHERE ID_TipoDocumento= '".$id."';";
+			$result1 = $conex->consulta($consulta);
+			$result = mysql_fetch_assoc($result1);
+			$this->setId($id);
+			$this->setDocumento($documento);
+			$this->setTipoDocumento(utf8_encode($result['tipo']));
+			$this->setLetras(utf8_encode($result['letras']));
+		}
 	}
 
 	public function getId() {
 		return $this->id;
 	}
+	public function setId($id) {
+		if ($id) {
+			$this->id = $id;
+		}
+		else {
+			//LOGERROR
+		}
+	}
 	public function getTipoDocumento() {
 		return $this->tipoDocumento;
+	}
+	public function setTipoDocumento($tipo) {
+		if ($tipo) {
+			$this->tipoDocumento = $tipo;
+		}
+		else {
+			//LOGERROR
+		}
 	}
 	public function getDocumento() {
 		return $this->documento;
 	}
+	public function setDocumento($doc) {
+		if ($doc) {
+			$this->documento = $doc;
+		}
+		else {
+			//LOGERROR
+		}
+	}
 	public function getLetras() {
 		return $this->letras;
+	}
+	public function setLetras($letras) {
+		if ($letras) {
+			$this->letras = $letras;
+		}
+		else {
+			//LOGERROR
+		}
 	}
 
 }

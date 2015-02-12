@@ -1,5 +1,10 @@
 <?php
-include_once("/conex.php");
+if (!class_exists('MySQL')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+}
+if (!class_exists('Persona')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php";
+}
 
 class Email {
 	public $fromName;

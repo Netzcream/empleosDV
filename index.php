@@ -2,7 +2,6 @@
 if (!isset($_SESSION)) {
 	session_start();
 }
-
 if (!isset($_SESSION['location'])) {
 	$_SESSION['location'] = "login";
 }
@@ -55,9 +54,9 @@ if (isset($_GET)) {
 		
 		
 		<!-- Distintos Scripts de JavaScript utilizados -->
-		<script type="text/javascript" src="js/scripts.js"></script>
 		<script type="text/javascript" src="js/jq-2.1.1.js"></script>
 		<script type="text/javascript" src="js/jq.min.js"></script>
+		<script type="text/javascript" src="js/scripts.js"></script>
 		<script type="text/javascript" src="js/jq.ez-pinned-footer.js"></script>
 		<script type="text/javascript" src="js/footable.js"></script>
 		<script type="text/javascript" src="js/footable.sort.js"></script>
@@ -117,7 +116,9 @@ if (isset($_GET)) {
 				}
 			?>
 
-	
+	<?php 
+
+	?>
 		</div>
 			<?php include_once("php/footer.php"); ?>	
 			</div>

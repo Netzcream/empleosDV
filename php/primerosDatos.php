@@ -1,10 +1,17 @@
 		<script type="text/javascript" src="js/jq.rotate.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/jq.toastmessage.css"/>
+		<script type="text/javascript" src="js/jq.toastmessage.js"></script>
 <?php
 			if (!isset($_SESSION)) {
 				session_start();
 			}
-
-			include_once("/conex.php");
+			
+			if (!class_exists('MySQL')) {
+				require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+			}
+			if (!class_exists('Persona')) {
+				require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php";
+			}
 			
 			$conex = new MySQL();
 			$consulta = "SELECT ID_TipoDocumento as id,Descripcion as des, AdmiteLetras as letras from tipodocumento;";
@@ -127,13 +134,13 @@
 				<label class="labelFillDP">Documento</label>
 				<div>
 					<select id="selDocDP" class="selDocDP">
-<?php 
-
-foreach ($tipoDocumentos as $valor) {
-	echo "<option letras='".$valor[2]."' value='".$valor[1]."'>".$valor[0]."</option>";
-}
-
-?>					
+				<?php 
+				
+				foreach ($tipoDocumentos as $valor) {
+					echo "<option letras='".$valor[2]."' value='".$valor[1]."'>".$valor[0]."</option>";
+				}
+				
+				?>					
 				</select>
 					<input type="text" id="dpNroDoc" class="inputFillDP" maxlength="20" placeholder="Numero Documento">
 				</div>
@@ -298,7 +305,6 @@ foreach ($tipoDocumentos as $valor) {
 				<div id="loadingRoll">
 					<img alt="" src="imagenes/iconos/loading.png">
 				</div>
-			
 			</div>
 
 </div>

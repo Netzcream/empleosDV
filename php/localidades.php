@@ -8,7 +8,9 @@ $provID = "1";
 if (isset($_POST['provID'])) {
 	$provID = $_POST['provID'];
 }
-include_once("/conex.php");
+if (!class_exists('MySQL')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+}
 	
 $conex = new MySQL();
 

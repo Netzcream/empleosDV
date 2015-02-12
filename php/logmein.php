@@ -1,13 +1,15 @@
 <?php
 
-if (!class_exists('Persona')) {
-	include_once 'clases/Persona.php';
+if (!class_exists('MySQL')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
 }
-
+if (!class_exists('Persona')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php";
+}
 /* Sistema de Logueo */
 if (!isset($_SESSION)) { session_start(); }
 $_SESSION['usuario'] = null;
-include_once("/conex.php");
+
 
 if (isset($_POST)) {
 
@@ -101,19 +103,22 @@ if (isset($_POST)) {
 		$result = $conex->consulta($consulta);
 		$result3 = mysql_fetch_assoc($result);
 		$_SESSION['UsuarioRol'] = $result3['CodRol'];
-
+if ($_SESSION['estadoUsuario'] != 2) { 
 	
 		/* Si es alumno */
 		if ($_SESSION['UsuarioRol'] == "AL" || $_SESSION['UsuarioRol'] == "PR") {
-			$_SESSION['usr'] = new Persona($result3['CodUsuario']);
-			$_SESSION['fotoPerfil'] = $_SESSION['usr']->getFoto();
+			$_SESSION['usr'] = new Persona();
+			$_SESSION['usr']->getAndSetPersonaById($result3['CodUsuario']);
+			$_SESSION['fotoPerfil'] = $_SESSION['usr']->getPic();
 			$_SESSION['MostrarNombre'] = $_SESSION['usr']->getApellido() .", ".$_SESSION['usr']->getNombre();
 		}
 		else  {
-			$_SESSION['usr'] = new Persona($result3['CodUsuario']);
-			$_SESSION['MostrarNombre'] = $_SESSION['usr']->getNombre(); 
-			$_SESSION['fotoPerfil'] = $_SESSION['usr']->getFoto();
+			$_SESSION['usr'] = new Persona();
+			$_SESSION['usr']->getAndSetPersonaById($result3['CodUsuario']);
+			$_SESSION['MostrarNombre'] = $_SESSION['usr']->getNombre() ; 
+			$_SESSION['fotoPerfil'] = $_SESSION['usr']->getPic();
 		}
+}
 		
 	if (!isset($_SESSION['fotoPerfil'])) {
 		//Foto de perfil

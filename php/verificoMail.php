@@ -5,8 +5,16 @@ if (!isset($_SESSION)) {
 }
 $email = $_SESSION['vmail'];
 $codigo = $_SESSION['vcode'];
-include_once("php/conex.php");
-include_once("php/mail.php");
+
+
+if (!class_exists('MySQL')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+}
+if (!class_exists('Persona')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php";
+}
+
+require_once $_SERVER["DOCUMENT_ROOT"]."/php/mail.php";
 
 $consulta = "SELECT * FROM usuario WHERE Email='".$email."' AND CodConfirmacion='".$codigo."' AND Estado=1";
 $conex = new MySQL();

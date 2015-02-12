@@ -4,7 +4,12 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 
-include_once("/conex.php");
+if (!class_exists('MySQL')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+}
+if (!class_exists('Persona')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php";
+}
 	
 $conex = new MySQL();
 
@@ -117,12 +122,21 @@ if (isset($_POST)) {
 		}
 		$conex->consulta("START TRANSACTION;");
 		$a1 = $conex->consulta($consulta);
-		$consDomicilio = "INSERT INTO direccion (CodUsuario,ID_Provincia,ID_Localidad,Calle,Numero,Piso,Departamento) VALUES "
-				."('". $codUsuario."','".$provincia."','".$localidad."','".$calle."','".$nroCalle."','".$piso."','".$departamento."');";
+		$consDomicilio = "INSERT INTO direccion (ID_Direccion,ID_Provincia,ID_Localidad,Calle,Numero,Piso,Departamento) VALUES "
+				."(null,'".$provincia."','".$localidad."','".$calle."','".$nroCalle."','".$piso."','".$departamento."');";
 		$a2 = $conex->consulta($consDomicilio);
-		$a3 = $conex->consulta("UPDATE UsuarioRol SET CodRol='".$codRol."' WHERE CodUsuario = ".$codUsuario.";");
+		$a3 = $conex->consulta("SELECT LAST_INSERT_ID() as id");
+		$result = mysql_fetch_assoc($a3);
+		$lastID = utf8_encode($result['id']);
+		
+		$a4 = $conex->consulta("UPDATE UsuarioRol SET CodRol='".$codRol."' WHERE CodUsuario = ".$codUsuario.";");
 
-		if ($a1 and $a2 and $a3) {
+		$consDomicilio = "INSERT INTO direccionUsuario (CodUsuario,ID_Direccion) VALUES "
+				."('". $codUsuario."',".$lastID.");";
+		$a5 = $conex->consulta($consDomicilio);
+		
+
+		if ($a1 and $a2 and $a3 and $a4 and $a5) {
 			$conex->consulta("COMMIT;");
 			echo '<br><br><br><br><br><br><label class="selRolLabel">Datos guardados correctamente</label>';
 			echo '<img src="imagenes/iconos/check.png">';

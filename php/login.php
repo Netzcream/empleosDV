@@ -8,11 +8,19 @@ if (!isset($_SESSION)) {
 <div class="openLogin">
 	<input id="usuario" class="logInput" onkeypress="getEnter(event)" type="email" placeholder="juan.perez@davinci.edu.ar" maxlength="100">
 	<input id="clave" class="logInput" onkeypress="getEnter(event)" type="password" placeholder="Contrase&ntilde;a" maxlength="10">
+	
 	<div class="logInOptions">
-		<p><input id="logInCheckbox" type="checkbox">
+		<!--  <p><input id="logInCheckbox" type="checkbox">
 		<label for="logInCheckbox">Recordarme</label></p>
+		 -->
+		<label class="labelCheckboxForLogin"><input id="logInCheckbox" type="checkbox" class="checkboxAlineado" value="" onclick=""><span>Recordarme</span></label>
+		
 		<p><label onclick="registro();">Registrarme</label></p>
 	</div>
+	
+	
+	
+	
 	<input class="logInBtn" type="submit" value="Ingresar" onclick="logmeIn();">
 </div>
 <div class="loading">

@@ -3,15 +3,18 @@
 class Fecha {
 	private $ofecha;
 	
-	public function __construct($fecha = null) {
+	public function __construct() {
+		$this->ofecha = null;
+	}
+	
+	public function getSetFecha($fecha = null) {
 		if ($fecha != null) {
 			$this->ofecha = new DateTime($fecha);
 		}
 		else {
 			$this->ofecha = null;
 		}
-	}
-	
+	} 
 	public function getFecha() {
 		if ($this->ofecha != null) {
 			$d = $this->ofecha->format('d');
@@ -120,6 +123,10 @@ class Fecha {
 			return $edad;
 		}
 		else return null;
+	}
+	function getFechaCompleta() {
+		$fecha = $this->ofecha->format('d/m/Y H:i:s');
+		return $fecha;
 	}
 }
 

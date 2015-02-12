@@ -9,7 +9,9 @@ if (!isset($_SESSION)) {
 }
 $_SESSION['location'] = "listadoAUTH";
 
-include_once("/conex.php");
+if (!class_exists('MySQL')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+}
 
 
 $list = new Listado();

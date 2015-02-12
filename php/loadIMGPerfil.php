@@ -1,7 +1,9 @@
 <?php 
+
 if (!class_exists('Persona')) {
-	include_once 'clases/Persona.php';
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php";
 }
+
 if (!isset($_SESSION)) {
 	session_start();
 }

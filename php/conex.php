@@ -15,6 +15,7 @@
 	class MySQL{  
 		private $conexion;  
 		private $total_consultas;  
+		private $lastID; 
 
 		public function MySQL(){  
 			if(!isset($this->conexion)){  
@@ -24,6 +25,7 @@
 		}  
 		public function consulta($consulta){  
 			$this->total_consultas++;  
+			//echo $consulta;
 			$resultado = mysql_query($consulta,$this->conexion);  
 			if(!$resultado){  
 				echo 'MySQL Error: ' . mysql_error();  

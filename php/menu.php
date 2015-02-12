@@ -1,13 +1,19 @@
 <?php
-
+if (!class_exists('MySQL')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
+}
+if (!class_exists('Persona')) {
+	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php";
+}
 if (!isset($_SESSION)) { session_start(); }
 if (isset($_SESSION['UsuarioRol'])) {
 	if ($_SESSION['UsuarioRol'] == null) {
 		$_SESSION['UsuarioRol'] = "SA";
 	}
 }
-
-include_once("/conex.php");
+if (isset($_SESSION["usr"])) {
+	$_SESSION["usr"] = unserialize (serialize ($_SESSION['usr']));
+}
 
 ?>
 
@@ -34,27 +40,27 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
  		if ($result2 > 0) {
  			$auth = "_rojo";
  		}
-		echo '<div class="btnIcono" title="Autorizar" onclick="GoTo(6);"><img alt="Autorizar"src="imagenes/iconos/auth'.$auth.'.png"><span>Autorizar</span></div>';
+		echo '<div class="btnIcono" title="Autorizar" onclick="GoTo(6);"><img alt="Autorizar" src="imagenes/iconos/auth'.$auth.'.png"><span>Autorizar</span></div>';
 		echo '<div class="btnIcono" title="Bolsa"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
 		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
-		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['fotoPerfil'].'"><span>Perfil</span></div>';
+		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['usr']->getPic() .'"><span>Perfil</span></div>';
 	}
 //AL Alumno
 	else if ($_SESSION['UsuarioRol'] == "AL" AND $_SESSION['estadoUsuario'] == '3') {
 		echo '<div class="btnIcono" title="Bolsa"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
-		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['fotoPerfil'].'"><span>Perfil</span></div>';
+		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['usr']->getPic().'"><span>Perfil</span></div>';
 	}
 //EM Empresa
 	else if ($_SESSION['UsuarioRol'] == "EM" AND $_SESSION['estadoUsuario'] == '3') {
 		echo '<div class="btnIcono" title="Bolsa"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
 		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
-		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['fotoPerfil'].'"><span>Perfil</span></div>';
+		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['usr']->getPic().'"><span>Perfil</span></div>';
 		
 	}
 //PR Profesor
 	else if ($_SESSION['UsuarioRol'] == "PR" AND $_SESSION['estadoUsuario'] == '3') {
 		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
-		echo '<div class="btnIcono" onclick="GoTo(7);" id="perfilImg" title="Perfil"><img alt="Perfil" src="'.$_SESSION['fotoPerfil'].'"><span>Perfil</span></div>';
+		echo '<div class="btnIcono" onclick="GoTo(7);" id="perfilImg" title="Perfil"><img alt="Perfil" src="'.$_SESSION['usr']->getPic().'"><span>Perfil</span></div>';
 	}
 //SA Sin Asignar
 	else if ($_SESSION['UsuarioRol'] == "SA") {
