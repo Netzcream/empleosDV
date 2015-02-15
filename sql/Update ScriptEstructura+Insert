@@ -3721,3 +3721,24 @@ primary key (id),
 foreign key (tag_id) references tag(id),
 foreign key (CodUsuario) references usuario(CodUsuario)
 );
+
+-- Tablas para estudios cursados del alumno.
+
+CREATE TABLE estudios (
+id int not null auto_increment,
+institucion varchar(50) not null,
+titulo varchar(50) not null,
+ID_NivelEstudio smallint(6) not null,
+fechaDesde datetime not null,
+fechaHasta datetime null,
+primary key (id),
+foreign key (ID_NivelEstudio) references nivelestudios (ID_NivelEstudio)
+);
+CREATE TABLE usuarioEstudios(
+id int not null auto_increment,
+CodUsuario bigint(20) not null,
+estudiosID int not null,
+primary key (id),
+foreign key (CodUsuario) references usuario (CodUsuario),
+foreign key (estudiosID) references estudios (id)
+);
