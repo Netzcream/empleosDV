@@ -3742,3 +3742,4 @@ primary key (id),
 foreign key (CodUsuario) references usuario (CodUsuario),
 foreign key (estudiosID) references estudios (id)
 );
+ALTER TABLE estudios modify fechaHasta datetime null default null;
