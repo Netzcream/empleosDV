@@ -3751,4 +3751,5 @@ Modify FechaFin datetime null default null;
 
 ALTER TABLE usuario
 add column notificarme bool not null default true,
-add column recordarme bool not null default false;
+add column recordarme bool not null default false,
+add column encontrarme bool not null default true;
