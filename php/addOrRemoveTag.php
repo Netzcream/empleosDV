@@ -51,6 +51,15 @@ if (isset($_POST['action'])) {
 		
 		
 	}
+	else if ($_POST['action'] == "save") {
+			$Persona->getTags()->saveTags($Persona->getId());
+			$tempTags = $Persona->getTags()->getTags();
+			natcasesort($tempTags);
+			foreach ($tempTags as $a) {
+				echo "<div class='tag' onclick='delTags(".'"'.$a.'"'.");'>".$a."</div>";
+			}
+			$_SESSION["usr"] = $Persona;
+	}
 	else {
 		//LOGERROR
 	}

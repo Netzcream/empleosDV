@@ -29,6 +29,7 @@ class Tag {
 			$result1 = $conex->consulta($consulta);
 			$result = mysql_fetch_assoc($result1);
 			$this->maxTagId = 0;
+			$this->clearTags();
 			while ($result) {
 				$index = $result['id'];
 				if ($index > $this->maxTagId) {
@@ -50,11 +51,12 @@ class Tag {
 			$result1 = $conex->consulta($consulta);
 			$result = mysql_fetch_assoc($result1);
 			$temp->maxTagId = 0;
+			$temp->clearTags();
 			while ($result) {
 				
 				$index = $result['id'];
-				if ($index > $this->maxTagId) {
-					$temp->maxTagId = $index; 
+				if ($index > $temp->getMaxId()) {
+					$temp->setMaxId($index); 
 				}
 				$temp->addTagById($index,utf8_encode($result['tag']));
 				$result = mysql_fetch_assoc($result1);
@@ -62,7 +64,41 @@ class Tag {
 		}
 	
 	}
-			
+	public function saveTags($Pid) {
+
+		//Elimino
+		$f = 0;
+		$idstoDelete = "";
+		foreach ($this->toDelete as $key => $val) {
+			if ($f > 0) { $idstoDelete .= ","; }
+			$idstoDelete .= $key;
+			$f++;
+		} 
+		$conex = new MySQL();
+		if ($f >0) {
+			$consulta = "DELETE FROM usuarioTag WHERE tag_id in (".$idstoDelete.") AND CodUsuario = ".$Pid.";";	
+			$conex->consulta($consulta);
+			$consulta = "DELETE FROM tag WHERE id in (".$idstoDelete.");";
+			$conex->consulta($consulta);
+			unset($this->toDelete);
+			$this->toDelete = array();
+		}
+		//Agrego
+		$values = "";
+		$tempMaxId = "";
+		foreach ($this->getTags() as $key => $val) {
+			if ($key > $this->maxTagId) {
+				$values = "(null,'".$val."')";
+				$consulta = "INSERT INTO tag (id,tag) values ".$values.";";
+				$conex->consulta($consulta);
+				$lastId = mysql_insert_id();
+				$consulta = "INSERT INTO usuarioTag (id,tag_id,CodUsuario) VALUES (null,".$lastId.",".$Pid.")";
+				$conex->consulta($consulta);
+			}
+		}
+		$this->getAndSetTagsByUsuario($Pid);
+		
+	}		
 	public function getTags() {
 		return $this->tagCol;
 	}
@@ -73,6 +109,10 @@ class Tag {
 		else {
 			//LOGERROR
 		}
+	}
+	public function clearTags() {
+		unset($this->tagCol);
+		$this->tagCol = array();
 	}
 	public function addTag($tag) {
 		if ($tag) {
@@ -102,14 +142,22 @@ class Tag {
 	public function deleteTag($tag) {
 		if ($tag) {
 			$key = $this->getIDByValue($tag);
-			$this->toDelete[$key] = $tag;
+			if ($key <= $this->maxTagId) {
+				$this->toDelete[$key] = $tag;
+			}
 			unset($this->tagCol[$key]);
+			
 		}
 		else {
 			//LOGERROR
 		}
 	}
-	
+	public function setMaxId($a) {
+		$this->maxTagId = $a;
+	}
+	public function getMaxId($a) {
+		return $this->maxTagId;
+	}
 
 
 }

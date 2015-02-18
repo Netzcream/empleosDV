@@ -7,6 +7,15 @@ class Fecha {
 		$this->ofecha = null;
 	}
 	
+	public function setFecha($fecha = null) {
+		if ($fecha != null) {
+
+			$this->ofecha = DateTime::createFromFormat('d/m/Y',$fecha);
+		}
+		else {
+			$this->ofecha = null;
+		}
+	}
 	public function getSetFecha($fecha = null) {
 		if ($fecha != null) {
 			$this->ofecha = new DateTime($fecha);
@@ -20,7 +29,9 @@ class Fecha {
 			$d = $this->ofecha->format('d');
 			$m = $this->ofecha->format('m');
 			$Y = $this->ofecha->format('Y');
-			return $d."/".$m."/".$Y;
+			
+			//return $d."/".$m."/".$Y;
+			return $this->ofecha->format('d/m/Y');
 		}
 		else return null;
 	}
@@ -46,6 +57,13 @@ class Fecha {
 		if ($this->ofecha != null) {
 			$anio = $this->ofecha->format('Y');
 			return $anio;
+		}
+		else return null;
+	}
+	public function getDia() {
+		if ($this->ofecha != null) {
+			$dia = $this->ofecha->format('d');
+			return $dia;
 		}
 		else return null;
 	}
@@ -97,7 +115,55 @@ class Fecha {
 			return $return;
 		}
 		else return null;
-		
+	}
+	public function getShortMes() {
+		if ($this->ofecha != null) {
+			$m = $this->ofecha->format('m');
+			$return = "";
+			switch ($m) {
+				case 1:
+					$return = "Ene";
+					break;
+				case 2:
+					$return = "Feb";
+					break;
+				case 3:
+					$return = "Mar";
+					break;
+				case 4:
+					$return = "Abr";
+					break;
+				case 5:
+					$return = "May";
+					break;
+				case 6:
+					$return = "Jun";
+					break;
+				case 7:
+					$return = "Jul";
+					break;
+				case 8:
+					$return = "Ago";
+					break;
+				case 9:
+					$return = "Sep";
+					break;
+				case 10:
+					$return = "Oct";
+					break;
+				case 11:
+					$return = "Nov";
+					break;
+				case 12:
+					$return = "Dic";
+					break;
+				default:
+					$return = "";
+					break;
+			}
+			return $return;
+		}
+		else return null;
 	}
 	public function getEdad() {
 		if ($this->ofecha != null) {
@@ -126,6 +192,15 @@ class Fecha {
 	}
 	function getFechaCompleta() {
 		$fecha = $this->ofecha->format('d/m/Y H:i:s');
+		return $fecha;
+	}
+	function getForInsert() {
+		if ($this->ofecha == null or $this->ofecha == "") {
+			$fecha = null;
+		}
+		else {
+			$fecha = $this->ofecha->format('Y/m/d H:i:s');
+		}
 		return $fecha;
 	}
 }

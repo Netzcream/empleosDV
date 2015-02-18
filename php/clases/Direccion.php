@@ -119,7 +119,7 @@ class Direccion {
 		}
 	}
 	public function generateCoord() {
-		$prepAddr = $this->calle." ". $this->numero.", ".$this->localidad->getLocalidad().", ".$this->provincia->getProvincia().", Argentina";
+		$prepAddr = $this->getCalle()." ". $this->getNum().", ".$this->getLoc()->getLocalidad().", ".$this->getPcia()->getProvincia().", Argentina";
 		$prepAddr = preg_replace("/á|à|â|ã|ª/","a",$prepAddr);
 		$prepAddr = preg_replace("/Á|À|Â|Ã/","A",$prepAddr);
 		$prepAddr = preg_replace("/é|è|ê/","e",$prepAddr);
@@ -135,12 +135,51 @@ class Direccion {
 		$prepAddr = str_replace("Ñ","N",$prepAddr);
 		$geocode=file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
 		$output= json_decode($geocode);
-		$latitude = $output->results[0]->geometry->location->lat;
-		$longitude = $output->results[0]->geometry->location->lng;
-		$this->setCoor1($latitude);
-		$this->setCoor2($longitude);
+		if (!empty($output->results[0])) {
+			$latitude = $output->results[0]->geometry->location->lat;
+			$longitude = $output->results[0]->geometry->location->lng;
+			$this->setCoor1($latitude);
+			$this->setCoor2($longitude);
+		}
+	}
+	public function saveDomicilio($Pid) {
+		$this->generateCoord();
+		$conex = new MySQL();
+		if ($this->getId() == null) {
+			$consulta = " INSERT INTO direccion "
+					." (ID_Direccion,ID_Provincia,ID_Localidad,Calle,Numero,Coordenada1,Coordenada2,Piso,Departamento) "
+					." VALUES"
+					." (null,".$this->getPcia()->getId()
+					.",".$this->getLoc()->getId()
+					.",'".htmlentities($this->getCalle(),ENT_QUOTES)
+					."','".htmlentities($this->getNum(),ENT_QUOTES)
+					."','".htmlentities($this->getCoor1(),ENT_QUOTES)
+					."','".htmlentities($this->getCoor2(),ENT_QUOTES)
+					."','".htmlentities($this->getPiso(),ENT_QUOTES)
+					."','".htmlentities($this->getDpto(),ENT_QUOTES)."');";
+			$conex->consulta($consulta);
+			$lastId = mysql_insert_id();
+			$consulta = "INSERT INTO direccionUsuario (id,CodUsuario,ID_Direccion) VALUES (null,".$Pid.",".$lastId.");";
+			$this->setId($lastId);
+			$conex->consulta($consulta);
+		}
+		else {
+			$consulta = "UPDATE direccion "
+					." SET "
+					." ID_Provincia=".$this->getPcia()->getId().","
+					." ID_Localidad=".$this->getLoc()->getId().","
+					." Calle= '".htmlentities($this->getCalle(),ENT_QUOTES)."',"
+					." Numero= '".htmlentities($this->getNum(),ENT_QUOTES)."',"
+					." Coordenada1= '".htmlentities($this->getCoor1(),ENT_QUOTES)."',"
+					." Coordenada2= '".htmlentities($this->getCoor2(),ENT_QUOTES)."',"
+					." Piso= '".htmlentities($this->getPiso(),ENT_QUOTES)."',"
+					." Departamento= '".htmlentities($this->getDpto(),ENT_QUOTES)."'"
+					." WHERE ID_Direccion= ".$this->getId().";";
+			$conex->consulta($consulta);
+		}
+		
+	}
 
-}
 	public function getId() {
 		return $this->id;
 	}
@@ -175,26 +214,26 @@ class Direccion {
 		}
 	}
 	public function getPiso() {
-		return $this->piso;
+		if ($this->piso == '0' || $this->piso == '' || $this->piso == 0) {
+			return "";
+		}
+		else {
+			return $this->piso;
+		}
 	}
 	public function setPiso($piso) {
-		if ($piso) {
-			$this->piso = $piso;
-		}
-		else {
-			//LOGERROR
-		}
+		$this->piso = $piso;
 	}
 	public function getDpto() {
-		return $this->dpto;
-	}
-	public function setDpto($dpto) {
-		if ($dpto) {
-			$this->dpto = $dpto;
+		if ($this->dpto == 0) {
+			return "";
 		}
 		else {
-			//LOGERROR
+			return $this->dpto;
 		}
+	}
+	public function setDpto($dpto) {
+		$this->dpto = $dpto;
 	}
 	public function getLoc() {
 		return $this->localidad;

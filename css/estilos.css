@@ -554,14 +554,18 @@ header {
 	}
 	.labelFillDP {
 		cursor: default;
-		font-size: 1.6em;
-		padding-top: 15px;
+		font-size: 1.2em;
+		padding-top: 5px;
+		padding-bottom: 5px;
 		color: #fff;
 		text-shadow: 0px 0px 2px #777;
 	}
 	.labelFillDP.inline {
 		display: inline-block;
 		min-width: 200px;
+	}
+	.labelFillDP.inline2 {
+		display: inline-block;
 	}
 	.labelCheckbox {
 		text-align: left;
@@ -607,13 +611,27 @@ header {
 		transition: 0.3s !important;
 		box-shadow: inset 1px 1px 1px 1px #000 !important;
 	}
-	.inputFillDP:ACTIVE, .inputFillDP:FOCUS {
+	.inputFillDP:ACTIVE, .inputFillDP:FOCUS,.textAreaFillDP:ACTIVE, .textAreaFillDP:FOCUS {
 		background-color: #fff !important;
 		
 	}
-	.inputFillDP.notSelected {
+	.inputFillDP.notSelected,.textAreaFillDP.notSelected {
 		box-shadow: inset 1px 1px 1px 1px #000, 
 		0px 0px 5px 3px #c00 !important;
+	}
+	.textAreaFillDP {
+		resize:none;
+		display: inline-block;
+		padding: 10px 10px !important;
+		width: 404px;
+		height: 70px !important;
+		text-align: justify;
+		background-color: #ccc !important;
+		border-radius: 0px !important;
+		border: none !important;
+		font-size: 1.0em !important;
+		transition: 0.3s !important;
+		box-shadow: inset 1px 1px 1px 1px #000 !important;
 	}
 	#dpNroDoc.notSelected {
 		box-shadow: inset 1px 1px 1px 1px #000, 
@@ -698,6 +716,28 @@ header {
 	.btnAuth.cancelar {
 		background-color: #900;
 	}
+	
+	
+	.btnCuadrado {
+		display: inline-block;
+		padding: 5px;
+		border-radius: 3px;
+		margin: 0px 5px 5px 0px;
+		cursor: pointer;
+		transition: 0.3s;
+		box-shadow: 0px 0px 1px 0px #666;
+	}
+	.btnCuadrado:hover {
+		box-shadow: 0px 0px 3px 0px #333;
+	}
+	.btnCuadrado.aceptar {
+		background-color: #090;
+		
+	}
+	.btnCuadrado.cancelar {
+		background-color: #900;
+	}
+	
 }
 
 

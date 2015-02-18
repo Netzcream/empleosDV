@@ -40,6 +40,19 @@ class NivelEstudios {
 		}
 	}
 	
+	public function getNiveles() {
+		$temp = array();
+		$conex = new MySQL();
+		$consulta = " SELECT ID_NivelEstudio as id, NivelEstudio as nivel FROM nivelestudios ";
+		$result1 = $conex->consulta($consulta);
+		$result = mysql_fetch_assoc($result1);
+		while ($result) {
+			$temp[$result['id']] = utf8_encode($result['nivel']);
+			$result = mysql_fetch_assoc($result1);
+		}
+		return $temp;
+	}
+	
 	public function getId() {
 		return $this->id;
 	}

@@ -134,7 +134,7 @@
 		margin: 0px auto;
 		width: 100%;
 	}
-	.tagConteiner {
+	.thingsConteiner {
 		margin: 0 auto;
 		width: 90%;
 		height: 230px;
@@ -148,11 +148,59 @@
 		overflow-x: hidden;  
 		text-align: left;
 	}
+	.thingsConteiner2 {
+		margin: 0 auto;
+		width: 90%;
+		height: 300px;
+		box-shadow: inset -1px -1px 1px 1px #ccf,
+				   inset 1px 1px 1px 1px #333;
+		
+		background-color: #bbb;
+		border-radius: 5px;
+		padding: 10px;
+		overflow-y: auto;
+		overflow-x: hidden;  
+		text-align: center;
+	}
+	.thingsConteiner3 {
+		margin: 0 auto;
+		width: 90%;
+		height: 200px;
+		padding: 10px;
+		overflow-y: auto;
+		overflow-x: hidden;  
+		text-align: center;
+		box-shadow: inset 0px 0px 4px 0px #000;
+	}
 	.preAdjust {
 
 	}
 	.groupTagAdd {
 
+	}
+	.workSections {
+		display: block;
+		text-align: center important!;
+		margin: 0 auto;
+	}
+	
+.labelCheckbox2 {
+		display: ineline-block;
+	    text-indent: 10px;
+    	padding-right: 10px;
+    	white-space: nowrap;
+	}
+	.labelCheckbox2 span {
+		color: #fff;
+		vertical-align: middle;
+		padding-left: 5px;
+		cursor: pointer;
+		font-size: 1.1em;
+		text-shadow: 2px 2px #444;
+		transition: 0.3s;
+	}
+	.labelCheckbox2 span:hover {
+		color: #bbf;
 	}
 	.inputTag {
 		background-image: url(../../imagenes/iconos/tag.png);
@@ -204,6 +252,125 @@
 	.tag:hover {
 			background-image: url(../../imagenes/iconos/close_rojo.png);
 			box-shadow: 1px 1px 1px 1px #666;
+	}
+	
+	.listaTrabajos, .listaEstudios {
+		width: 100%;
+		cursor: default;
+		border-collapse: collapse;
+		transition: 0.3s;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		/* box-shadow: 2px 2px 5px 1px #000; */
+		margin-bottom: 10px;
+		text-align: left;
+		
+	}
+	.listaTrabajos tr th, .listaEstudios tr th {
+		text-transform: uppercase;
+		font-size: 0.7em;
+		font-weight: bold;
+		background-color: #aaa;
+		text-align: center;
+		vertical-align: middle;
+		height: 30px;
+		
+	}
+	.needMargin {
+		padding-left: 10px;
+		padding-bottom: 5px;
+	}
+	.listTituloEmpresa {
+		font-weight: bold;
+	}
+	.listCargo {
+		font-size: 0.9em;
+		font-style: oblique;
+	}
+	.listAccion {
+		width: 70px;
+		text-align: center; 
+		vertical-align: middle;
+	}
+	.listDescripcion {
+		display: table-row;
+		padding-left: 10px;
+		text-align: left;
+		font-style: italic;
+		text-align: justify;
+		font-size: 0.7em;
+		line-height: normal;
+		margin-bottom: 5px;
+	}
+	.listRow0 {
+		background-color: #bbb;
+		transition: 0.3s;
+	}
+	.listRow1 {
+		background-color: #ccc;
+		transition: 0.3s;
+	}
+	.listRow1:hover, .listRow0:hover {
+		background-color: #ddd;
+		
+	}
+	.listFechas {
+		text-align: center;
+		white-space: nowrap;
+		font-size: 0.8em;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.listFechas span {
+		display:  block;
+		text-align: center;
+	}
+	.listFechas span.listDia {
+		font-size: 1.3em;
+		font-weight: bold;
+	}
+	.listFechas span.listMes {
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+	.listFechas span.listAnio {
+		font-size: 1em;
+		font-weight: bold;
+		
+	}
+	.listNancionalidad {
+		width: auto;
+		font-size: 0.9em;
+		white-space: nowrap;
+		padding: 0px 10px;
+	}
+	.listSeniority {
+		font-size: 0.9em;
+		width: auto;
+		white-space: nowrap;
+		padding: 0px 10px;
+	
+	}
+	#listAddWorkDesde, #listAddWorkHasta,#listFechaNacimiento,#listAddStuHasta,#listAddStuDesde {
+		display: inline-block;
+		padding: 0px 10px !important;
+		width: 130px;
+		background-color: #ccc !important;
+		height: 35px !important;	
+		border-radius: 0px !important;
+		border: none !important;
+		font-size: 1.3em !important;
+		text-align: center;
+		transition: 0.3s !important;
+		box-shadow: inset 1px 1px 1px 1px #000 !important;
+	}
+	
+	#listAddWorkDesde:ACTIVE, #listAddWorkDesde:FOCUS,#listAddWorkHasta:ACTIVE, #listAddWorkHasta:FOCUS,#listFechaNacimiento:ACTIVE,#listFechaNacimiento:FOCUS,#listAddStuHasta:ACTIVE,#listAddStuHasta:FOCUS,#listAddStuDesde:ACTIVE,#listAddStuDesde:FOCUS {
+		background-color: #fff !important;
+		
+	}
+	#listFechaNacimiento.notSelected,#listAddWorkDesde.notSelected,#listAddWorkHasta.notSelected,#listAddWorkDesde.notSelected,#listAddStuHasta.notSelected,#listAddStuDesde.notSelected {
+		box-shadow: inset 1px 1px 1px 1px #000, 
+		0px 0px 5px 3px #c00 !important;
 	}
 }
 

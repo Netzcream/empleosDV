@@ -50,7 +50,7 @@ if (isset($_GET)) {
 		<link rel="stylesheet" type="text/css" href="css/perfil.css"/>
 		<link rel="stylesheet" type="text/css" href="css/buscar.css"/>
 		<link rel="stylesheet" type="text/css" href="css/jq.toastmessage.css"/>
-		
+		<link rel="stylesheet" type="text/css" href="css/datedropper.css"/>
 		
 		
 		<!-- Distintos Scripts de JavaScript utilizados -->
@@ -63,7 +63,7 @@ if (isset($_GET)) {
 		<script type="text/javascript" src="js/footable.paginate.js"></script>
 		<script type="text/javascript" src="js/footable.filter.js"></script>
 		<script type="text/javascript" src="js/jq.toastmessage.js"></script>
-
+		<script type="text/javascript" src="js/datedropper.js"></script>
 
 		
 	</head>

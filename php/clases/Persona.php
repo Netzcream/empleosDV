@@ -13,6 +13,8 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Fecha.php");
 include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/FotoPerfil.php");
 include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Direccion.php");
 include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Tag.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Estudios.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Trabajo.php");
 
 class Persona {
 	
@@ -33,7 +35,14 @@ class Persona {
 	private $domicilio;
 	private $fechaIngreso;
 	private $fechaCambioPass; 
-	private $tags; 
+	private $tags;
+	private $estudios; 
+	private $maxEstId;
+	private $idAlumno; 
+	private $trabajos;
+	private $notificarme;
+	private $recordarme;
+	private $encontrarme;
 
 	public function __construct() { 
 		$this->id=null;
@@ -54,7 +63,13 @@ class Persona {
 		$this->fechaCambioPass = new Fecha();
 		$this->fechaIngreso = new Fecha();
 		$this->tags = new Tag();
-		
+		$this->estudios = array();
+		$this->trabajos = array();
+		$this->maxEstId = null;
+		$this->idAlumno = null;
+		$this->notificarme = null;
+		$this->recordarme = null;
+		$this->encontrarme = null;
 	}
 	
 	
@@ -62,19 +77,26 @@ class Persona {
 		$temp = new Persona();
 		if ($id) {
 			$conex = new MySQL();
-			$temp->id = $id;
+			$temp->setId($id);
 				
 			//Guardo Rol
-			$temp->rol->getAndSetRolByPersonaId($id);
+			$temp->getRol()->getAndSetRolByPersonaId($id);
 				
 			$consulta  = " SELECT "
 					." u.CodUsuario as id, "
-					." u.Email as email, ";
+					." u.Email as email, "
+					." u.notificarme as notificarme, "
+					." u.recordarme as recordarme, ";
 				
-			if ($temp->rol->getId() == "AL") {
+			if ($temp->getRol()->getId() == "AL") {
 				$consulta   .= " res.ID_NivelEstudios as nivelEstudioID, ";
+				$consulta   .= " res.ID_Alumno as alumnoID, ";
+				$consulta   .= " res.encontrarme as encontrarme, ";
 			}
-			if ($temp->rol->getId() == "AL" || $temp->rol->getId() == "PR") {
+			if ($temp->getRol()->getId() == "PR") {
+				$consulta   .= " res.ID_Profesor as alumnoID, ";
+			}
+			if ($temp->getRol()->getId() == "AL" || $temp->getRol()->getId() == "PR") {
 				$consulta   .= " res.Nombre as nombre, "
 						." res.Apellido as apellido, "
 						." res.FechaNacimiento as nacimiento, "
@@ -84,12 +106,12 @@ class Persona {
 						." res.ID_TipoDocumento as tipoDocumentoID, "
 						." res.Documento as documento, ";
 			}
-			if ($temp->rol->getId() != "AD") {
+			if ($temp->getRol()->getId() != "AD") {
 				$consulta .= " res.FechaBaja as fechaBaja, ";
 				$consulta .= " res.FechaIngreso as fi, ";
-						$consulta .= " res.FechaCambioPassword as fcp, ";
+				$consulta .= " res.FechaCambioPassword as fcp, ";
 			}
-			if ($temp->rol->getId() == "EM") {
+			if ($temp->getRol()->getId() == "EM") {
 				$consulta .= " res.CUIT as documento, ";
 				$consulta .= " res.NombreEmpresa as nombre, ";
 				$consulta .= " td.ID_TipoDocumento as tipoDocumentoID, ";
@@ -98,52 +120,72 @@ class Persona {
 			$consulta .= " u.Estado as estado ";
 			$consulta .= " FROM usuario u ";
 				
-			if ($temp->rol->getId() == "AL") {
+			if ($temp->getRol()->getId() == "AL") {
 				$consulta .= " INNER JOIN alumno res ON (u.CodUsuario=res.CodUsuario)";
 			}
-			else if ($temp->rol->getId() == "PR") {
+			else if ($temp->getRol()->getId() == "PR") {
 				$consulta .= " INNER JOIN profesor res ON (u.CodUsuario=res.CodUsuario)";
 			}
-			else if ($temp->rol->getId() == "EM") {
+			else if ($temp->getRol()->getId() == "EM") {
 				$consulta .= " INNER JOIN empresa res ON (u.CodUsuario=res.CodUsuario)";
 				$consulta .= " LEFT JOIN tipodocumento td ON (td.descripcion='CUIT')";
 			}
 				
-			$consulta .= " WHERE u.CodUsuario=".$temp->id;
+			$consulta .= " WHERE u.CodUsuario=".$temp->getId();
 				
 			$result = mysql_fetch_assoc($conex->consulta($consulta));
 				
-			if ($temp->rol->getId() == "AL") {
-				$temp->nivelEstudio = new NivelEstudios($result['nivelEstudioID']);
-				$temp->tags->getAndSetTagsByUsuario($id);
+			if ($temp->getRol()->getId() == "AL") {
+				$temp->getNivelEstudio()->getAndSetNivelById($result['nivelEstudioID']);
+				$temp->getTags()->getAndSetTagsByUsuario($id);
+				$temp->setEncontrarme($result['encontrarme']);
 			}
 				
-			if ($temp->rol->getId() == "AL" || $temp->rol->getId() == "PR") {
+			if ($temp->getRol()->getId() == "AL" || $temp->getRol()->getId() == "PR") {
 				$temp->setSexo($result['sexo']);
 				$temp->setNacimiento($result['nacimiento']);
 				$temp->getPais()->getAndSetPaisById($result['paisID']);
 				$temp->getEstadoCivil()->getAndSetECById($result['estadoCivilID']);
 				$temp->setApellido(utf8_encode($result['apellido']));
+				$temp->setIdAlumno($result['alumnoID']);
 				
 			}
 	
-			if ($temp->rol->getId() == "AD") {
+			if ($temp->getRol()->getId() == "AD") {
 				$temp->setNombre($result['email']);
 			}
 			else {
 				$temp->setNombre(utf8_encode($result['nombre']));
 				$temp->setDocumentoByData(utf8_encode($result['tipoDocumentoID']), utf8_encode($result['documento']));
 				$temp->getBaja()->getSetFecha($result['fechaBaja']);
-				$temp->getDomicilio()->getAndSetDireccionByUsrID($temp->id);
+				$temp->getDomicilio()->getAndSetDireccionByUsrID($temp->getId());
 				$temp->getFechaIngreso()->getSetFecha($result['fi']);
 				$temp->getFechaCambioPass()->getSetFecha($result['fi']);
 				if ($result['fcp'] != null AND $result['fcp'] != "") {
 					$temp->getFechaCambioPass()->getSetFecha($result['fcp']);
 				}
 			}
+			$temp->setNotificarme($result['notificarme']);
+			$temp->setRecordarme($result['recordarme']);
 			$temp->setEmail($result['email']);
-			$temp->getEstado()->getEstadoByUsuarioId($temp->id);
-			$temp->getFoto()->getAndSetFotoByUsuarioID($temp->id);
+			$temp->getEstado()->getEstadoByUsuarioId($temp->getId());
+			$temp->getFoto()->getAndSetFotoByUsuarioID($temp->getId());
+			if ($temp->getRol()->getId() == "AL") {
+				$consulta = "SELECT estudiosID as id FROM usuarioEstudios WHERE CodUsuario=".$temp->getId();
+				$result1 = $conex->consulta($consulta);
+				$result = mysql_fetch_assoc($result1);
+				while ($result) {
+					$index = $result['id'];
+					$est = new Estudios();
+					
+					if ($index > $temp->getMaxEstId()) {
+						$temp->setMaxEstId($index);
+					}
+					$temp->addEstudio($est->getEstudiosById($index));
+					$result = mysql_fetch_assoc($result1);
+					unset($est);
+				}
+			}
 		}
 		return $temp;
 	
@@ -152,19 +194,26 @@ class Persona {
 	public function getAndSetPersonaById($id) {
 		if ($id) {
 			$conex = new MySQL();
-			$this->id = $id;
+			$this->setId($id);
 				
 			//Guardo Rol
-			$this->rol->getAndSetRolByPersonaId($id);
+			$this->getRol()->getAndSetRolByPersonaId($id);
 				
 			$consulta  = " SELECT "
 					." u.CodUsuario as id, "
-					." u.Email as email, ";
+					." u.Email as email, "
+					." u.notificarme as notificarme, "
+					." u.recordarme as recordarme, ";
 				
-			if ($this->rol->getId() == "AL") {
+			if ($this->getRol()->getId() == "AL") {
 				$consulta   .= " res.ID_NivelEstudios as nivelEstudioID, ";
+				$consulta   .= " res.ID_Alumno as alumnoID, ";
+				$consulta   .= " res.encontrarme as encontrarme, ";
 			}
-			if ($this->rol->getId() == "AL" || $this->rol->getId() == "PR") {
+			if ($this->getRol()->getId() == "PR") {
+				$consulta   .= " res.ID_Profesor as alumnoID, ";
+			}
+			if ($this->getRol()->getId() == "AL" || $this->getRol()->getId() == "PR") {
 				$consulta   .= " res.Nombre as nombre, "
 						." res.Apellido as apellido, "
 						." res.FechaNacimiento as nacimiento, "
@@ -174,12 +223,12 @@ class Persona {
 						." res.ID_TipoDocumento as tipoDocumentoID, "
 						." res.Documento as documento, ";
 			}
-			if ($this->rol->getId() != "AD") {
+			if ($this->getRol()->getId() != "AD") {
 				$consulta .= " res.FechaBaja as fechaBaja, ";
 				$consulta .= " res.FechaIngreso as fi, ";
 				$consulta .= " res.FechaCambioPassword as fcp, ";
 			}
-			if ($this->rol->getId() == "EM") {
+			if ($this->getRol()->getId() == "EM") {
 				$consulta .= " res.CUIT as documento, ";
 				$consulta .= " res.NombreEmpresa as nombre, ";
 				$consulta .= " td.ID_TipoDocumento as tipoDocumentoID, ";
@@ -188,43 +237,46 @@ class Persona {
 			$consulta .= " u.Estado as estado ";
 			$consulta .= " FROM usuario u ";
 				
-			if ($this->rol->getId() == "AL") {
+			if ($this->getRol()->getId() == "AL") {
 				$consulta .= " INNER JOIN alumno res ON (u.CodUsuario=res.CodUsuario)";
 			}
-			else if ($this->rol->getId() == "PR") {
+			else if ($this->getRol()->getId() == "PR") {
 				$consulta .= " INNER JOIN profesor res ON (u.CodUsuario=res.CodUsuario)";
 			}
-			else if ($this->rol->getId() == "EM") {
+			
+			else if ($this->getRol()->getId() == "EM") {
 				$consulta .= " INNER JOIN empresa res ON (u.CodUsuario=res.CodUsuario)";
 				$consulta .= " LEFT JOIN tipodocumento td ON (td.descripcion='CUIT')";
 			}
 				
-			$consulta .= " WHERE u.CodUsuario=".$this->id;
+			$consulta .= " WHERE u.CodUsuario=".$this->getId();
 				
 			$result = mysql_fetch_assoc($conex->consulta($consulta));
 				
-			if ($this->rol->getId() == "AL") {
-				$this->nivelEstudio = new NivelEstudios($result['nivelEstudioID']);
-				$this->tags->getAndSetTagsByUsuario($id);
+			if ($this->getRol()->getId() == "AL") {
+				$this->getNivelEstudio()->getAndSetNivelById($result['nivelEstudioID']);
+				$this->getTags()->getAndSetTagsByUsuario($id);
+				$this->setEncontrarme($result['encontrarme']);
 			}
 			
 				
-			if ($this->rol->getId() == "AL" || $this->rol->getId() == "PR") {
+			if ($this->getRol()->getId() == "AL" || $this->getRol()->getId() == "PR") {
 				$this->setSexo($result['sexo']);
 				$this->setNacimiento($result['nacimiento']);
 				$this->getPais()->getAndSetPaisById($result['paisID']);
 				$this->getEstadoCivil()->getAndSetECById($result['estadoCivilID']);
 				$this->setApellido(utf8_encode($result['apellido']));
+				$this->setIdAlumno($result['alumnoID']);
 			}
 	
-			if ($this->rol->getId() == "AD") {
+			if ($this->getRol()->getId() == "AD") {
 				$this->setNombre($result['email']);
 			}
 			else {
 				$this->setNombre(utf8_encode($result['nombre']));
 				$this->setDocumentoByData(utf8_encode($result['tipoDocumentoID']), utf8_encode($result['documento']));
 				$this->getBaja()->getSetFecha($result['fechaBaja']);
-				$this->getDomicilio()->getAndSetDireccionByUsrID($this->id);
+				$this->getDomicilio()->getAndSetDireccionByUsrID($this->getId());
 				$this->getFechaIngreso()->getSetFecha($result['fi']);
 				$this->getFechaCambioPass()->getSetFecha($result['fi']);
 				if ($result['fcp'] != null AND $result['fcp'] != "") {
@@ -232,14 +284,45 @@ class Persona {
 				}
 			}
 			$this->setEmail($result['email']);
-			$this->getEstado()->getEstadoByUsuarioId($this->id);
-			$this->getFoto()->getAndSetFotoByUsuarioID($this->id);
-
+			$this->setNotificarme($result['notificarme']);
+			$this->setRecordarme($result['recordarme']);
+			$this->getEstado()->getEstadoByUsuarioId($this->getId());
+			$this->getFoto()->getAndSetFotoByUsuarioID($this->getId());
+			if ($this->getRol()->getId() == "AL") {
+				$consulta = "SELECT estudiosID as id FROM usuarioEstudios WHERE CodUsuario=".$this->getId();
+				$result1 = $conex->consulta($consulta);
+				$result = mysql_fetch_assoc($result1);
+				while ($result) {
+					$index = $result['id'];
+					$est = new Estudios();
+					if ($index > $this->getMaxEstId()) {
+						$this->setMaxEstId($index);
+					}
+					$this->addEstudio($est->getEstudiosById($index));
+					$result = mysql_fetch_assoc($result1);
+					unset($est);
+				}
+				$trabajos = new Trabajo();
+				$this->setWork($trabajos->getTrabajosByAlumnoId($this->idAlumno));
+	
+			}
 		}
 	
 		
 	}
-		
+	public function getNotificarme() {
+		return $this->notificarme;
+	}
+	public function setNotificarme($not) {
+		$this->notificarme = $not;
+	}
+	public function getRecordarme() {
+		return $this->recordarme;
+	}
+	public function setRecordarme($rec) {
+		$this->recordarme = $rec;
+	}
+	
 	public function getDocumento() {
 		return $this->documento;
 	}
@@ -463,16 +546,168 @@ class Persona {
 			//LOGERROR
 		}
 	}
+	public function setNivelEstudio($a) {
+		if ($a) {
+			$this->nivelEstudio = $a;
+		}
+		else {
+			//LOGERROR
+		}
+	}
+	public function getNivelEstudio() {
+		return $this->nivelEstudio;
+	}
 	public function getTags() {
 		return $this->tags;
 	}
 	public function setTags($tag) {
 		if ($tag) {
-		$this->tags->addTag($tag);
+			$this->tags->addTag($tag);
 		}
 		else {
 			//LOGERROR
 		}
+	}
+	public function addEstudio($est) {
+		if ($est) {
+			$this->estudios[$est->getId()] = $est;
+		}
+		else {
+			//LOGERROR
+		}
+	}
+	public function getEst($id) {
+		if ($id) {
+			return $this->estudios[$id];
+		}
+		else {
+			//LOGERROR
+		}
+	}
+	public function getAllEst() {
+		return $this->estudios;
+	}
+	public function delEst($id) {
+		if ($id) {
+			unset($this->estudios[$id]);
+		}
+		else {
+			//LOGERROR
+		}
+	}
+	public function getMaxEstId() {
+		return $this->maxEstId;	
+	}
+	public function setMaxEstId($a) {
+		if ($a) {
+			$this->maxEstId = $a;
+		}
+		else {
+			//LOGERROR
+		}
+	}
+	public function getEncontrarme() {
+		return $this->encontrarme;
+	}
+	public function setEncontrarme($a) {
+		if ($a) {
+			$this->encontrarme = $a;
+		}
+		else {
+			//LOGERROR
+		}
+	}
+	
+	public function getidAlumno() {
+		return $this->idAlumno;
+	}
+	public function setIdAlumno($id) {
+		if ($id) {
+			$this->idAlumno = $id;
+		}
+		else {
+			//LOGERROR
+		}
+	}
+	
+	public function addTrabajo($work) {
+		if ($work) {
+			$this->trabajos[$work->getId()] = $work;
+		}
+		else {
+			//LOGERROR
+		}
+	}
+	public function getWork($id) {
+		if ($id) {
+			return $this->trabajos[$id];
+		}
+		else {
+			//LOGERROR
+		}
+	}
+	public function setWork($works) {
+		if ($works) {
+			$this->trabajos = $works;
+		}
+		else {
+			//LOGERROR
+		}
+	}
+	public function getAllWork() {
+		return $this->trabajos;
+	}
+	public function delWork($id) {
+		if ($id) {
+			unset($this->trabajos[$id]);
+		}
+		else {
+			//LOGERROR
+		}
+	}
+	public function saveDP() {
+		if ($this->getRol()->getId() == "AL") {
+			$conex = new MySQL();
+			$consulta = " UPDATE Alumno SET "
+					   ." Nombre ='".htmlentities($this->getNombre(),ENT_QUOTES)."',"
+					   ." Apellido ='".htmlentities($this->getApellido(),ENT_QUOTES)."',"
+					   ." ID_TipoDocumento =".$this->getDocumento()->getId().","
+					   ." Documento ='".htmlentities($this->getDocumento()->getDocumento(),ENT_QUOTES)."',"
+					   ." FechaNacimiento ='".htmlentities($this->getFechaNacClass()->getForInsert(),ENT_QUOTES)."'"
+					   ." WHERE CodUsuario=".$this->getId()." AND ID_Alumno=".$this->getidAlumno().";"; 
+			$conex->consulta($consulta);
+		}
+		if ($this->getRol()->getId() == "PR") {
+			$conex = new MySQL();
+			$consulta = " UPDATE Profesor SET "
+					." Nombre ='".htmlentities($this->getNombre(),ENT_QUOTES)."',"
+					." Apellido ='".htmlentities($this->getApellido(),ENT_QUOTES)."',"
+					." ID_TipoDocumento =".$this->getDocumento()->getId().","
+					." Documento ='".htmlentities($this->getDocumento()->getDocumento(),ENT_QUOTES)."',"
+					." FechaNacimiento ='".htmlentities($this->getFechaNacClass()->getForInsert(),ENT_QUOTES)."'"
+					." WHERE CodUsuario=".$this->getId()." AND ID_Profesor=".$this->getidAlumno().";";
+			$conex->consulta($consulta);
+		}
+	}
+	
+	
+	public function saveConfig1() {
+			$conex = new MySQL();
+		if ($this->getRol()->getId() == "AL") {
+			$var = 0;
+			if ($this->getEncontrarme() == "true") { $var = "1"; }
+			$consulta = " UPDATE Alumno SET "
+			." encontrarme ='".$var."'"
+			." WHERE CodUsuario=".$this->getId()." AND ID_Alumno=".$this->getidAlumno().";";
+			$conex->consulta($consulta);
+	
+		}
+		$var = 0;
+		if ($this->getNotificarme() == "true") { $var = "1"; }
+		$consulta = " UPDATE usuario SET "
+					." notificarme ='".$var."'"
+					." WHERE CodUsuario=".$this->getId().";";
+		$conex->consulta($consulta);
 	}
 }
 
