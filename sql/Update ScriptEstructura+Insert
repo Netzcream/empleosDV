@@ -3754,3 +3754,5 @@ add column notificarme bool not null default true,
 add column recordarme bool not null default false;
 ALTER TABLE Alumno
 add column encontrarme bool not null default true;
+
+ALTER TABLE Alumnocarrera ADD column avance int not null default 0;
