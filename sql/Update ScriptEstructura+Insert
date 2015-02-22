@@ -3756,3 +3756,5 @@ ALTER TABLE Alumno
 add column encontrarme bool not null default true;
 
 ALTER TABLE Alumnocarrera ADD column avance int not null default 0;
+
+UPDATE Localidad set Localidad = TRIM(Localidad);
