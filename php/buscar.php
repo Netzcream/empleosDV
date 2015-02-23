@@ -6,25 +6,33 @@ if (!isset($_SESSION)) {
 if (!class_exists('MySQL')) {
 	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
 }
+if (!class_exists('Tag')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Tag.php"); }
+$tags = new Tag();
+$colTags = array();
+foreach ($tags->tagColections() as $tag) {
+	$row_array['id'] = $tag;
+	$row_array['name'] = $tag;
+	array_push($colTags,$row_array);
+}
+$colTags = json_encode($colTags);
+
 $_SESSION['location'] = "buscar";
 
 $conex = new MySQL();
 $consulta = "SELECT codCarrera as id, descripcion as carrera FROM carrera where Activo=1;";
 $result = $conex->consulta($consulta);
 		    $json_response = array();
-		    $row = mysql_fetch_array($result, MYSQL_ASSOC);
+		    $row = $conex->fetch_array();
 		    
 		    while ($row) {
 		    	
 			        $row_array['id'] = $row['id'];
-			        $row_array['name'] = utf8_encode($row['carrera']);
+			        $row_array['name'] = $row['carrera'];
 			        array_push($json_response,$row_array);
-			        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+			        $row = $conex->fetch_array();
 			    }
 			    
 			   $carreras = json_encode($json_response);
-	
-			     
 			    	
 ?>
 
@@ -64,6 +72,7 @@ $result = $conex->consulta($consulta);
 			    	noSuggestionText: 'No se encontraron coincidencias para: {{query}}',
 			    	style: 'border-radius: 5px !important',
 			    	data: <?php echo $carreras; ?>
+			    	
 			    });
 				$(msBCarrera).on(
 				  'selectionchange', function(e, cb, s){
@@ -96,7 +105,7 @@ $result = $conex->consulta($consulta);
 			    	valueField: 'id',
 			    	noSuggestionText: 'No se encontraron coincidencias para: {{query}}',
 			    	style: 'border-radius: 5px !important',
-			    	data: <?php echo $carreras; ?>
+			    	data: echo $carreras;
 			    });
 				$(msBOrientacion).on(
 				  'selectionchange', function(e, cb, s){
@@ -171,7 +180,7 @@ $result = $conex->consulta($consulta);
 			    	sortDir: 'asc',
 			    	sortOrder: 'name',
 			    	allowDuplicates: false,
-			    	allowFreeEntries: true,
+			    	allowFreeEntries: false,
 			    	useZebraStyle: true,
 			    	maxDropHeight: 145,
 			    	toggleOnClick: true,
@@ -179,12 +188,9 @@ $result = $conex->consulta($consulta);
 			    	valueField: 'id',
 			    	noSuggestionText: 'No se encontraron coincidencias para: {{query}}',
 			    	style: 'border-radius: 5px !important',
-			    	data: [{"id":1, "name":"PHP"},
-					    	{"id":2, "name":"HTML"},
-					    	{"id":3, "name":"Java"},
-					    	{"id":4, "name":"CSS"},
-					    	{"id":5, "name":"HTML5"},
-					    	{"id":6, "name":"ActionScript"}]
+			    	data: <?php echo $colTags; ?>
+			    	
+			    
 			    });
 				$(ms).on(
 				  'selectionchange', function(e, cb, s){
@@ -200,7 +206,7 @@ $result = $conex->consulta($consulta);
 		
 			<div class="contBuscarInd">
 				<label class="buscarLabel">Apellido</label>
-				<input class="inputFillBuscar" id="apellidoOpt" type="text" placeholder="Apellido"/>
+				<input class="inputFillDP" id="apellidoOpt" type="text" placeholder="Apellido"/>
 			</div>
 		
 			
@@ -256,7 +262,7 @@ function selSexo(a) {
 		var tags2 = tags;
 		var apellido = $('#apellidoOpt').val();
 //		alert("Carrera: " + carrera + " - MinEdad: "+minEdad+" - MaxEdad: "+maxEdad+" - Sexo: "+ sexo+ " - Porcentaje: "+porcentaje+" - Tags: "+tags2);
-		$('#cuerpo').load('php/temp.php', {carrera: carrera, minEdad:minEdad,maxEdad:maxEdad,sexo:sexo,avance:porcentaje,tags:tags2, apellido:apellido } );
+		$('#cuerpo').load('php/buscarAlumnos.php', {carrera: carrera, minEdad:minEdad,maxEdad:maxEdad,sexo:sexo,avance:porcentaje,tags:tags2, apellido:apellido } );
 	}
 
 	

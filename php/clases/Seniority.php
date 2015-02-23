@@ -19,27 +19,27 @@ class Seniority {
 			$conex = new MySQL();
 			$consulta = "SELECT Seniority FROM seniority where ID_Seniority=".$id.";";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($id);
-			$temp->setSeniority(utf8_encode($result['Seniority']));
+			$temp->setSeniority($result['Seniority']);
 		}
 		return $temp;
 	}
 	public function getAndSetSeniorityById($id) {
 		if ($id) {
 			$this->setId($id);
-			$this->setSeniority($this->getSeniorityById($id));
+			$this->setSeniority($this->getSeniorityById($id)->getSeniority());
 		}
 	}
 	public function getColSeniorities() {
 		$conex = new MySQL();
 		$consulta = "SELECT ID_Seniority as id, Seniority as detalle FROM seniority;";
 		$result1 = $conex->consulta($consulta);
-		$result = mysql_fetch_assoc($result1);
+		$result = $conex->fetch_assoc();
 		$return = array();
 		while($result) {
-			$return[$result['id']] = utf8_encode($result['detalle']);
-			$result = mysql_fetch_assoc($result1);
+			$return[$result['id']] = $result['detalle'];
+			$result = $conex->fetch_assoc();
 		}
 		return $return;
 	}
@@ -59,7 +59,7 @@ class Seniority {
 	}
 	public function setSeniority($se) {
 		if ($se) {
-			$this->rol = $se;
+			$this->seniority = $se;
 		}
 		else {
 			//LOGERROR

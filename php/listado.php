@@ -11,10 +11,10 @@ if (!class_exists('MySQL')) {
 if (!class_exists('Persona')) {
 	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php";
 }
-
+/*
 $list = new Listado();
 echo $list->getTable();
-
+*/
 class Listado {
 	public $tablaCompleta;
 	public $cantColumnas;
@@ -25,11 +25,8 @@ class Listado {
 	public $cantRows;
 	
 	public function __construct() {
-		$this->conex = new MySQL();
-		$this->consulta = "SELECT * FROM PERSONA;";
-		$this->result = $this->conex->consulta($this->consulta);
-		$this->cantRows = mysql_num_rows($this->result);
-		$this->cantColumnas = mysql_num_fields($this->result);
+//		$this->cantRows = $this->conex->num_rows();
+	//	$this->cantColumnas = $this->conex->num_fields();
 		//mysql_fetch_assoc ( $devCapitulo );
 	}
 	
@@ -37,7 +34,7 @@ class Listado {
 		return "
 				<thead>
 					<tr>
-						<th width='40' class='footable-first-column' title='Prueba de Listas' data-sort-ignore='true'>Foto</th>
+						<th width='40' class='footable-first-column' title='' data-sort-ignore='true'>Foto</th>
 						<th  data-toggle='true'>Apellido</th>
 						<th >Nombre</th>
 						<th data-hide='phone' width='70'>Edad</th>
@@ -49,23 +46,24 @@ class Listado {
 				";
 	}
 	
-	public function getListado() {
+	public function getListado($colPersona) {
+		$_SESSION['colPersonas'] = unserialize (serialize ($colPersona));
 		$temp = "<tbody>";
-		$resultado = mysql_fetch_assoc($this->result);
-		while ($resultado) {
-			$persona = new Persona($resultado['id']);
+		foreach ($colPersona as $Per) {
+			$Persona = new Persona();
+			$Persona = unserialize (serialize ($Per));
+			
 			$temp .= "<tr>";
 			$temp .= "<td>";
-			$temp .= "<img alt='' src='".$persona->getFoto()."' width='40'>";
+			$temp .= "<img alt='' src='".$Persona->getPic()."' width='40'>";
 			$temp .= "</td>";
-			$temp .= "<td>".$persona->getApellido()."</td>";
-			$temp .= "<td>".$persona->getNombre()."</td>";
-			$temp .= "<td style='text-align: center; vertical-align: middle;'>".$persona->getEdad()."</td>";
-			$temp .= "<td>CABA</td>";
-			$temp .= "<td style='text-align: center; vertical-align: middle;' data-value='".$persona->getSexo()."'><img alt='' src='".$persona->getSexoImg()."'></td>";
-			$temp .= "<td style='text-align: center; vertical-align: middle;'><a href='#'>Ver</a></td>";
+			$temp .= "<td>".$Persona->getApellido()."</td>";
+			$temp .= "<td>".$Persona->getNombre()."</td>";
+			$temp .= "<td style='text-align: center; vertical-align: middle;'>".$Persona->getEdad()."</td>";
+			$temp .= "<td>".$Persona->getDomicilio()->getLoc()->getLocalidad()."</td>";
+			$temp .= "<td style='text-align: center; vertical-align: middle;' data-value='".$Persona->getSexo()."'><img alt='' src='".$Persona->getSexoImg()."'></td>";
+			$temp .= "<td style='text-align: center; vertical-align: middle;'><a target='_blank' href='php/imprimirCVde.php?cv=".$Persona->getId()."'>Ver</a></td>";
 			$temp .= "</tr>";
-			$resultado = mysql_fetch_assoc($this->result);
 		} 
 		$temp .= "</tbody>";
 		return $temp;
@@ -82,11 +80,12 @@ class Listado {
 
 		return $temp;
 	}
-	public function getTable() {
+	
+	public function getTable($colPersona) {
 		$temp = "<p class='buscarTable'><input id='filter' type='search' placeholder='Buscar...'/></p>";
 		$temp .= "<table class='tablaDemo breakpoint table toggle-circle toggle-medium' data-page-size='10' data-filter='#filter' data-filter-text-only='true'>";
 		$temp .= $this->getHeader();
-		$temp .= $this->getListado();
+		$temp .= $this->getListado($colPersona);
 		$temp .= $this->getFooter();
 		$temp .= "</table>";
 		

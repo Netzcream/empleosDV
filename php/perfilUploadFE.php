@@ -1,5 +1,6 @@
 				<script type="text/javascript" src="js/jq.min1.7.2.js"></script>
 				<script type="text/javascript" src="js/jq.Jcrop.min.js"></script>
+				<script type="text/javascript" src="js/scripts.js"></script>
 		<div class="demo">
 				<div class="titleSelRol">Cargar imagen de perfil</div>
 					<div class="bbody">

@@ -1,34 +1,38 @@
 <?php
-
-if (!class_exists('MySQL')) {
-	require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
-}
-if (!class_exists('Persona')) {
-	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php";
-}
-if (!class_exists('Seniority')) {
-	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Seniority.php";
-}
-if (!class_exists('Pais')) {
-	require_once $_SERVER["DOCUMENT_ROOT"]."/php/clases/Pais.php";
-}
-	
+  header('Content-Type: text/html; charset=UTF-8');
 	if (!isset($_SESSION)) {
 		session_start();
 	}
+	if (!class_exists('MySQL')) { require_once $_SERVER["DOCUMENT_ROOT"].'/php/conex.php'; }
+	if (!class_exists('Rol')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Rol.php"); }
+	if (!class_exists('EstadoCivil')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/EstadoCivil.php"); }
+	if (!class_exists('EstadoUsuario')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/EstadoUsuario.php"); }
+	if (!class_exists('Documento')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Documento.php"); }
+	if (!class_exists('NivelEstudios')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/NivelEstudios.php"); }
+	if (!class_exists('Pais')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Pais.php"); }
+	if (!class_exists('Fecha')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Fecha.php"); }
+	if (!class_exists('FotoPerfil')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/FotoPerfil.php"); }
+	if (!class_exists('Direccion')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Direccion.php"); }
+	if (!class_exists('Tag')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Tag.php"); }
+	if (!class_exists('Estudios')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Estudios.php"); }
+	if (!class_exists('Trabajo')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Trabajo.php"); }
+	if (!class_exists('Persona')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php"); }
+	if (!class_exists('Carrera')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Carrera.php"); }
+	if (!class_exists('Materia')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Materia.php"); }
+	
 	$_SESSION['location'] = "perfilHome";
-	$mostrarUsuario = $_SESSION['usuario'];
-	if (isset($_SESSION['MostrarNombre'])) {
-	 	$mostrarUsuario = $_SESSION['MostrarNombre'];
-	 }
-
+	$mostrarUsuario = "NN";
+	$Persona = new Persona();
 	 if (isset($_SESSION["usr"])) {
-	 	$_SESSION["usr"] = unserialize (serialize ($_SESSION['usr']));
-	 	$Persona = $_SESSION["usr"];
-	 	if (!empty($Persona->getApellido()) && !empty($Persona->getNombre())) {
-		 	$mostrarUsuario = $Persona->getApellido().",".$Persona->getNombre();
+	 	$Persona = unserialize (serialize ($_SESSION['usr']));
+	 	if ($Persona->getApellido() != "" && $Persona->getNombre() != "") {
+		 	$mostrarUsuario = $Persona->getApellido().", ".$Persona->getNombre();
 		 	$_SESSION['MostrarNombre'] = $mostrarUsuario; 
 	 	}
+	 	$Persona->setTags(new Tag());
+	 	$Persona->getTags()->getAndSetTagsByUsuario($Persona->getId());
+	 	$_SESSION["usr"] = $Persona;
+	 	
 	 }
 	 else {
 	 	//LOGERROR
@@ -40,27 +44,26 @@ if (!class_exists('Pais')) {
 	 $result = $conex->consulta($consulta);
 	 
 	 
-	 $row = mysql_fetch_array($result, MYSQL_ASSOC);
+	 $row = $conex->fetch_array();
 	 	
 	 while ($row) {
-	 	$tipoDocumentos[] = array(utf8_encode($row['des']), $row['id'],$row['letras']);
-	 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	 	$tipoDocumentos[] = array($row['des'], $row['id'],$row['letras']);
+	 	$row = $conex->fetch_array();
 	 }
 	 	
 	 	
 	 $consulta = "SELECT ID_Provincia as id,Provincia as prov FROM provincia order by prov ASC;";
 	 $result = $conex->consulta($consulta);
 	 	
-	 	
-	 $row = mysql_fetch_array($result, MYSQL_ASSOC);
+	 $row = $conex->fetch_array();
 	 $first = "";
 	 while ($row) {
 	 
-	 	$provincias[] = array(utf8_encode($row['prov']), $row['id']);
+	 	$provincias[] = array($row['prov'], $row['id']);
 	 	if ($first == "") {
 	 		$first = $row['id'];
 	 	}
-	 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	 	$row = $conex->fetch_array();
 	 }
 	 if ($Persona->getDomicilio()->getLoc()->getProvincia()->getId()) {
 	 	$first = $Persona->getDomicilio()->getLoc()->getProvincia()->getId();
@@ -69,15 +72,15 @@ if (!class_exists('Pais')) {
 	 $result = $conex->consulta($consulta);
 	 
 	 
-	 $row = mysql_fetch_array($result, MYSQL_ASSOC);
+	 $row = $conex->fetch_array();
 	 $firstLoc = "";
 	 while ($row) {
 	 		
-	 	$localidad[] = array(utf8_encode($row['loc']), $row['id']);
+	 	$localidad[] = array($row['loc'], $row['id']);
 	 	if ($firstLoc == "") {
 	 		$firstLoc = $row['id'];
 	 	}
-	 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	 	$row = $conex->fetch_array();
 	 }
 ?>
 
@@ -88,21 +91,41 @@ if (!class_exists('Pais')) {
 				<img title="Perfil" alt="Foto Perfil" src="<?php echo $_SESSION["usr"]->getPic() ; ?>">
 				<img class="upload" title="Cambiar imagen de perfil" alt="Foto Perfil" src="imagenes/iconos/upload_blanco.png">
 			</div>
-			<div class="perfilNombre"><?php echo $mostrarUsuario;  ?></div>
+			<div class="perfilNombre"><?php echo $mostrarUsuario." <span class='notationLabel'>(".$Persona->getRol()->getRol().")<span>";  ?></div>
 		</div>
 		
 		<div class="perfilBtns">
+		
+		<?php if($Persona->getRol()->getId() != "AD"): ?>
 			<div class="perfilIndCont" onclick="loadSectionPerfil(1);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/configuracion.png"></div> <span>Configuraci&oacute;n</span></div>
 			<div class="perfilIndCont" onclick="loadSectionPerfil(2);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/estudiante.png"></div><span>Datos Personales</span></div>
 			<div class="perfilIndCont" onclick="loadSectionPerfil(3);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/casa.png"></div><span>Domicilio y Contacto</span></div>
+		<?php endif; ?>
+		<?php if($Persona->getRol()->getId() == "AL"): ?>
 			<div class="perfilIndCont" onclick="loadSectionPerfil(4);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/tag.png"></div><span>Mis Tags</span></div>
 			<div class="perfilIndCont" onclick="loadSectionPerfil(5);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/trabajo.png"></div><span>Mis Trabajos</span></div>
 			<div class="perfilIndCont" onclick="loadSectionPerfil(6);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/estudios.png"></div><span>Mis Estudios</span></div>
-		</div>
-		<div>
-			<input class="perfilBtnSeeMyCV" type="submit" value="Ver mi curriculum"/>
+		<?php endif; ?>
+		<?php if($Persona->getRol()->getId() == "PR"): ?>
+			
+			<div class="perfilIndCont" onclick="loadSectionPerfil(5);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/trabajo.png"></div><span>Mis Alumnos</span></div>
+			
+		<?php endif; ?>
+		
+		<?php if($Persona->getRol()->getId() == "EM"): ?>
+			
+			<div class="perfilIndCont" onclick="loadSectionPerfil(5);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/trabajo.png"></div><span>Mis No se</span></div>
+			
+		<?php endif; ?>
+			
 		</div>
 		
+		<?php if($Persona->getRol()->getId() == "AL"): ?>
+		<div>
+			<a class="perfilBtnSeeMyCV" target='_blank' href='php/imprimirCVde.php?cv=<?php echo $Persona->getId(); ?>'>Ver mi curriculum</a>
+			<!--  <a class="perfilBtnSeeMyCV" type="submit" value="Ver mi curriculum" target='_blank' href='php/imprimirCVde.php?cv='/>  -->
+		</div>
+		<?php endif; ?>
 	</div>
 	
 		<div id="uploadFileCont" class="contSelRolUsuario">
@@ -325,6 +348,7 @@ if (!class_exists('Pais')) {
 			<div id="misTags" class="thingsConteiner">
 			
 			<?php 
+
 			foreach ($Persona->getTags()->getTags() as $a) {
 					echo "<div class='tag' onclick='delTags(".'"'.$a.'"'.");'>".$a."</div>";
 				}
@@ -429,16 +453,59 @@ if (!class_exists('Pais')) {
 		<div id="perfilMisEstudios" class="contSelRolUsuario">
 			<div class="titleSelRol">Mis Estudios</div>
 			
-		<div id="misEstudios" class="thingsConteiner2">
+		<div id="misEstudios" class="thingsConteiner3">
 			
 		<!-- Se carga la tabla de estudios -->
 			
 		</div>
+		
 		<div>
 			<input type="button" class="perfilBtnSeeMyCV" value="A&ntilde;adir Nuevo" onclick="agregarEdu(); loadSectionPerfil(8);">
 		</div>
+		
+		
+			<div>
+					<label class="labelFillDP inline">Carreras DaVinci&nbsp;&nbsp;&nbsp;</label>
+					<label class="labelFillDP inline">% aprobado&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+				</div>
+			
+		<div class="groupTagAdd">
+			
+			<select class="selDocDP selCarreraDavinci" id="selCarrera" onchange="selCarreraToEdit();">
+			<?php 
+				$carreras = new Carrera();
+				$carreraDV = $Persona->getCarreraDv();
+				foreach ($carreras->getCarrerasActivas() as $id => $carrera) {
+					$selection = "";
+					if ($carreraDV == $id) {
+						$selection= "selected=selected";
+					}
+					echo "<option ".$selection." value='".$id."'>".$carrera."</option>";
+				}
+				$porcentaje = '0';
+				$porcentaje = $Persona->getAvanceByCarrera($carreraDV);
+				if ($porcentaje < 1) {
+						$porcentaje = '0';
+				}
+			?>
+				
+			</select>
+			<input type="hidden" value="<?php echo $carreraDV; ?>" id="selectedCarrera">
+			<div class="limitRange2">
+					<input id="bBuscarPorcentaje" type="range" min="0" max="100" value="<?php echo $porcentaje; ?>"  onchange="actualizaPorc2(value);"/>
+					
+				<script>
+				function actualizaPorc2(prc) {
+					document.querySelector('#bPorcentaje2').value = prc+" %";
+					}
+				</script>
+			</div>
+			<output for="bBuscarPorcentaje" id="bPorcentaje2"><?php echo $porcentaje; ?> %</output>	
+			<div id="justForCarreras"></div>	
+		</div>
+		
 			<div class="finRecuadroPerfil">
-				<input type="button" class="perfilBtnSeeMyCV" value="Volver" onclick="goBacktoPerfil(6);">
+				<input type="button" class="perfilBtnSeeMyCV" value="Volver" onclick="selCarreraToEdit(); goBacktoPerfil(6);">
 			</div>
 		</div>
 		
@@ -625,55 +692,8 @@ if (!class_exists('Pais')) {
 				function clearInput(a) {
 					a.value = "";
 				}
-				$( "#listAddWorkDesde" ).dateDropper({
-						format: "d/m/Y",
-						lang: "es", 
-						color:"#063049",
-						placeholder: "Desde",
-						animation: "dropdown",
-						minYear: "1930",
-						maxYear: "2030"
-							
-				});
-				$( "#listAddWorkHasta" ).dateDropper({
-					format: "d/m/Y",
-					lang: "es", 
-					color:"#063049",
-					placeholder: "Hasta",
-					animation: "dropdown",
-					minYear: "1930",
-					maxYear: "2030"
-						
-			});
-				$( "#listFechaNacimiento").dateDropper({
-					format: "d/m/Y",
-					lang: "es",
-					color:"#063049",
-					placeholder: "Nacimiento",
-					animation: "dropdown",
-					minYear: "1930",
-					maxYear: "2010"
-				
-				});
-				$( "#listAddStuDesde" ).dateDropper({
-					format: "d/m/Y",
-					lang: "es", 
-					color:"#063049",
-					placeholder: "Fecha hasta",
-					animation: "dropdown",
-					minYear: "1930",
-					maxYear: "2030"
-				});
-				$( "#listAddStuHasta").dateDropper({
-					format: "d/m/Y",
-					lang: "es",
-					color:"#063049",
-					placeholder: "Fecha desde",
-					animation: "dropdown",
-					minYear: "1930",
-					maxYear: "2030"
-				
-				});
+
+
 
 				
 	$('#uploadFileCont').load('php/perfilUploadFE.php');
@@ -757,8 +777,12 @@ if (!class_exists('Pais')) {
 				setTimeout(function() {
 					$('#perfilMisTrabajos').show();
 					$('#perfilMisTrabajos').animate({'left': '50%', 'margin-left': -$('#perfilMisTrabajos').width()/2 });
+					setTimeout(function() {
+						loadWorkList();
+					}, 500);
+					
 				}, 500);
-				loadWorkList();
+				
 			}
 			volver = false;
 			}
@@ -771,8 +795,11 @@ if (!class_exists('Pais')) {
 					setTimeout(function() {
 						$('#perfilMisEstudios').show();
 						$('#perfilMisEstudios').animate({'left': '50%', 'margin-left': -$('#perfilMisEstudios').width()/2 });
+						setTimeout(function() {
+							loadEduList();
+						}, 500);
 					}, 500);
-					loadEduList();
+					
 				}
 				volver = false;
 			}
@@ -886,7 +913,13 @@ if (!class_exists('Pais')) {
 		$('#selLocDP').prop('disabled', true);
 		$('#toLoadLoc').load('php/localidades.php',{provID:$('#selProvDP').val()});
 	}
-
+	function selCarreraToEdit() {
+		var carrera1 = $('#selectedCarrera').val();
+		var carrera2 = $('#selCarrera').val();
+		var val = $('#bBuscarPorcentaje').val();
+		$('#selectedCarrera').val($('#selCarrera').val());
+		$('#justForCarreras').load('php/addOrRemovePercentCarreras.php',{action:'yes',carrera1:carrera1,carrera2:carrera2,val:val});
+	}
 	function validateDOM() {
 		var errores = 0;
 		var patron = new RegExp('^[0-9]+$');
@@ -1191,6 +1224,7 @@ if (!class_exists('Pais')) {
 		$('#perfilAddModWorkLoad').load('php/addOrRemoveTrabajos.php',{action:"load",id:a});
 		$("#workBtn1").val("Cancelar");
 		$("#workBtn2").val("Modificar");
+		$("#currentWorkID").val(a);
 		$("#currentWorkAction").val("edit");
 		
 		//Carga el formulario de estudios con los datos del id a modificarlo
@@ -1251,5 +1285,65 @@ if (!class_exists('Pais')) {
 	}
 
 	//Init de fecha de Nacimiento
+	
+
+	</script>
+	<script type="text/javascript" src="js/jq.min.js"></script>
+	<script type="text/javascript" src="js/datedropper.js"></script>
+
+	<script>
+	
+	habilitarFechas();
+	function habilitarFechas() {
+		$( "#listAddWorkDesde" ).dateDropper({
+			format: "d/m/Y",
+			lang: "es", 
+			color:"#063049",
+			placeholder: "Desde",
+			animation: "dropdown",
+			minYear: "1930",
+			maxYear: "2030"
+				
+	});
+	$( "#listAddWorkHasta" ).dateDropper({
+		format: "d/m/Y",
+		lang: "es", 
+		color:"#063049",
+		placeholder: "Hasta",
+		animation: "dropdown",
+		minYear: "1930",
+		maxYear: "2030"
+			
+});
+	$( "#listFechaNacimiento").dateDropper({
+		format: "d/m/Y",
+		lang: "es",
+		color:"#063049",
+		placeholder: "Nacimiento",
+		animation: "dropdown",
+		minYear: "1930",
+		maxYear: "2010"
+	
+	});
+	$( "#listAddStuDesde" ).dateDropper({
+		format: "d/m/Y",
+		lang: "es", 
+		color:"#063049",
+		placeholder: "Fecha hasta",
+		animation: "dropdown",
+		minYear: "1930",
+		maxYear: "2030"
+	});
+	$( "#listAddStuHasta").dateDropper({
+		format: "d/m/Y",
+		lang: "es",
+		color:"#063049",
+		placeholder: "Fecha desde",
+		animation: "dropdown",
+		minYear: "1930",
+		maxYear: "2030"
+	
+	});
+	}
 	$('#listFechaNacimiento').val('<?php echo $Persona->getFechaNac(); ?>');
 </script>

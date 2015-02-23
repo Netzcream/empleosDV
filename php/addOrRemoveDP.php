@@ -10,9 +10,9 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 
+$Persona = new Persona();
 if (isset($_SESSION["usr"])) {
-	$_SESSION["usr"] = unserialize (serialize ($_SESSION['usr']));
-	$Persona = $_SESSION["usr"];
+	$Persona = unserialize (serialize ($_SESSION['usr']));
 }
 else {
 	//LOGERROR

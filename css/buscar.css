@@ -220,9 +220,22 @@ input[type="range"]::-ms-thumb {
 	max-width: 300px;
 	margin: 0 auto;
 }
-#bPorcentaje {
-	color: #fff;
+.limitRange2 {
+	display: inline-block;
+	max-width: 150px;
+	margin-left: 30px;
+	margin-right: 0px;
 	
+}
+#bPorcentaje {
+	margin-left: 10px;
+	color: #fff;
+}
+
+#bPorcentaje2 {
+	width: 50px;
+	display: inline-block;
+	color: #fff;
 }
 /*******************************/
 

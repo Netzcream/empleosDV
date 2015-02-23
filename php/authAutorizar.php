@@ -3,13 +3,13 @@
 include_once("mail.php");
 
 if (isset($_POST['codUsr'])) {
-	$codUsr = htmlentities($_POST['codUsr'],ENT_QUOTES);
+
 	
 	if (!class_exists('MySQL')) {
 		require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
 	}
 	$conex = new MySQL();
-
+	$codUsr = $conex->escape($_POST['codUsr']);
 	$conex->consulta("START TRANSACTION;");
 	$consulta = "UPDATE usuario SET Estado = 3 WHERE CodUsuario =".$codUsr.";";
 	$a1 = $conex->consulta($consulta);
@@ -21,7 +21,7 @@ if (isset($_POST['codUsr'])) {
 		echo "<script>location.reload();errorToas('Usuario autorizado.'); </script>";
 		$consulta = "SELECT Email FROM usuario WHERE CodUsuario =".$codUsr.";"; 
 		$result = $conex->consulta($consulta);
-		$row = mysql_fetch_array($result, MYSQL_ASSOC);
+		$row = $conex->fetch_array();
 		$email = $row['Email'];
 		$contenido ="";
 		$subject = "Autorizado";

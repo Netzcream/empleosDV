@@ -27,7 +27,7 @@ class Tag {
 						INNER JOIN usuarioTag ut on (t.id=ut.tag_id)
 						WHERE ut.CodUsuario = ".$id." order by t.tag ASC;";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->maxTagId = 0;
 			$this->clearTags();
 			while ($result) {
@@ -35,8 +35,8 @@ class Tag {
 				if ($index > $this->maxTagId) {
 					$this->maxTagId = $index; 
 				}
-				$this->addTagById($index,utf8_encode($result['tag']));
-				$result = mysql_fetch_assoc($result1);
+				$this->addTagById($index,$result['tag']);
+				$result = $conex->fetch_assoc();
 			}
 		}
 		
@@ -49,7 +49,7 @@ class Tag {
 						INNER JOIN usuarioTag ut on (t.id=ut.tag_id)
 						WHERE ut.CodUsuario = ".$id." order by t.tag ASC;";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->maxTagId = 0;
 			$temp->clearTags();
 			while ($result) {
@@ -58,11 +58,24 @@ class Tag {
 				if ($index > $temp->getMaxId()) {
 					$temp->setMaxId($index); 
 				}
-				$temp->addTagById($index,utf8_encode($result['tag']));
-				$result = mysql_fetch_assoc($result1);
+				$temp->addTagById($index,$result['tag']);
+				$result = $conex->fetch_assoc();
 			}
 		}
 	
+	}
+	public function tagColections() {
+		$conex = new MySQL();
+		//having (cant > 1)
+		$consulta = "SELECT count(*) as cant, tag FROM Tag group by tag  order by tag asc LIMIT 100";
+		$result1 = $conex->consulta($consulta);
+		$result = $conex->fetch_assoc();
+		$return = array();
+		while ($result) {
+			$return[] = $result['tag'];
+			$result = $conex->fetch_assoc();
+		}
+		return $return;
 	}
 	public function saveTags($Pid) {
 
@@ -87,11 +100,11 @@ class Tag {
 		$values = "";
 		$tempMaxId = "";
 		foreach ($this->getTags() as $key => $val) {
-			if ($key > $this->maxTagId) {
-				$values = "(null,'".$val."')";
+			if ($key > $this->maxTagId || $key == '0') {
+				$values = "(null,'".$conex->escape($val)."')";
 				$consulta = "INSERT INTO tag (id,tag) values ".$values.";";
 				$conex->consulta($consulta);
-				$lastId = mysql_insert_id();
+				$lastId = $conex->last_id();
 				$consulta = "INSERT INTO usuarioTag (id,tag_id,CodUsuario) VALUES (null,".$lastId.",".$Pid.")";
 				$conex->consulta($consulta);
 			}
@@ -115,9 +128,10 @@ class Tag {
 		$this->tagCol = array();
 	}
 	public function addTag($tag) {
-		if ($tag) {
-			$this->tagCol[] = $tag;
-			
+		if ($tag != "" && $tag != null) {
+			if (!array_search($tag,$this->tagCol)) {
+				$this->tagCol[] = $tag;
+			}
 		}
 		else {
 			//LOGERROR

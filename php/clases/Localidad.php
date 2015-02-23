@@ -25,9 +25,9 @@ class Localidad {
 			$conex = new MySQL();
 			$consulta = " Select ID_Localidad as id, Localidad as localidad, ID_Provincia as provID From localidad WHERE ID_Localidad= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($result['id']);
-			$temp->setLocalidad(utf8_encode($result['localidad']));
+			$temp->setLocalidad($result['localidad']);
 			$tempp = new Provincia();
 			$temp->setProvincia($tempp->getProvinciaById($result['provID']));
 		}
@@ -42,7 +42,7 @@ class Localidad {
 			$consulta = " Select ID_Localidad as id, Localidad as localidad from Localidad "
 							 ."	WHERE ID_Provincia=".$id.";";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			
 			while($result) {
 				$temp = new Localidad();
@@ -50,7 +50,7 @@ class Localidad {
 				$temp->setLocalidad($result['localidad']);
 				$temp->setProvincia($this->getProvincia());
 				$return[] = $temp;
-				$result = mysql_fetch_assoc($result1);
+				$result = $conex->fetch_assoc();
 			}
 		}
 		return $return;
@@ -61,8 +61,8 @@ class Localidad {
 			$conex = new MySQL();
 			$consulta = " Select ID_Localidad as id, Localidad as localidad, ID_Provincia as provID From localidad WHERE ID_Localidad= '".$this->id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
-			$this->localidad = utf8_encode($result['localidad']);
+			$result = $conex->fetch_assoc();
+			$this->localidad = $result['localidad'];
 			$this->provincia = new Provincia();
 			$this->provincia = $this->provincia->getProvinciaById($result['provID']);
 		}

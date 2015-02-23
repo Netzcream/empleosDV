@@ -1,4 +1,6 @@
 <?php 
+error_reporting(-1);
+ini_set('display_errors', 'On');
 if (!isset($_SESSION)) {
 	session_start();
 }
@@ -54,16 +56,16 @@ if (isset($_GET)) {
 		
 		
 		<!-- Distintos Scripts de JavaScript utilizados -->
-		<script type="text/javascript" src="js/jq-2.1.1.js"></script>
-		<script type="text/javascript" src="js/jq.min.js"></script>
-		<script type="text/javascript" src="js/scripts.js"></script>
-		<script type="text/javascript" src="js/jq.ez-pinned-footer.js"></script>
-		<script type="text/javascript" src="js/footable.js"></script>
-		<script type="text/javascript" src="js/footable.sort.js"></script>
-		<script type="text/javascript" src="js/footable.paginate.js"></script>
-		<script type="text/javascript" src="js/footable.filter.js"></script>
-		<script type="text/javascript" src="js/jq.toastmessage.js"></script>
-		<script type="text/javascript" src="js/datedropper.js"></script>
+		<script type="text/javascript" src="/js/jq-2.1.1.js"></script>
+		<script type="text/javascript" src="/js/jq.min.js"></script>
+		<script type="text/javascript" src="/js/scripts.js"></script>
+		<script type="text/javascript" src="/js/jq.ez-pinned-footer.js"></script>
+		<script type="text/javascript" src="/js/footable.js"></script>
+		<script type="text/javascript" src="/js/footable.sort.js"></script>
+		<script type="text/javascript" src="/js/footable.paginate.js"></script>
+		<script type="text/javascript" src="/js/footable.filter.js"></script>
+		<script type="text/javascript" src="/js/jq.toastmessage.js"></script>
+
 
 		
 	</head>
@@ -75,7 +77,7 @@ if (isset($_GET)) {
 
 		<header id='headDa'>
 			<div title="Bolsa DV" class="logo" onclick="GoTo(0);">
-				<img  alt="Bolsa DV" src="imagenes/logo/logo100.png">
+				<img alt="Bolsa DV" src="imagenes/logo/logo100.png">
 				<span class="logoText">BolsaDV</span>
 			</div>
 			<div id="contMenu">

@@ -21,9 +21,9 @@ class EstadoUsuario {
 			$consulta = " SELECT ID_EstadoUsuario as id, Descripcion as estado FROM EstadoUsuario "
 					." WHERE ID_EstadoUsuario= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->id = $result['id'];
-			$temp->estado = utf8_encode($result['estado']);
+			$temp->estado = $result['estado'];
 		}
 		return $temp;
 	}
@@ -33,9 +33,9 @@ class EstadoUsuario {
 			$consulta = " SELECT ID_EstadoUsuario as id, Descripcion as estado FROM EstadoUsuario "
 					." WHERE ID_EstadoUsuario= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->id = $result['id'];
-			$this->estado = utf8_encode($result['estado']);
+			$this->estado = $result['estado'];
 		}
 	}
 	public function getAndSetEstadoByUsuarioId($id) {
@@ -45,9 +45,9 @@ class EstadoUsuario {
 						INNER JOIN usuario u on (u.Estado=eu.ID_EstadoUsuario)
 						WHERE u.CodUsuario= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->id = $result['id'];
-			$this->estado = utf8_encode($result['estado']);
+			$this->estado = $result['estado'];
 		}
 	}
 	public function getEstadoByUsuarioId($id) {
@@ -58,9 +58,9 @@ class EstadoUsuario {
 						INNER JOIN usuario u on (u.Estado=eu.ID_EstadoUsuario)
 						WHERE u.CodUsuario= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->id = $result['id'];
-			$temp->estado = utf8_encode($result['estado']);
+			$temp->estado = $result['estado'];
 		}
 		return $temp;
 	}

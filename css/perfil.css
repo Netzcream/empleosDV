@@ -90,6 +90,7 @@
 	}
 	
 	.perfilBtnSeeMyCV {
+		
 		display: inline-block;
 		padding: 5px 15px;
 		background-color: #fff;
@@ -100,8 +101,10 @@
 		transition: 0.3s;
 		color: #333;
 	}
-	.perfilBtnSeeMyCV:hover {
+	.perfilBtnSeeMyCV:hover, .perfilBtnSeeMyCV:FOCUS {
 		background-color: #aaa;
+		color: #333;
+		text-decoration: none;		
 	}
 	#image_file {
 		display: none;
@@ -166,11 +169,15 @@
 		margin: 0 auto;
 		width: 90%;
 		height: 200px;
+		box-shadow: inset -1px -1px 1px 1px #ccf,
+				   inset 1px 1px 1px 1px #333;
+		
+		background-color: #bbb;
+		border-radius: 5px;
 		padding: 10px;
 		overflow-y: auto;
 		overflow-x: hidden;  
 		text-align: center;
-		box-shadow: inset 0px 0px 4px 0px #000;
 	}
 	.preAdjust {
 
@@ -211,6 +218,10 @@
 		width: 200px !important;
 		margin: 0px 0px 2px 0px !important;
 
+	}
+	.selCarreraDavinci {
+		
+		margin: 0px 0px 2px 0px !important;
 	}
 	.inputMail {
 /*

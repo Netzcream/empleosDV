@@ -24,11 +24,11 @@ class Documento {
 			$consulta = " SELECT Descripcion as tipo, AdmiteLetras as letras FROM tipodocumento "
 					." WHERE ID_TipoDocumento= '".$id."';";
 			$result1 = $conex->consulta(consulta);
-			$result = mysql_fetch_assoc(result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($id);
 			$temp->setDocumento($documento);
-			$temp->setTipoDocumento(utf8_encode($result['tipo']));
-			$temp->setLetras(utf8_encode($result['letras']));
+			$temp->setTipoDocumento($result['tipo']);
+			$temp->setLetras($result['letras']);
 		}
 		
 		return $temp;
@@ -39,11 +39,11 @@ class Documento {
 			$consulta = " SELECT Descripcion as tipo, AdmiteLetras as letras FROM tipodocumento "
 					." WHERE ID_TipoDocumento= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->setId($id);
 			$this->setDocumento($documento);
-			$this->setTipoDocumento(utf8_encode($result['tipo']));
-			$this->setLetras(utf8_encode($result['letras']));
+			$this->setTipoDocumento($result['tipo']);
+			$this->setLetras($result['letras']);
 		}
 	}
 

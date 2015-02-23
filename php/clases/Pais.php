@@ -20,9 +20,9 @@ class Pais {
 			$consulta = "SELECT p.ID_Pais as id, p.Pais as pais FROM paises p
 						WHERE p.ID_Pais= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($id);
-			$temp->setPais(utf8_encode($result['pais']));
+			$temp->setPais($result['pais']);
 		}
 		return $temp;
 	}
@@ -32,20 +32,20 @@ class Pais {
 			$consulta = "SELECT p.ID_Pais as id, p.Pais as pais FROM paises p
 						WHERE p.ID_Pais= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->setId($id);
-			$this->setPais(utf8_encode($result['pais']));
+			$this->setPais($result['pais']);
 		}
 	}
 	public function getColPaises() {
 		$conex = new MySQL();
 		$consulta = "SELECT ID_Pais as id, Pais as pais FROM paises;";
 		$result1 = $conex->consulta($consulta);
-		$result = mysql_fetch_assoc($result1);
+		$result = $conex->fetch_assoc();
 		$return = array();
 		while($result) {
-			$return[$result['id']] = utf8_encode($result['pais']);
-			$result = mysql_fetch_assoc($result1);
+			$return[$result['id']] = $result['pais'];
+			$result = $conex->fetch_assoc();
 		}
 		return $return;
 	}

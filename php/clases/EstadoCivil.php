@@ -18,9 +18,9 @@ class EstadoCivil {
 			$consulta = "SELECT ec.ID_EstadoCivil as id, ec.EstadoCivil as estado FROM estadocivil ec
 		WHERE ec.ID_EstadoCivil= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($result['id']);
-			$temp->setEstadoCivil(utf8_encode($result['estado']));
+			$temp->setEstadoCivil($result['estado']);
 		}
 		return $temp;
 	}
@@ -30,9 +30,9 @@ class EstadoCivil {
 			$consulta = "SELECT ec.ID_EstadoCivil as id, ec.EstadoCivil as estado FROM estadocivil ec
 		WHERE ec.ID_EstadoCivil= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->id = $result['id'];
-			$this->estadoCivil = utf8_encode($result['estado']);
+			$this->estadoCivil = $conex->escape($result['estado']);
 		}
 	}
 	public function getId() {

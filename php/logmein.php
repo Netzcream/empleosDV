@@ -45,11 +45,12 @@ if (isset($_POST)) {
 		return;
 		
 	}
+	$conex = new MySQL();
 	/* Limpia la basura que pueda llegar a aparecer o ingresar el usuario */	
 	$usr = $_POST['usr'];
 	$usr = substr($usr,0,100);
 	$usr = stripslashes($usr);
-	$usr = htmlentities($usr,ENT_QUOTES);
+	$usr = $conex->escape($usr);
 	$pwd = $_POST['pwd'];
 	$pwd = stripslashes($pwd);
 	$pwd = SHA1(substr($pwd,0,100));
@@ -70,11 +71,11 @@ if (isset($_POST)) {
 		
 	}
 	$usr = strtolower ( $usr);
-	$conex = new MySQL();
+
 
 	$consulta = "SELECT * FROM usuario WHERE Email IN ('".$usr."','".$usr."@davinci.edu.ar') AND Password='".$pwd."';";
 	$result = $conex->consulta($consulta);
-	$result2 = mysql_num_rows($result);
+	$result2 = $conex->num_rows();
 	if ($result2 == 0) {
 		$error = "El usuario/Mail y clave no coinciden";
 		$error = '<label class="regLabelNota regError">'.$error.'</label>';
@@ -93,7 +94,7 @@ if (isset($_POST)) {
 		
 		
 
-		$result3 = mysql_fetch_assoc($result);
+		$result3 = $conex->fetch_assoc();
 		
 		$_SESSION['usuario'] = $result3['Email'];
 		$_SESSION['estadoUsuario'] = $result3['Estado'];
@@ -101,7 +102,7 @@ if (isset($_POST)) {
 	
 		$consulta = "SELECT * FROM usuarioRol where CodUsuario='".$result3['CodUsuario']."';";
 		$result = $conex->consulta($consulta);
-		$result3 = mysql_fetch_assoc($result);
+		$result3 = $conex->fetch_assoc();
 		$_SESSION['UsuarioRol'] = $result3['CodRol'];
 if ($_SESSION['estadoUsuario'] != 2) { 
 	
@@ -124,9 +125,9 @@ if ($_SESSION['estadoUsuario'] != 2) {
 		//Foto de perfil
 		$consulta = "SELECT Foto FROM foto WHERE CodUsuario=".$_SESSION['CodUsuario'].";";
 		$result = $conex->consulta($consulta);
-		$result2 = mysql_num_rows($result);
+		$result2 = $conex->num_rows();
 		if ($result2 >0) {
-			$result3 = mysql_fetch_assoc($result);
+			$result3 = $conex->fetch_assoc();
 			$_SESSION['fotoPerfil'] = $result3['Foto'];
 		}
 		else {

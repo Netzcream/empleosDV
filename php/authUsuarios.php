@@ -53,11 +53,11 @@ class Listado {
 							." INNER JOIN tipodocumento td on (a.ID_TipoDocumento=td.ID_TipoDocumento)"
 							." WHERE u.estado = 2 AND ur.CodRol = 'AL';";
 		$this->result = $this->conex->consulta($this->consulta);
-		$this->cantRows = mysql_num_rows($this->result);
-		$this->cantColumnas = mysql_num_fields($this->result);
+		$this->cantRows = $this->conex->num_rows();
+		$this->cantColumnas = $this->conex->num_fields();
 		
 		$temp = "";
-		$resultado = mysql_fetch_assoc($this->result);
+		$resultado = $this->conex->fetch_assoc();
 		while ($resultado) {
 			$temp .= "<tr>";
 			$temp .= "<td title='Alumno' data-value='AL'>";
@@ -77,7 +77,7 @@ class Listado {
 			$temp .= "</td>";
 			
 			$temp .= "</tr>";
-			$resultado = mysql_fetch_assoc($this->result);
+			$resultado = $this->conex->fetch_assoc();
 		} 
 	
 		return $temp;
@@ -92,11 +92,11 @@ class Listado {
 						." INNER JOIN tipodocumento td on (a.ID_TipoDocumento=td.ID_TipoDocumento)"
 								." WHERE u.estado = 2 AND ur.CodRol = 'PR';";
 		$this->result = $this->conex->consulta($this->consulta);
-		$this->cantRows = mysql_num_rows($this->result);
-		$this->cantColumnas = mysql_num_fields($this->result);
+		$this->cantRows = $this->conex->num_rows();
+		$this->cantColumnas = $this->conex->num_fields();
 	
 		$temp = "";
-		$resultado = mysql_fetch_assoc($this->result);
+		$resultado = $this->conex->fetch_assoc();
 		while ($resultado) {
 			$temp .= "<tr>";
 			$temp .= "<td title='Profesor' data-value='PR'>";
@@ -113,7 +113,7 @@ class Listado {
 			$temp .= "<div class='btnAuth cancelar' onclick='cancelarUsr(".$resultado['usrID'].",".'"'.$resultado['apellido']." ".$resultado['nombre'].'"'.");'><img alt='' src='imagenes/iconos/cross_blanco.png' width='20'></div>";
 			$temp .= "</td>";
 			$temp .= "</tr>";
-			$resultado = mysql_fetch_assoc($this->result);
+			$resultado = $this->conex->fetch_assoc();
 		}
 	
 		return $temp;
@@ -127,11 +127,11 @@ class Listado {
 							." INNER JOIN empresa a on (a.CodUsuario=u.codUsuario)"
 							." WHERE u.estado = 2 AND ur.CodRol = 'EM';";
 		$this->result = $this->conex->consulta($this->consulta);
-		$this->cantRows = mysql_num_rows($this->result);
-		$this->cantColumnas = mysql_num_fields($this->result);
+		$this->cantRows = $this->conex->num_rows();
+		$this->cantColumnas = $this->conex->num_fields();
 	
 		$temp = "";
-		$resultado = mysql_fetch_assoc($this->result);
+		$resultado = $this->conex->fetch_assoc();
 		while ($resultado) {
 			$temp .= "<tr>";
 			$temp .= "<td title='Empresa' data-value='EM'>";
@@ -149,7 +149,7 @@ class Listado {
 
 			
 			$temp .= "</tr>";
-			$resultado = mysql_fetch_assoc($this->result);
+			$resultado = $this->conex->fetch_assoc();
 		}
 	
 		return $temp;

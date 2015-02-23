@@ -22,9 +22,9 @@ class NivelEstudios {
 			$consulta = " SELECT NivelEstudio as nivel FROM nivelestudios "
 					." WHERE ID_NivelEstudio= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($id);
-			$temp->nivel = utf8_encode($result['nivel']);
+			$temp->nivel = $result['nivel'];
 		}
 		return $temp;
 	}
@@ -34,9 +34,9 @@ class NivelEstudios {
 			$consulta = " SELECT NivelEstudio as nivel FROM nivelestudios "
 					." WHERE ID_NivelEstudio= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->setId($id);
-			$this->nivel = utf8_encode($result['nivel']);
+			$this->nivel = $result['nivel'];
 		}
 	}
 	
@@ -45,10 +45,10 @@ class NivelEstudios {
 		$conex = new MySQL();
 		$consulta = " SELECT ID_NivelEstudio as id, NivelEstudio as nivel FROM nivelestudios ";
 		$result1 = $conex->consulta($consulta);
-		$result = mysql_fetch_assoc($result1);
+		$result = $conex->fetch_assoc();
 		while ($result) {
-			$temp[$result['id']] = utf8_encode($result['nivel']);
-			$result = mysql_fetch_assoc($result1);
+			$temp[$result['id']] = $result['nivel'];
+			$result = $conex->fetch_assoc();
 		}
 		return $temp;
 	}

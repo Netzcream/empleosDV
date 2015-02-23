@@ -19,8 +19,8 @@ require_once $_SERVER["DOCUMENT_ROOT"]."/php/mail.php";
 $consulta = "SELECT * FROM usuario WHERE Email='".$email."' AND CodConfirmacion='".$codigo."' AND Estado=1";
 $conex = new MySQL();
 $result = $conex->consulta($consulta);
-if (mysql_num_rows($result) == 1) {
-	$getts = mysql_fetch_assoc($result);
+if ($conex->num_rows() == 1) {
+	$getts = $conex->fetch_assoc();
 	$id=$getts['CodUsuario'];
 	$consulta = "UPDATE usuario SET Estado=2 WHERE CodUsuario=".$id.";";
 	$conex->consulta($consulta);

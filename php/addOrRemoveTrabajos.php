@@ -14,9 +14,9 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 
+$Persona = new Persona();
 if (isset($_SESSION["usr"])) {
-	$_SESSION["usr"] = unserialize (serialize ($_SESSION['usr']));
-	$Persona = $_SESSION["usr"];
+	$Persona = unserialize (serialize ($_SESSION['usr']));
 }
 else {
 	//LOGERROR
@@ -37,21 +37,24 @@ if (isset($_POST['action'])) {
 			$id = $_POST['id'];
 			$Persona->getWork($id)->setEmpresa($_POST['empresa']);
 			$Persona->getWork($id)->setPuesto($_POST['cargo']);
-			
 			$Persona->getWork($id)->getFechaDesde()->setFecha($_POST['fechaDesde']);
 			if (isset($_POST['fechaHasta'])) {
 				if ($_POST['fechaHasta'] != "" && $_POST['fechaHasta'] != null) {
 					$Persona->getWork($id)->getFechaHasta()->setFecha($_POST['fechaHasta']);
 				}
 				else {
+
 					$Persona->getWork($id)->getFechaHasta()->setFecha(null);
 				}
 			}
+			
+			
+			
 			$Persona->getWork($id)->setDesc($_POST['descripcion']);
 			$Persona->getWork($id)->getPais()->getAndSetPaisById($_POST['pais']);
 			$Persona->getWork($id)->getSeniority()->getAndSetSeniorityById($_POST['seniority']);
 			$Persona->getWork($id)->setPersonasCargo($_POST['acargo']);
-	
+
 			$a = $Persona->getWork($id)->saveAndReturnIdByPersona($Persona->getidAlumno());
 			$_SESSION["usr"] = $Persona;
 		}
@@ -148,7 +151,7 @@ if (sizeof($Persona->getAllWork()) > 0) {
 		echo '</td>';
 		echo '<td class="listFechas">';
 	
-		if ($a->getFechaHasta()->getFecha() != null) {
+		if ($a->getFechaHasta()->getFecha() != null &&  $a->getFechaHasta()->getFecha() != "0000-00-00 00:00:00" && $a->getFechaHasta()->getFecha() != "0000/00/00 00:00:00") {
 			echo '<span class="listDia">'.$a->getFechaHasta()->getDia().'</span>';
 			echo '<span class="listMes">'.$a->getFechaHasta()->getShortMes().'</span>';
 			echo '<span class="listAnio">'.$a->getFechaHasta()->getAnio().'</span>';
@@ -177,29 +180,39 @@ if (sizeof($Persona->getAllWork()) > 0) {
 echo '</table>';
 }
 function loadWorkByPersonaAndId($Per,$a) {
+		$Persona = new Persona();
+		$Persona = unserialize (serialize ($Per));
+		$trabajo = new Trabajo();
+		$trabajo = unserialize (serialize ($Persona->getWork($a)));
+
+		$fechaHasta = $trabajo->getFechaHasta()->getFecha();
+		$desc = str_replace(array("\r", "\n")," ", $trabajo->getDesc()); 
+	echo '<script>';
+	echo '$("#currentWorkID").val("'.$a.'");';
+	echo '$("#listEmpresa").val("'.$trabajo->getEmpresa().'");';
+	echo '$("#listCargo").val("'.$trabajo->getPuesto().'");';
+
+	echo '$("#listAddWorkDesde").val("'.$trabajo->getFechaDesde()->getFecha().'");';
 	
-		$Per = unserialize (serialize ($Per));
-	echo '<script>
 
-				$("#currentWorkID").val("'.$a.'");
-						
-				$("#listEmpresa").val("'.$Per->getWork($a)->getEmpresa().'");
-				$("#listCargo").val("'.$Per->getWork($a)->getPuesto().'");
-				$("#listAddWorkDesde").val("'.$Per->getWork($a)->getFechaDesde()->getFecha().'");
-				$("#listAddWorkHasta").val("'.$Per->getWork($a)->getFechaHasta()->getFecha().'");
-				$("#listDescripcion").val("'.$Per->getWork($a)->getDesc().'");
-
-						
-				$("#workPaisSel option[value='.$Per->getWork($a)->getPais()->getId().']").attr("selected","selected");
-				$("#workSenioritySel option[value='.$Per->getWork($a)->getSeniority()->getId().']").attr("selected","selected");';
-						
-				if ($Per->getWork($a)->getPersonasCargo() == true) {
-				echo '$("#checkPersonasACargo").prop("checked", true);';	
-				}
-				else {
-					echo '$("#checkPersonasACargo").prop("checked", false);';
-				}
-			echo '</script>';
+	if ($fechaHasta) {
+		echo '$("#listAddWorkHasta").val("'.$fechaHasta.'");';
+	}
+	if ($desc) {
+		echo '$("#listDescripcion").val("'.$desc.'");';
+	}
+	echo '$("#workPaisSel option[value='.$trabajo->getPais()->getId().']").attr("selected","selected");';
+	echo '$("#workSenioritySel option[value='.$trabajo->getSeniority()->getId().']").attr("selected","selected");';
+	
+	if ($trabajo->getPersonasCargo() == true) {
+		echo '$("#checkPersonasACargo").prop("checked", true);';
+	}
+	else {
+		echo '$("#checkPersonasACargo").prop("checked", false);';
+	}
+	
+	
+	echo '</script>';
 }
 ?>
 

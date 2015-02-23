@@ -39,14 +39,14 @@ function uploadImageFile() { // Note: GD library is required for this function
                                 // create a new image from file 
                                 $vImg = @imagecreatefromjpeg($sTempFileName);
                                 break;
-                            /*case IMAGETYPE_GIF:
+                            case IMAGETYPE_GIF:
                                 $sExt = '.gif';
 
                                 // create a new image from file 
                                 $vImg = @imagecreatefromgif($sTempFileName);
-                                break;*/
+                                break;
                             case IMAGETYPE_PNG:
-                                $sExt = '.png';
+                                $sExt = '.jpg';
 
                                 // create a new image from file 
                                 $vImg = @imagecreatefrompng($sTempFileName);

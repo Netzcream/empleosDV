@@ -42,10 +42,10 @@ if (isset($_POST)) {
 		if (($rol == "soyAlum") || ($rol == "soyProf")) { 
 			//Apellido
 			
-			if (isset($_POST['apellido'])) { $apellido = htmlentities($_POST['apellido'],ENT_QUOTES); }
+			if (isset($_POST['apellido'])) { $apellido = $conex->escape($_POST['apellido']); }
 			else { $error++; }
 			//Nombre
-			if (isset($_POST['nombre'])) { $nombre = htmlentities($_POST['nombre'],ENT_QUOTES); }
+			if (isset($_POST['nombre'])) { $nombre = $conex->escape($_POST['nombre']); }
 			else { $error++; }
 			//Sexo
 			if (isset($_POST['sexo'])) {
@@ -54,28 +54,28 @@ if (isset($_POST)) {
 			}
 			else { $error++; }
 			//Tipo de Documento
-			if (isset($_POST['tipoDoc'])) { $tipoDoc = htmlentities($_POST['tipoDoc'],ENT_QUOTES); }
+			if (isset($_POST['tipoDoc'])) { $tipoDoc = $conex->escape($_POST['tipoDoc']); }
 			else { $error++; }
 			//Nro de Doc
-			if (isset($_POST['nroDoc'])) { $nroDoc = htmlentities($_POST['nroDoc'],ENT_QUOTES); }
+			if (isset($_POST['nroDoc'])) { $nroDoc = $conex->escape($_POST['nroDoc']); }
 			else { $error++; }
 			//Domicilio Calle
-			if (isset($_POST['calle'])) { $calle = htmlentities($_POST['calle'],ENT_QUOTES); }
+			if (isset($_POST['calle'])) { $calle = $conex->escape($_POST['calle']); }
 			else { $error++; }
 			//Domicilio Nro
-			if (isset($_POST['nroCalle'])) { $nroCalle = htmlentities($_POST['nroCalle'],ENT_QUOTES); }
+			if (isset($_POST['nroCalle'])) { $nroCalle = $conex->escape($_POST['nroCalle']); }
 			else { $error++; }
 			//Domicilio PRovincia
-			if (isset($_POST['provincia'])) { $provincia = htmlentities($_POST['provincia'],ENT_QUOTES); }
+			if (isset($_POST['provincia'])) { $provincia = $conex->escape($_POST['provincia']); }
 			else { $error++; }
 			//Domicilio Localidad
-			if (isset($_POST['localidad'])) { $localidad = htmlentities($_POST['localidad'],ENT_QUOTES); }
+			if (isset($_POST['localidad'])) { $localidad = $conex->escape($_POST['localidad']); }
 			else { $error++; }
 
-			if (isset($_POST['piso'])) { $piso = htmlentities($_POST['piso'],ENT_QUOTES); }
+			if (isset($_POST['piso'])) { $piso = $conex->escape($_POST['piso']); }
 			else { $error++; }
 				
-			if (isset($_POST['dpto'])) { $departamento = htmlentities($_POST['dpto'],ENT_QUOTES); }
+			if (isset($_POST['dpto'])) { $departamento = $conex->escape($_POST['dpto']); }
 			else { $error++; }
 				
 			
@@ -83,22 +83,22 @@ if (isset($_POST)) {
 		
 		else if ($rol == "soyEmpr") {
 			//Razon Social
-			if (isset($_POST['razonSoc'])) { $razonSoc = htmlentities($_POST['razonSoc'],ENT_QUOTES); }
+			if (isset($_POST['razonSoc'])) { $razonSoc = $conex->escape($_POST['razonSoc']); }
 			else { $error++; }
 			//Nro de CUIT
-			if (isset($_POST['nroCUIT'])) { $nroCuit = htmlentities($_POST['nroCUIT'],ENT_QUOTES); }
+			if (isset($_POST['nroCUIT'])) { $nroCuit = $conex->escape($_POST['nroCUIT']); }
 			else { $error++; }
 			//Domicilio Calle
-			if (isset($_POST['calle'])) { $calle = htmlentities($_POST['calle'],ENT_QUOTES); }
+			if (isset($_POST['calle'])) { $calle = $conex->escape($_POST['calle']); }
 			else { $error++; }
 			//Domicilio Nro
-			if (isset($_POST['nroCalle'])) { $nroCalle = htmlentities($_POST['nroCalle'],ENT_QUOTES); }
+			if (isset($_POST['nroCalle'])) { $nroCalle = $conex->escape($_POST['nroCalle']); }
 			else { $error++; }
 			//Domicilio PRovincia
-			if (isset($_POST['provincia'])) { $provincia = htmlentities($_POST['provincia'],ENT_QUOTES); }
+			if (isset($_POST['provincia'])) { $provincia = $conex->escape($_POST['provincia']); }
 			else { $error++; }
 			//Domicilio Localidad
-			if (isset($_POST['localidad'])) { $localidad = htmlentities($_POST['localidad'],ENT_QUOTES)	; }
+			if (isset($_POST['localidad'])) { $localidad = $conex->escape($_POST['localidad'])	; }
 			else { $error++; }
 		}
 		
@@ -123,11 +123,11 @@ if (isset($_POST)) {
 		$conex->consulta("START TRANSACTION;");
 		$a1 = $conex->consulta($consulta);
 		$consDomicilio = "INSERT INTO direccion (ID_Direccion,ID_Provincia,ID_Localidad,Calle,Numero,Piso,Departamento) VALUES "
-				."(null,'".$provincia."','".$localidad."','".$calle."','".$nroCalle."','".$piso."','".$departamento."');";
+					."(null,'".$provincia."','".$localidad."','".$conex->escape($calle)."','".$conex->escape($nroCalle)."','".$conex->escape($piso)."','".$departamento."');";
 		$a2 = $conex->consulta($consDomicilio);
 		$a3 = $conex->consulta("SELECT LAST_INSERT_ID() as id");
-		$result = mysql_fetch_assoc($a3);
-		$lastID = utf8_encode($result['id']);
+		$result = $conex->fetch_assoc();
+		$lastID = $result['id'];
 		
 		$a4 = $conex->consulta("UPDATE UsuarioRol SET CodRol='".$codRol."' WHERE CodUsuario = ".$codUsuario.";");
 

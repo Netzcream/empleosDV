@@ -18,11 +18,11 @@ $consulta = "SELECT ID_Localidad as id, Localidad as loc FROM LOCALIDAD WHERE ID
 $result = $conex->consulta($consulta);
 
 
-$row = mysql_fetch_array($result, MYSQL_ASSOC);
+$row = $conex->fetch_array();
 while ($row) {
 		
-	$localidad[] = array(utf8_encode($row['loc']), $row['id']);
-	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	$localidad[] = array($row['loc'], $row['id']);
+	$row = $conex->fetch_array();
 }
 	
 

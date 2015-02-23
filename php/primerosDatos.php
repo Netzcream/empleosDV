@@ -18,11 +18,11 @@
 			$result = $conex->consulta($consulta);
 
 
-			$row = mysql_fetch_array($result, MYSQL_ASSOC);
+			$row = $conex->fetch_array();
 			
 			while ($row) {
-				$tipoDocumentos[] = array(utf8_encode($row['des']), $row['id'],$row['letras']);
-				$row = mysql_fetch_array($result, MYSQL_ASSOC);
+				$tipoDocumentos[] = array($row['des'], $row['id'],$row['letras']);
+				$row = $conex->fetch_array();
 			}
 			
 			
@@ -30,15 +30,15 @@
 			$result = $conex->consulta($consulta);
 			
 			
-			$row = mysql_fetch_array($result, MYSQL_ASSOC);
+			$row = $conex->fetch_array();
 				$first = "";
 			while ($row) {
 				
-				$provincias[] = array(utf8_encode($row['prov']), $row['id']);
+				$provincias[] = array($row['prov'], $row['id']);
 				if ($first == "") {
 					$first = $row['id'];
 				}
-				$row = mysql_fetch_array($result, MYSQL_ASSOC);
+				$row = $conex->fetch_array();
 			}
 				
 
@@ -46,11 +46,11 @@
 			$result = $conex->consulta($consulta);
 				
 				
-			$row = mysql_fetch_array($result, MYSQL_ASSOC);
+			$row = $conex->fetch_array();
 			while ($row) {
 			
-				$localidad[] = array(utf8_encode($row['loc']), $row['id']);
-				$row = mysql_fetch_array($result, MYSQL_ASSOC);
+				$localidad[] = array($row['loc'], $row['id']);
+				$row = $conex->fetch_array();
 			}	
 			
 ?>

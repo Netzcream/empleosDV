@@ -36,10 +36,10 @@ class Estudios {
 			$consulta = " SELECT id as id, institucion, titulo, ID_NivelEstudio as nivel, fechaDesde as desde, fechaHasta as hasta FROM estudios "
 					." WHERE id= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($id);
-			$temp->setInstituto(utf8_encode($result['institucion']));
-			$temp->setTitulo(utf8_encode($result['titulo']));
+			$temp->setInstituto($result['institucion']);
+			$temp->setTitulo($result['titulo']);
 			$temp->getNivel()->getAndSetNivelById($result['nivel']);
 			$temp->getFechaDesde()->getSetFecha($result['desde']);
 			$temp->getFechaHasta()->getSetFecha($result['hasta']);
@@ -52,10 +52,10 @@ class Estudios {
 			$consulta = " SELECT id as id, institucion, titulo, ID_NivelEstudio as nivel, fechaDesde as desde, fechaHasta as hasta FROM estudios "
 					." WHERE id= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->setId($id);
-			$this->setInstituto(utf8_encode($result['institucion']));
-			$this->setTitulo(utf8_encode($result['titulo']));
+			$this->setInstituto($result['institucion']);
+			$this->setTitulo($result['titulo']);
 			$this->getNivel()->getAndSetNivelById($result['nivel']);
 			$this->getFechaDesde()->getSetFecha($result['desde']);
 			$this->getFechaHasta()->getSetFecha($result['hasta']);
@@ -78,9 +78,9 @@ class Estudios {
 			$conex = new MySQL();
 			
 			$consulta = "INSERT INTO estudios (id,institucion,titulo,ID_NivelEstudio,fechaDesde,fechaHasta)
-			values (null,'".htmlentities($this->getInstituto(),ENT_QUOTES)."','".htmlentities($this->getTitulo(),ENT_QUOTES)."','".$this->getNivel()->getId()."','".$this->getFechaDesde()->getForInsert()."','".$this->getFechaHasta()->getForInsert()."')";
+			values (null,'".$conex->escape($this->getInstituto())."','".$conex->escape($this->getTitulo())."','".$this->getNivel()->getId()."','".$this->getFechaDesde()->getForInsert()."','".$this->getFechaHasta()->getForInsert()."')";
 			$conex->consulta($consulta);
-			$lastId = mysql_insert_id();
+			$lastId = $conex->last_id();
 			$this->setId($lastId);
 			$consulta = "INSERT INTO usuarioEstudios (id,CodUsuario,estudiosID) VALUES (null,".$Pid.",".$lastId.")";
 			$conex->consulta($consulta);
@@ -90,8 +90,8 @@ class Estudios {
 			$conex = new MySQL();
 
 			$consulta = "UPDATE estudios "
-					." set institucion = '".htmlentities($this->getInstituto(),ENT_QUOTES)."', "
-					." titulo = '".htmlentities($this->getTitulo(),ENT_QUOTES)."', "
+					." set institucion = '".$conex->escape($this->getInstituto())."', "
+					." titulo = '".$conex->escape($this->getTitulo())."', "
 					." ID_NivelEstudio = '".$this->getNivel()->getId()."', "
 					." fechaDesde = '".$this->getFechaDesde()->getForInsert()."', ";
 					if ($this->getFechaHasta()->getForInsert() > 0 && $this->getFechaHasta()->getForInsert() != null)  {

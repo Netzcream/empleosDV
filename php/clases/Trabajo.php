@@ -47,14 +47,14 @@ class Trabajo {
 			$consulta = " SELECT ID_Alumno as idAlumno, Puesto as puesto, ID_Seniority as seniority, Empresa as empresa, ID_Pais as pais, FechaInicio as inicio,FechaFin as fin, Descripcion as descr, PersonasACargo as acargo FROM experiencialaboral "
 						." WHERE ID_Experiencia = '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($id);
 			$temp->setIdAlumno($result['idAlumno']);
-			$temp->setPuesto(utf8_encode($result['puesto']));
+			$temp->setPuesto($result['puesto']);
 			$temp->getSeniority()->getAndSetSeniorityById($result['seniority']);
-			$temp->setEmpresa(utf8_encode($result['empresa']));
+			$temp->setEmpresa($result['empresa']);
 			$temp->getPais()->getAndSetPaisById($result['pais']);
-			$temp->setDesc(utf8_encode($result['descr']));
+			$temp->setDesc($result['descr']);
 			$temp->setPersonasCargo($result['acargo']);
 			$temp->getFechaDesde()->getSetFecha($result['inicio']);
 			$temp->getFechaHasta()->getSetFecha($result['fin']);
@@ -71,22 +71,22 @@ class Trabajo {
 			$consulta = " SELECT ID_Experiencia as id, Puesto as puesto, ID_Seniority as seniority, Empresa as empresa, ID_Pais as pais, FechaInicio as inicio,FechaFin as fin, Descripcion as descr, PersonasACargo as acargo FROM experiencialaboral "
 					." WHERE ID_Alumno = '".$Aid."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			while ($result) {
 				$temp = new Trabajo();
 				$temp->setId($result['id']);
 				$temp->setIdAlumno($Aid);
-				$temp->setPuesto(utf8_encode($result['puesto']));
+				$temp->setPuesto($result['puesto']);
 				$temp->getSeniority()->getAndSetSeniorityById($result['seniority']);
-				$temp->setEmpresa(utf8_encode($result['empresa']));
+				$temp->setEmpresa($result['empresa']);
 				$temp->getPais()->getAndSetPaisById($result['pais']);
-				$temp->setDesc(utf8_encode($result['descr']));
+				$temp->setDesc($result['descr']);
 				$temp->setPersonasCargo($result['acargo']);
 				$temp->getFechaDesde()->getSetFecha($result['inicio']);
 				$temp->getFechaHasta()->getSetFecha($result['fin']);
 				$return[$temp->getId()] = $temp;
 				unset($temp);
-				$result = mysql_fetch_assoc($result1);
+				$result = $conex->fetch_assoc();
 			}
 		}
 		return $return;
@@ -97,14 +97,14 @@ class Trabajo {
 			$consulta = " SELECT ID_Alumno as idAlumno, Puesto as puesto, ID_Seniority as seniority, Empresa as empresa, ID_Pais as pais, FechaInicio as inicio,FechaFin as fin, Descripcion as descr, PersonasACargo as acargo FROM experiencialaboral "
 					." WHERE ID_Experiencia = '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->setId($id);
 			$this->setIdAlumno($result['idAlumno']);
-			$this->setPuesto(utf8_encode($result['puesto']));
+			$this->setPuesto($result['puesto']);
 			$this->getSeniority()->getAndSetSeniorityById($result['seniority']);
-			$this->setEmpresa(utf8_encode($result['empresa']));
+			$this->setEmpresa($result['empresa']);
 			$this->getPais()->getAndSetPaisById($result['pais']);
-			$this->setDesc(utf8_encode($result['descr']));
+			$this->setDesc($result['descr']);
 			$this->setPersonasCargo($result['acargo']);
 			$this->getFechaDesde()->getSetFecha($result['inicio']);
 			$this->getFechaHasta()->getSetFecha($result['fin']);
@@ -130,17 +130,17 @@ class Trabajo {
 			$consulta .= " VALUES ";
 			$consulta .= "(null
 					,'".$this->getIdAlumno()."'
-					,'".htmlentities($this->getPuesto(),ENT_QUOTES)."'
+					,'".$conex->escape($this->getPuesto())."'
 					,'".$this->getSeniority()->getId()."'
-					,'".htmlentities($this->getEmpresa(),ENT_QUOTES)."'
+					,'".$conex->escape($this->getEmpresa())."'
 					,'".$this->getPais()->getId()."'
 					,'".$this->getFechaDesde()->getForInsert()."'
 					,'".$this->getFechaHasta()->getForInsert()."'
-					,'".htmlentities($this->getDesc(),ENT_QUOTES)."'
+					,'".$conex->escape($this->getDesc())."'
 					,'".$this->getPersonasCargoForInsert()."')";
 		
 			$conex->consulta($consulta);
-			$lastId = mysql_insert_id();
+			$lastId = $conex->last_id();
 			$this->setId($lastId);
 			return $this;
 		}
@@ -148,12 +148,12 @@ class Trabajo {
 			$conex = new MySQL();
 			$consulta = "UPDATE experiencialaboral "
 			." set ID_Alumno = '".$this->getIdAlumno()."', "
-			." Puesto = '".htmlentities($this->getPuesto(),ENT_QUOTES)."', "
+			." Puesto = '".$conex->escape($this->getPuesto())."', "
 			." ID_Seniority = '".$this->getSeniority()->getId()."', "
-			." Empresa = '".htmlentities($this->getEmpresa(),ENT_QUOTES)."', "
+			." Empresa = '".$conex->escape($this->getEmpresa())."', "
 			." ID_Pais = '".$this->getPais()->getId()."', "
 			." FechaInicio = '".$this->getFechaDesde()->getForInsert()."', "
-			." Descripcion = '".htmlentities($this->getDesc(),ENT_QUOTES)."', "
+			." Descripcion = '".$conex->escape($this->getDesc())."', "
 			." PersonasACargo = '".$this->getPersonasCargoForInsert()."', ";
 			if ($this->getFechaHasta()->getForInsert() > 0 && $this->getFechaHasta()->getForInsert() != null)  {
 				$consulta .= " FechaFin = '".$this->getFechaHasta()->getForInsert()."' ";

@@ -20,9 +20,9 @@ class Provincia {
 			$consulta = " Select ID_Provincia as id, Provincia as provincia From Provincia "
 							 . " WHERE ID_Provincia = '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($result['id']);
-			$temp->setProvincia(utf8_encode($result['provincia']));
+			$temp->setProvincia($result['provincia']);
 		}
 		return $temp;
 	}
@@ -32,9 +32,9 @@ class Provincia {
 			$consulta = " Select ID_Provincia as id, Provincia as provincia From Provincia "
 					. " WHERE ID_Provincia = '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->setId($result['id']);
-			$this->setProvincia(utf8_encode($result['provincia']));
+			$this->setProvincia($result['provincia']);
 		}
 	}
 	public function getProvinciaByLocalidadId($id) {
@@ -45,9 +45,9 @@ class Provincia {
 							 ."	INNER JOIN Localidad l on (p.ID_Provincia=l.ID_Provincia) "
 							 ."	WHERE l.ID_Localidad=".$id.";";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($result['id']);
-			$temp->setProvincia(utf8_encode($result['provincia']));
+			$temp->setProvincia($result['provincia']);
 		}
 		return $temp;
 	}

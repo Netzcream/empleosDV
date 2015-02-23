@@ -35,7 +35,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
  		
  		$conex = new MySQL();
  		$result = $conex->consulta($consulta);
- 		$result2 = mysql_num_rows($result);
+ 		$result2 = $conex->num_rows();
  		$auth = "";
  		if ($result2 > 0) {
  			$auth = "_rojo";
@@ -43,7 +43,6 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 		echo '<div class="btnIcono" title="Autorizar" onclick="GoTo(6);"><img alt="Autorizar" src="imagenes/iconos/auth'.$auth.'.png"><span>Autorizar</span></div>';
 		echo '<div class="btnIcono" title="Bolsa"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
 		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
-		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['usr']->getPic() .'"><span>Perfil</span></div>';
 	}
 //AL Alumno
 	else if ($_SESSION['UsuarioRol'] == "AL" AND $_SESSION['estadoUsuario'] == '3') {
@@ -76,8 +75,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 	
 	
 	
-	echo "
-	<script>
+	echo "<script>
 	function GoTo(a) {
 		$('.menuDaInd').removeClass('selected');
 	

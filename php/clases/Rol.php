@@ -24,14 +24,14 @@ class Rol {
 			INNER JOIN tarea t on (t.CodTarea=tr.CodTarea)
 			WHERE r.CodRol= '".$this->id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
-			$this->rol = utf8_encode($result['rol']);
+			$result = $conex->fetch_assoc();
+			$this->rol = $result['rol'];
 			while ($result) {
 				$index = $result['idTarea'];
 				$this->tarea[$index] = array(
-						"tarea" => utf8_encode($result['tarea'])
+						"tarea" => $result['tarea']
 				);
-				$result = mysql_fetch_assoc($result1);
+				$result = $conex->fetch_assoc();
 			}
 		}
 	}
@@ -44,15 +44,15 @@ class Rol {
 			INNER JOIN tarea t on (t.CodTarea=tr.CodTarea)
 			WHERE r.CodRol= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->id = $id;
-			$temp->rol = utf8_encode($result['rol']);
+			$temp->rol = $result['rol'];
 			while ($result) {
 				$index = $result['idTarea'];
 				$temp->tarea[$index] = array(
-						"tarea" => utf8_encode($result['tarea'])
+						"tarea" => $result['tarea']
 				);
-				$result = mysql_fetch_assoc($result1);
+				$result = $conex->fetch_assoc();
 			}
 		}
 		return $temp;
@@ -68,15 +68,15 @@ class Rol {
 			INNER JOIN usuarioRol ur on (ur.CodRol=r.CodRol)
 			WHERE ur.CodUsuario= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->id = $result['id'];
-			$temp->rol = utf8_encode($result['rol']);
+			$temp->rol = $result['rol'];
 			while ($result) {
 				$index = $result['idTarea'];
 				$temp->tarea[$index] = array(
-						"tarea" => utf8_encode($result['tarea'])
+						"tarea" => $result['tarea']
 				);
-				$result = mysql_fetch_assoc($result1);
+				$result = $conex->fetch_assoc();
 			}
 		}
 		return $temp;
@@ -92,15 +92,15 @@ class Rol {
 			WHERE ur.CodUsuario= '".$id."';";
 			$result1 = $conex->consulta($consulta);
 			
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->id = $result['id'];
-			$this->rol = utf8_encode($result['rol']);
+			$this->rol = $result['rol'];
 			while ($result) {
 				$index = $result['idTarea'];
 				$this->tarea[$index] = array(
-						"tarea" => utf8_encode($result['tarea'])
+						"tarea" => $result['tarea']
 				);
-				$result = mysql_fetch_assoc($result1);
+				$result = $conex->fetch_assoc();
 			}
 		}
 	}	

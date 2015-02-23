@@ -20,9 +20,9 @@ class FotoPerfil {
 			$consulta = "SELECT f.Foto as foto FROM foto f
 			WHERE f.CodUsuario= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($id);
-			$temp->setFoto(utf8_encode($result['foto']));
+			$temp->setFoto($result['foto']);
 			if ($temp->getFoto() == null) {
 				$temp->setFoto("imagenes/no_perfil.png");
 				$temp->saveFoto();
@@ -35,9 +35,9 @@ class FotoPerfil {
 			$consulta = "SELECT f.Foto as foto FROM foto f
 			WHERE f.CodUsuario= '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->setId($id);
-			$this->setFoto(utf8_encode($result['foto']));
+			$this->setFoto($result['foto']);
 			if ($this->getFoto() == null) {
 				$this->setFoto("imagenes/no_perfil.png");
 				$this->saveFoto();

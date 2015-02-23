@@ -2,13 +2,14 @@
 
 
 if (isset($_POST['codUsr'])) {
-	$codUsr = htmlentities($_POST['codUsr'],ENT_QUOTES);
+
 		
 
 	if (!class_exists('MySQL')) {
 		require_once $_SERVER["DOCUMENT_ROOT"]."/php/conex.php";
 	}
 	$conex = new MySQL();
+	$codUsr = $conex->escape($_POST['codUsr']);
 	$conex->consulta("START TRANSACTION;");
 	$consulta = "DELETE FROM direccionUsuario WHERE CodUsuario =".$codUsr.";";
 	$a1 = $conex->consulta($consulta);
@@ -16,7 +17,7 @@ if (isset($_POST['codUsr'])) {
 	
 	$consulta = "SELECT CodRol FROM usuarioRol WHERE CodUsuario =".$codUsr.";";
 	$result = $conex->consulta($consulta);
-	$resultado = mysql_fetch_assoc($result);
+	$resultado = $conex->fetch_assoc();
 	
 	$elRol = $resultado['CodRol'];
 	

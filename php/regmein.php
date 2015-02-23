@@ -52,14 +52,16 @@ if (isset($_POST)) {
 			return;
 		}
 		*/
-		$email = htmlentities($email,ENT_QUOTES);
+		$conex = new MySQL();
+		$email = $conex->escape($email);
 		$email = strtolower($email);
-		$pass = htmlentities($_POST['pass']);
+		$pass = $conex->escape($_POST['pass']);
 		$pass = SHA1(substr($pass,0,40));
 		$consulta = "SELECT * FROM usuario WHERE Email='".$email."';";
-		$conex = new MySQL();
 		
-		$result = mysql_num_rows($conex->consulta($consulta));
+		
+		$conex->consulta($consulta);
+		$result = $conex->num_rows();
 		if ($result > 0) {
 			$error = "Error: El correo ingresado ya se encuentra registrado.";
 			echo "<script>

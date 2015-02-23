@@ -25,6 +25,9 @@ class Fecha {
 		}
 	} 
 	public function getFecha() {
+		if ($this->ofecha == "0000-00-00 00:00:00" or $this->ofecha == "0000/00/00 00:00:00") {
+			return null;
+		}
 		if ($this->ofecha != null) {
 			$d = $this->ofecha->format('d');
 			$m = $this->ofecha->format('m');
@@ -119,6 +122,9 @@ class Fecha {
 	public function getShortMes() {
 		if ($this->ofecha != null) {
 			$m = $this->ofecha->format('m');
+			if ($this->ofecha == "0000-00-00 00:00:00" or $this->ofecha == "0000/00/00 00:00:00") {
+				return null;
+			}
 			$return = "";
 			switch ($m) {
 				case 1:
@@ -166,6 +172,9 @@ class Fecha {
 		else return null;
 	}
 	public function getEdad() {
+		if ($this->ofecha == "0000-00-00 00:00:00" or $this->ofecha == "0000/00/00 00:00:00") {
+			$fecha = null;
+		}
 		if ($this->ofecha != null) {
 			//fecha actual
 			$actual = new DateTime("NOW");
@@ -196,6 +205,9 @@ class Fecha {
 	}
 	function getForInsert() {
 		if ($this->ofecha == null or $this->ofecha == "") {
+			$fecha = null;
+		}
+		else if ($this->ofecha == "0000-00-00 00:00:00" or $this->ofecha == "0000/00/00 00:00:00" or $this->ofecha == "-0001-11-30 00:00:00") {
 			$fecha = null;
 		}
 		else {

@@ -7,9 +7,9 @@ if (isset($_GET)) {
 		$codigo = $_GET['c'];
 		$email = substr($email,0,100);
 		$email = stripslashes($email);
-		$email = htmlentities($email,ENT_QUOTES);
+		$email = htmlentities($email);
 		$codigo = stripslashes($codigo);
-		$codigo = htmlentities($codigo,ENT_QUOTES);
+		$codigo = htmlentities($codigo);
 		echo "Verificando";
 		return;
 	}

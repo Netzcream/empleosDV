@@ -38,17 +38,17 @@ class Direccion {
 			$consulta = " SELECT ID_Provincia as provID, ID_Localidad as locaID, Calle as calle, Numero as numero, Coordenada1 as coord1, Coordenada2 as coord2, Piso as piso, Departamento as dpto FROM Direccion "
 					. " WHERE ID_Direccion = '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->setId($id);
 			$this->setLocByLocId($result['locaID']);
 			$this->setPciaByPciaID($this->getLoc()->getProvincia()->getId());
-			$this->setCalle(utf8_encode($result['calle']));
-			$this->setNum(utf8_encode($result['numero']));
-			$this->setPiso(utf8_encode($result['piso']));
-			$this->setDpto(utf8_encode($result['dpto']));
+			$this->setCalle($result['calle']);
+			$this->setNum($result['numero']);
+			$this->setPiso($result['piso']);
+			$this->setDpto($result['dpto']);
 			if ($result['coord1'] AND $result['coord2']) {
-				$this->setCoor1(utf8_encode($result['coord1']));
-				$this->setCoor2(utf8_encode($result['coord2']));
+				$this->setCoor1($result['coord1']);
+				$this->setCoor2($result['coord2']);
 			}
 		}
 	}
@@ -59,17 +59,17 @@ class Direccion {
 			$consulta = " SELECT ID_Provincia as provID, ID_Localidad as locaID, Calle as calle, Numero as numero, Coordenada1 as coord1, Coordenada2 as coord2, Piso as piso, Departamento as dpto FROM Direccion "
 					. " WHERE ID_Direccion = '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($id);
 			$temp->setLocByLocId($result['locaID']);
 			$temp->setPciaByPciaID($temp->getLoc()->getProvincia()->getId());
-			$temp->setCalle(utf8_encode($result['calle']));
-			$temp->setNum(utf8_encode($result['numero']));
-			$temp->setPiso(utf8_encode($result['piso']));
-			$temp->setDpto(utf8_encode($result['dpto']));
+			$temp->setCalle($result['calle']);
+			$temp->setNum($result['numero']);
+			$temp->setPiso($result['piso']);
+			$temp->setDpto($result['dpto']);
 			if ($result['coord1'] AND $result['coord2']) {
-				$temp->setCoor1(utf8_encode($result['coord1']));
-				$temp->setCoor2(utf8_encode($result['coord2']));
+				$temp->setCoor1($result['coord1']);
+				$temp->setCoor2($result['coord2']);
 			}
 		}
 		return $temp;
@@ -82,17 +82,17 @@ class Direccion {
 							INNER JOIN direccionUsuario du on (du.ID_Direccion=d.ID_Direccion)
 							WHERE du.CodUsuario = '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$temp->setId($result['id']);
 			$temp->setLocByLocId($result['locaID']);
 			$temp->setPciaByPciaID($temp->getLoc()->getProvincia()->getId());
-			$temp->setCalle(utf8_encode($result['calle']));
-			$temp->setNum(utf8_encode($result['numero']));
-			$temp->setPiso(utf8_encode($result['piso']));
-			$temp->setDpto(utf8_encode($result['dpto']));
+			$temp->setCalle($result['calle']);
+			$temp->setNum($result['numero']);
+			$temp->setPiso($result['piso']);
+			$temp->setDpto($result['dpto']);
 			if ($result['coord1'] AND $result['coord2']) {
-				$temp->setCoor1(utf8_encode($result['coord1']));
-				$temp->setCoor2(utf8_encode($result['coord2']));
+				$temp->setCoor1($result['coord1']);
+				$temp->setCoor2($result['coord2']);
 			}
 		}
 		return $temp;
@@ -104,17 +104,17 @@ class Direccion {
 							INNER JOIN direccionUsuario du on (du.ID_Direccion=d.ID_Direccion)
 							WHERE du.CodUsuario = '".$id."';";
 			$result1 = $conex->consulta($consulta);
-			$result = mysql_fetch_assoc($result1);
+			$result = $conex->fetch_assoc();
 			$this->setId($result['id']);
 			$this->setLocByLocId($result['locaID']);
 			$this->setPciaByPciaID($this->getLoc()->getProvincia()->getId());
-			$this->setCalle(utf8_encode($result['calle']));
-			$this->setNum(utf8_encode($result['numero']));
-			$this->setPiso(utf8_encode($result['piso']));
-			$this->setDpto(utf8_encode($result['dpto']));
+			$this->setCalle($result['calle']);
+			$this->setNum($result['numero']);
+			$this->setPiso($result['piso']);
+			$this->setDpto($result['dpto']);
 			if ($result['coord1'] AND $result['coord2']) {
-				$this->setCoor1(utf8_encode($result['coord1']));
-				$this->setCoor2(utf8_encode($result['coord2']));
+				$this->setCoor1($result['coord1']);
+				$this->setCoor2($result['coord2']);
 			}
 		}
 	}
@@ -151,14 +151,14 @@ class Direccion {
 					." VALUES"
 					." (null,".$this->getPcia()->getId()
 					.",".$this->getLoc()->getId()
-					.",'".htmlentities($this->getCalle(),ENT_QUOTES)
-					."','".htmlentities($this->getNum(),ENT_QUOTES)
-					."','".htmlentities($this->getCoor1(),ENT_QUOTES)
-					."','".htmlentities($this->getCoor2(),ENT_QUOTES)
-					."','".htmlentities($this->getPiso(),ENT_QUOTES)
-					."','".htmlentities($this->getDpto(),ENT_QUOTES)."');";
+					.",'".$conex->escape($this->calle)
+					."','".$conex->escape($this->getNum())
+					."','".$conex->escape($this->getCoor1())
+					."','".$conex->escape($this->getCoor2())
+					."','".$conex->escape($this->getPiso())
+					."','".$conex->escape($this->getDpto())."');";
 			$conex->consulta($consulta);
-			$lastId = mysql_insert_id();
+			$lastId = $conex->last_id();
 			$consulta = "INSERT INTO direccionUsuario (id,CodUsuario,ID_Direccion) VALUES (null,".$Pid.",".$lastId.");";
 			$this->setId($lastId);
 			$conex->consulta($consulta);
@@ -168,14 +168,14 @@ class Direccion {
 					." SET "
 					." ID_Provincia=".$this->getPcia()->getId().","
 					." ID_Localidad=".$this->getLoc()->getId().","
-					." Calle= '".htmlentities($this->getCalle(),ENT_QUOTES)."',"
-					." Numero= '".htmlentities($this->getNum(),ENT_QUOTES)."',"
-					." Coordenada1= '".htmlentities($this->getCoor1(),ENT_QUOTES)."',"
-					." Coordenada2= '".htmlentities($this->getCoor2(),ENT_QUOTES)."',"
-					." Piso= '".htmlentities($this->getPiso(),ENT_QUOTES)."',"
-					." Departamento= '".htmlentities($this->getDpto(),ENT_QUOTES)."'"
+					." Calle= '".$conex->escape($this->getCalle())."',"
+					." Numero= '".$conex->escape($this->getNum())."',"
+					." Coordenada1= '".$conex->escape($this->getCoor1())."',"
+					." Coordenada2= '".$conex->escape($this->getCoor2())."',"
+					." Piso= '".$conex->escape($this->getPiso())."',"
+					." Departamento= '".$conex->escape($this->getDpto())."'"
 					." WHERE ID_Direccion= ".$this->getId().";";
-			$conex->consulta($consulta);
+				$conex->consulta($consulta);
 		}
 		
 	}
@@ -192,6 +192,7 @@ class Direccion {
 		}
 	}
 	public function getCalle() {
+		
 		return $this->calle;
 	}
 	public function setCalle($calle) {
@@ -225,12 +226,7 @@ class Direccion {
 		$this->piso = $piso;
 	}
 	public function getDpto() {
-		if ($this->dpto == 0) {
-			return "";
-		}
-		else {
-			return $this->dpto;
-		}
+		return $this->dpto;
 	}
 	public function setDpto($dpto) {
 		$this->dpto = $dpto;

@@ -13,10 +13,9 @@ if (!class_exists('Direccion')) {
 if (!isset($_SESSION)) {
 	session_start();
 }
-
+$Persona = new Persona();
 if (isset($_SESSION["usr"])) {
-	$_SESSION["usr"] = unserialize (serialize ($_SESSION['usr']));
-	$Persona = $_SESSION["usr"];
+	$Persona = unserialize (serialize ($_SESSION['usr']));
 }
 else {
 	//LOGERROR
@@ -29,8 +28,18 @@ if (isset($_POST['action'])) {
 			$Persona->getDomicilio()->getLoc()->setId($_POST['loc']);
 			$Persona->getDomicilio()->getPcia()->setId($_POST['prov']);
 			$Persona->getDomicilio()->setNum($_POST['nro']);
-			$Persona->getDomicilio()->setPiso($_POST['piso']);
-			$Persona->getDomicilio()->setDpto($_POST['dpto']);
+			if (isset($_POST['piso'])) {
+				$Persona->getDomicilio()->setPiso($_POST['piso']);
+			}
+			else {
+				$Persona->getDomicilio()->setPiso("");
+			}
+			if (isset($_POST['dpto'])) {
+				$Persona->getDomicilio()->setDpto($_POST['dpto']);
+			}
+			else {
+				$Persona->getDomicilio()->setDpto("");
+			}
 			$Persona->getDomicilio()->saveDomicilio($Persona->getId());	
 			$_SESSION["usr"] = $Persona;
 		}
