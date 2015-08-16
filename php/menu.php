@@ -26,7 +26,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 	echo '<div id="menuDa">';
 
 //AD Administrador
-
+echo '<div class="btnIcono" title="Inicio" onclick="GoTo(0);"><img alt="Inicio" src="imagenes/iconos/casa.png"><span>Inicio</span></div>';
  	if ($_SESSION['UsuarioRol'] == "AD") {
  		
  		$consulta = "SELECT * FROM usuario u"
@@ -40,13 +40,25 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
  		if ($result2 > 0) {
  			$auth = "_rojo";
  		}
+
+
+ 		$consulta2 = "SELECT * FROM Bolsa WHERE validaAdministrador=0 and fechaFinVigencia is null;";
+		$conex2 = new MySQL();
+ 		$result3 = $conex2->consulta($consulta2);
+ 		$result4 = $conex2->num_rows();
+ 		$auth2 = "";
+ 		if ($result4 > 0) {
+ 			$auth2 = "_rojo";
+ 		}
+
 		echo '<div class="btnIcono" title="Autorizar" onclick="GoTo(6);"><img alt="Autorizar" src="imagenes/iconos/auth'.$auth.'.png"><span>Autorizar</span></div>';
-		echo '<div class="btnIcono" title="Bolsa"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
+		echo '<div class="btnIcono" title="Bolsa" onclick="GoTo(9);"><img alt="Bolsa"src="imagenes/iconos/bolsa'.$auth2.'.png"><span>Bolsa</span></div>';
 		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
 	}
 //AL Alumno
 	else if ($_SESSION['UsuarioRol'] == "AL" AND $_SESSION['estadoUsuario'] == '3') {
-		echo '<div class="btnIcono" title="Bolsa"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
+		echo '<div class="btnIcono" title="Bolsa" onclick="GoTo(10);"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
+		echo '<div class="btnIcono" title="Mis Postulaciones" onclick="GoTo(11);"><img alt="Postulaciones"src="imagenes/iconos/Postulaciones.png"><span>Postulado</span></div>';
 		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['usr']->getPic().'"><span>Perfil</span></div>';
 	}
 //EM Empresa
@@ -91,7 +103,11 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 		else if (a == 6) $('#cuerpo').load('php/authUsuarios.php');
 		else if (a == 7) $('#cuerpo').load('php/perfilHome.php');
 		else if (a == 8) $('#cuerpo').load('php/bolsaEmpresa.php');
+		else if (a == 9) $('#cuerpo').load('php/bolsaAdminListado.php');
+		else if (a == 10) $('#cuerpo').load('php/bolsaAlumnoList.php');
+		else if (a == 11) $('#cuerpo').load('php/bolsaPostuladoAlumno.php');
 	}
+
 	$('#partOfMenu').html('". $textLogOut."');
 		
 	function hover() {

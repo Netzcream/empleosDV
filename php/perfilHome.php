@@ -235,6 +235,7 @@
 			<div>
 				<label class="labelFillDP">Fecha nacimiento</label>
 				<input type="text" id="listFechaNacimiento" value=""/>
+				<div style="display: none;" id="pruebaFechas"></div>
 			</div>
 
 				<label class="labelFillDP">Sexo</label>
@@ -990,6 +991,7 @@
 	}
 	function loadSectionPerfil(a) {
 		
+		$('#pruebaFechas').load('php/cargaScripts.php');
 		$('body').css("overflow","hidden");
 		$('input').removeClass('notSelected');
 		if (a != 7 && a != 8) {
@@ -1005,7 +1007,10 @@
 			else if (a == 4) { setTimeout(function() { $('#perfilMisTags').fadeIn(); }, 500); }
 			else if (a == 5) { setTimeout(function() { $('#perfilMisTrabajos').fadeIn(); }, 500); }
 			else if (a == 6) { setTimeout(function() { $('#perfilMisEstudios').fadeIn(); }, 500); }
-			else if (a == 10) { setTimeout(function() { $('#perfilBolsaTrabajo').fadeIn(); }, 500); }
+			else if (a == 10) { setTimeout(function() { 
+				GoTo(8);
+				}, 500); 
+			}
 			else if (a == 7) { 
 				$('#perfilMisTrabajos').animate({
 					'marginLeft' : "-=1500px"

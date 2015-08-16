@@ -54,6 +54,7 @@ class Persona {
 		$this->estado = new EstadoUsuario();
 		$this->nombre = null;
 		$this->nacimiento = new Fecha();
+		$this->nacimiento->setFecha(Date("Y-m-d H:i:s"));
 		$this->email = null;
 		$this->foto = new FotoPerfil();
 		$this->sexo = null;

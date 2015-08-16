@@ -416,6 +416,34 @@ header {
 
 /* ****** Seleccionar Rol ****** */
 @media (min-width: 601px) {
+	.itsABody {
+		background-color: #06141D;
+		width: 700px;
+		margin: 20px auto;
+
+		display: block;
+		border-radius: 5px;
+		box-shadow: 0px 0px 10px #000;
+		color: #fff;
+		padding: 20px;
+		text-align: center;
+	}
+	.logoInicio {
+		display: inline-block;
+		margin-top: 10px;
+		background-color: #fff;
+		padding: 10px;
+		border-radius: 10px;
+
+	}
+	.LogoDavinci {
+		margin-top: 10px;
+		cursor: pointer;
+	}
+	.labelInicio {
+		display: inline-block;
+margin-top: 10px;
+	}
 	.contSelRolUsuario.selActivo {
 		display: block;
 	}
