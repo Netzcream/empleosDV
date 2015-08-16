@@ -106,7 +106,8 @@
 				if($error_fdf_access !="") {
 					$err="output_fdf : Unable to create fdf file '".$fdf_file."'<br> because $error_fdf_access.";
 				} else {
-					if($fp=fopen($fdf_file,'w')){
+					 $fp = fopen($fdf_file,'w');
+					if($fp){
 						$err=fwrite($fp,$fdf,strlen($fdf));
 						if(function_exists('syslog')) syslog(LOG_WARNING,"FDF file '".$output_mode."' written successfully ($err bytes)");
 						$success=true;

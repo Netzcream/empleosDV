@@ -178,13 +178,17 @@ class Listado {
 		$temp .= "</tbody>";
 		$temp .= $this->getFooter();
 		$temp .= "</table>";
-		
+		$temp .= '<script type="text/javascript" src="/js/footable.js"></script>';
+		$temp .= '<script type="text/javascript" src="/js/footable.sort.js"></script>';
+		$temp .= '<script type="text/javascript" src="/js/footable.paginate.js"></script>';
+		$temp .= '<script type="text/javascript" src="/js/footable.filter.js"></script>';
 		$temp .= "<script type='text/javascript'>
 					$(function () {
 						$('.tablaDemo').footable({
 							addRowToggle: true
 							})
 					});
+				$('#cuerpo').show();
 				</script>";
 		return $temp;
 	}
@@ -208,4 +212,7 @@ function cancelarUsr(a,b) {
 	}
 	
 }
+$(document).ready(function() {
+	hideWait();
+});
 </script>

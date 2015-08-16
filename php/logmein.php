@@ -22,7 +22,7 @@ if (isset($_POST)) {
 		$error = '<label class="regLabelNota regError">'.$error.'</label>';
 		
 		echo "<script>
-			$('.loading').hide();
+			$('#loadingLogin').hide();
 			$('.openLogin').show('fast');
 			$('#reLabelNot').show('fast');
 			document.getElementById('reLabelNot').innerHTML = '".$error."';
@@ -62,7 +62,7 @@ if (isset($_POST)) {
 	if (isset($error) AND $error != "") {
 		$error = '<label class="regLabelNota regError">'.$error.'</label>';
 		echo "<script>
-			$('.loading').hide();
+			$('#loadingLogin').hide();
 			$('.openLogin').show('fast');
 			$('#reLabelNot').show('fast');
 			document.getElementById('reLabelNot').innerHTML = '".$error."';
@@ -80,7 +80,7 @@ if (isset($_POST)) {
 		$error = "El usuario/Mail y clave no coinciden";
 		$error = '<label class="regLabelNota regError">'.$error.'</label>';
 		echo "<script>
-			$('.loading').hide();
+			$('#loadingLogin').hide();
 			$('.openLogin').show('fast');
 			$('#reLabelNot').show('fast');
 			document.getElementById('reLabelNot').innerHTML = '".$error."';
@@ -138,7 +138,7 @@ if ($_SESSION['estadoUsuario'] != 2) {
 		
 		$msj = '<label class="regLabelNotificar">'.$msj.'</label>';
 		echo "<script>
-			$('.loading').hide();
+			$('#loadingLogin').hide();
 			$('.openLogin').hide();
 			$('#reLabelNot').show('fast');
 			document.getElementById('reLabelNot').innerHTML = '".$msj."';

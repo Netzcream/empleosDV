@@ -107,3 +107,8 @@ $list = new Listado();
 echo $list->getTable($conPersonas);
 
 ?>
+<script>
+$(document).ready(function() {
+	hideWait();
+});
+</script>

@@ -23,8 +23,8 @@ if (!isset($_SESSION)) {
 	
 	<input class="logInBtn" type="submit" value="Ingresar" onclick="logmeIn();">
 </div>
-<div class="loading">
-	<img alt="" src="imagenes/loading.gif" width=30>
+<div id="loadingLogin" class="loading">
+	<img alt="" src="imagenes/loading.gif" width=40>
 </div>
 <div id="logErrorNot" ></div>
 <div id='reLabelNot'></div>
@@ -39,9 +39,10 @@ function getEnter(e) {
 
 function logmeIn() {
 	$('.openLogin').hide("fast");
-	$('.loading').show();
-	$('#reLabelNot').hide("fast");
+	$('#loadingLogin').show();
 	
+	$('#reLabelNot').hide("fast");
+	//showWait();
 	var usr = $("#usuario").val();
 	var pwd = $("#clave").val();
 	
@@ -60,4 +61,7 @@ function registro() {
 	var usr = $("#usuario").val();
 	$("#cuerpo").load ("php/registro.php", {usr : usr });
 }
+$(document).ready(function() {
+	hideWait();
+});
 </script>

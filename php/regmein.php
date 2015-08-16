@@ -82,11 +82,23 @@ if (isset($_POST)) {
 			$sendMail = new Email('r',$email,$confirmacion);
 			$envioMail = $sendMail->sendMail();
 			if ($envioMail) {
-				$texst = '<label class="regLabelNotificar">Registrado con exito; revise su cuenta de correo '.$email.' para realizar la confirmaci&oacute;n de registro.</label> <input class="logInBtn" type="submit" value="Ir a Log In" onclick="goTo(0);">';
+				$texst = '<label class="regLabelNotificar">Registrado con exito; revise su cuenta de correo '.$email.' para realizar la confirmaci&oacute;n de registro.</label> <input class="logInBtn" type="submit" value="Ir a Log In" onclick="irallogin();">';
 				echo "<script>
 							document.getElementById('reLabelNot').innerHTML = '".$texst."';
 							$('.loading').hide();
 							$('.openLogin').hide();
+
+
+
+	function irallogin() {
+		$('.menuDaInd').removeClass('selected');
+		showWait();
+		 $('#cuerpo').load('php/login.php');
+		
+	}
+
+
+
 						</script>";
 				
 			}

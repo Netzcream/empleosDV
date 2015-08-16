@@ -262,8 +262,10 @@ function selSexo(a) {
 		var tags2 = tags;
 		var apellido = $('#apellidoOpt').val();
 //		alert("Carrera: " + carrera + " - MinEdad: "+minEdad+" - MaxEdad: "+maxEdad+" - Sexo: "+ sexo+ " - Porcentaje: "+porcentaje+" - Tags: "+tags2);
+		showWait();
 		$('#cuerpo').load('php/buscarAlumnos.php', {carrera: carrera, minEdad:minEdad,maxEdad:maxEdad,sexo:sexo,avance:porcentaje,tags:tags2, apellido:apellido } );
 	}
-
-	
+	$(document).ready(function() {
+		hideWait();
+	});
 	 </script>

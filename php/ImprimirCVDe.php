@@ -71,6 +71,7 @@ function printBody() {
 	$this->getEstudios();
 
 	$this->getExperiencia();
+	$this->getTags();
 	//$this->Seccion("Referencias");
 }
 function getEstudios() {
@@ -174,7 +175,28 @@ function getExperiencia() {
 		}
 	}
 }
+function getTags() {
+	$this->Persona->getTags()->getAndSetTagsByUsuario($this->Persona->getId());
+	if (sizeof($this->Persona->getTags()->getTags()) > 0) {
 
+		$this->Seccion("Tags");
+		$this->SetFont('Arial','',12);
+		$this->SetFillColor(230,230,0);
+
+		$this->SetFont('','I');
+		$tags = "";
+		foreach ($this->Persona->getTags()->getTags() as $a) {
+			if ($tags != "") {
+				$tags .= " - ";	
+			}
+			$tags .= $a;
+		}
+		$this->MultiCell(0,5,utf8_decode($tags));
+	}
+
+	
+
+}
 
 function getDatosPersonales() {
 	$this->Seccion("Datos Personales");

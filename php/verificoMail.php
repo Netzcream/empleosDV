@@ -40,12 +40,18 @@ else {
 	$_SESSION['location'] = "registro";
 }
 
-$goto = "window.location.href = 'http://www.bolsadv.com'";
+$goto = "irallogin();";
 
 $texst = '<label class="regLabelNotificar">'.$notificoque.'</label> <input class="logInBtn" type="submit" value="Ir a Log In" onclick="'.$goto.'">';
 echo "<script>
 		$('.loading').hide();
 		$('.openLogin').hide();
+	function irallogin() {
+		$('.menuDaInd').removeClass('selected');
+		showWait();
+		 $('#cuerpo').load('php/login.php');
+		
+	}
 			</script>";
 echo "<div class='prelogin'>
 		".$texst."

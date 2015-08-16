@@ -19,7 +19,15 @@ function errorToas(a) {
 	});
 
 }
-
+function showWait() {
+	$('#cuerpo').hide();
+	$('#loadingBody').show();
+}
+function hideWait() {
+	$('#loadingBody').hide();
+	$('#cuerpo').show();
+	
+}
 
 //convert bytes into friendly format
 function bytesToSize(bytes) {

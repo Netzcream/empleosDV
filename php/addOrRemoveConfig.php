@@ -13,8 +13,10 @@ if (!isset($_SESSION)) {
 $Persona = new Persona();
 if (isset($_SESSION["usr"])) {
 	$Persona = unserialize (serialize ($_SESSION['usr']));
+	
 }
 else {
+	
 	//LOGERROR
 }
 if (isset($_POST['action'])) {

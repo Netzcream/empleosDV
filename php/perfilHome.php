@@ -19,6 +19,7 @@
 	if (!class_exists('Persona')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Persona.php"); }
 	if (!class_exists('Carrera')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Carrera.php"); }
 	if (!class_exists('Materia')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Materia.php"); }
+	if (!class_exists('Telefono')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Telefono.php"); }
 	
 	$_SESSION['location'] = "perfilHome";
 	$mostrarUsuario = "NN";
@@ -29,6 +30,11 @@
 		 	$mostrarUsuario = $Persona->getApellido().", ".$Persona->getNombre();
 		 	$_SESSION['MostrarNombre'] = $mostrarUsuario; 
 	 	}
+	 	if ($Persona->getRol()->getId() == "EM") {
+	 		if ($Persona->getNombre() != "") {
+	 			$mostrarUsuario = $Persona->getNombre();
+	 		}
+	 	}
 	 	$Persona->setTags(new Tag());
 	 	$Persona->getTags()->getAndSetTagsByUsuario($Persona->getId());
 	 	$_SESSION["usr"] = $Persona;
@@ -37,8 +43,6 @@
 	 else {
 	 	//LOGERROR
 	 }
-
- 	
 	 $conex = new MySQL();
 	 $consulta = "SELECT ID_TipoDocumento as id,Descripcion as des, AdmiteLetras as letras from tipodocumento;";
 	 $result = $conex->consulta($consulta);
@@ -113,9 +117,8 @@
 		<?php endif; ?>
 		
 		<?php if($Persona->getRol()->getId() == "EM"): ?>
-			
-			<div class="perfilIndCont" onclick="loadSectionPerfil(5);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/trabajo.png"></div><span>Mis No se</span></div>
-			
+		
+			<div class="perfilIndCont" onclick="loadSectionPerfil(10);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/trabajo.png"></div><span>Bolsa de trabajo</span></div>
 		<?php endif; ?>
 			
 		</div>
@@ -333,8 +336,42 @@
 
 						
 				</div>
-					<div class="perfilIndCont" onclick=""><div class="perfilIndBtnMap"><img title="" alt="" src="imagenes/iconos/mapa.png"></div><span>Ver en Mapa</span></div>
-			
+				<div>
+				<?php $tipo = new Telefono(); ?>
+					<label class="labelFillTel inline">Tel.:</label> 
+					<select id="telid1" class="perfilTelType">
+				<?php 
+				foreach ($tipo->getColTipos() as $id => $value)
+					echo "<option value='$id'>$value</option>";	
+					
+				?>
+					</select>
+					<input type="tel" class="inputFillDPTel" maxlength="14" placeholder="Telefono 1"/>
+				</div>
+				<div>
+					<label class="labelFillTel inline">Tel.:</label>
+					<select id="telid2" class="perfilTelType">
+				<?php 
+				foreach ($tipo->getColTipos() as $id => $value)
+					echo "<option value='$id'>$value</option>";	
+					
+				?>
+					</select>
+					<input type="tel" class="inputFillDPTel" maxlength="14" placeholder="Telefono 2"/>
+				</div>
+				<div>
+					<label class="labelFillTel inline">Tel.:</label>
+					<select id="telid3" class="perfilTelType">
+				<?php 
+				foreach ($tipo->getColTipos() as $id => $value)
+					echo "<option value='$id'>$value</option>";	
+					
+				?>
+					</select>
+					<input type="tel" class="inputFillDPTel" maxlength="14" placeholder="Telefono 3"/>
+				</div>
+				<!-- 	<div class="perfilIndCont" onclick=""><div class="perfilIndBtnMap"><img title="" alt="" src="imagenes/iconos/mapa.png"></div><span>Ver en Mapa</span></div>
+			 -->
 			<div id="perfilSaveDom"></div>
 			<div class="finRecuadroPerfil">
 				<input type="button" class="perfilBtnSeeMyCV" value="Cancelar" onclick="goBacktoPerfil(3);">
@@ -447,6 +484,107 @@
 				<input id="workBtn2" type="button" class="perfilBtnSeeMyCV" value="Guardar" onclick="goBacktoAndSavePerfil(7);">
 			</div>
 		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+
+			
+		<?php if($Persona->getRol()->getId() == "EM"): ?>
+		
+		<div id="perfilBolsaTrabajo" class="contSelRolUsuario">
+			<div class="titleSelRol">Mis publicaciones</div>
+			
+			<div id="mibolsa" class="thingsConteiner2">
+			
+			
+
+		
+			</div>
+		<div>
+			<input type="button" class="perfilBtnSeeMyCV" value="A&ntilde;adir Nuevo" onclick="agregarBolsa(); loadSectionPerfil(11);">
+		</div>
+			
+			<div class="finRecuadroPerfil">
+				<input type="button" class="perfilBtnSeeMyCV" value="Volver" onclick="goBacktoPerfil(10);">
+			</div>
+		</div>
+		
+		<div id="perfilAddBolsaTrabajo" class="contSelRolUsuario">
+		
+			<div id="titleEditWork" class="titleSelRol">titulo</div>
+			<div>
+				<label class="labelFillDP inline">Empresa</label>
+				<label class="labelFillDP inline">Cargo</label>
+			</div>
+			<div class="workSections">
+				<input maxlength="100" id="listEmpresa" type="text" value="" class="inputFillDP" placeholder="Empresa">
+				<input maxlength="50" id="listCargo" type="text" value="" class="inputFillDP" placeholder="Cargo">
+			</div>
+			<div class="workSections">
+				<label class="labelFillDP inline2">Fecha desde</label>
+				<input type="text" id="listAddWorkDesde" placeholder="Desde" onclick="clearInput(this);"/>
+				 <input type="text" id="listAddWorkHasta" placeholder="Hasta" onclick="clearInput(this);"/>	
+				 <label class="labelFillDP inline2">Fecha hasta</label>
+			</div>
+			<div>
+				<label class="labelFillDP inline">Tarea/Descripci&oacute;n</label>
+				</div>
+			<div class="workSections">
+				<textarea maxlength="2000" id="listDescripcion" class="textAreaFillDP" placeholder="Descripci&oacute;n"></textarea>
+			</div>
+
+			<div class="workSections">
+				<label class="labelCheckbox2"><input id="checkPersonasACargo" type="checkbox" class="checkboxAlineado" value="" onclick=""><span>&iquest;Personas a cargo?</span></label>
+			</div>
+			
+			<div>
+				<label class="labelFillDP inline">Pais</label>
+				<label class="labelFillDP inline">Seniority</label>
+			</div>
+			<div class="workSections">
+				<select id="workPaisSel">
+				<option>opcion</option>
+				</select>
+				<select id="workSenioritySel">
+				<option>opcion</option>
+				</select>
+				</div>
+				<div id="perfilAddModWorkLoad"></div>
+				<input id="currentWorkID" type="hidden" value="">
+				<input id="currentWorkAction" type="hidden" value="">
+			
+			<div class="finRecuadroPerfil">
+				<input id="workBtn1" type="button" class="perfilBtnSeeMyCV" value="Cancelar" onclick="goBacktoPerfil(11);">
+				<input id="workBtn2" type="button" class="perfilBtnSeeMyCV" value="Guardar" onclick="goBacktoAndSavePerfil(11);">
+			</div>
+		</div>
+		<?php endif; ?>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -718,6 +856,7 @@
 		else if (a == 4) { $('#perfilMisTags').fadeOut(); }
 		else if (a == 5) { $('#perfilMisTrabajos').fadeOut(); }
 		else if (a == 6) { $('#perfilMisEstudios').fadeOut(); }
+		else if (a == 10) { $('#perfilBolsaTrabajo').fadeOut(); }
 		else if (a == 7) { 
 			$('#perfilAddModTrabajos').fadeOut(); 
 			setTimeout(function() {
@@ -745,6 +884,17 @@
 			setTimeout(function() {
 				$('#perfilConfiguracion').show();
 				$('#perfilConfiguracion').animate({'left': '50%', 'margin-left': -$('#perfilConfiguracion').width()/2 });
+			}, 500);
+			setTimeout(function() {
+				$('body').css("overflow","auto");
+			}, 900);
+			return;
+		}
+		else if (a == 11) { 
+			$('#perfilAddBolsaTrabajo').fadeOut(); 
+			setTimeout(function() {
+				$('#perfilBolsaTrabajo').show();
+				$('#perfilBolsaTrabajo').animate({'left': '50%', 'margin-left': -$('#perfilBolsaTrabajo').width()/2 });
 			}, 500);
 			setTimeout(function() {
 				$('body').css("overflow","auto");
@@ -855,6 +1005,7 @@
 			else if (a == 4) { setTimeout(function() { $('#perfilMisTags').fadeIn(); }, 500); }
 			else if (a == 5) { setTimeout(function() { $('#perfilMisTrabajos').fadeIn(); }, 500); }
 			else if (a == 6) { setTimeout(function() { $('#perfilMisEstudios').fadeIn(); }, 500); }
+			else if (a == 10) { setTimeout(function() { $('#perfilBolsaTrabajo').fadeIn(); }, 500); }
 			else if (a == 7) { 
 				$('#perfilMisTrabajos').animate({
 					'marginLeft' : "-=1500px"
@@ -886,13 +1037,24 @@
 				});	
 				
 			}
-
+			else if (a == 11) { 
+				
+				$('#perfilBolsaTrabajo').animate({
+					'marginLeft' : "-=1500px"
+				},500,function(){
+					$('#perfilBolsaTrabajo').hide();
+					$('#perfilAddBolsaTrabajo').fadeIn();
+				});	
+		}
 			
 
 			
 			setTimeout(function() {
 				$('body').css("overflow","auto");
 			}, 900);
+	}
+	function agregarBolsa() {
+		return true;
 	}
 	function unloadImg() {
 		$('#uploadFileCont').fadeOut();
@@ -1346,4 +1508,7 @@
 	});
 	}
 	$('#listFechaNacimiento').val('<?php echo $Persona->getFechaNac(); ?>');
+	$(document).ready(function() {
+		hideWait();
+	});
 </script>

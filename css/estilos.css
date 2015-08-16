@@ -81,7 +81,7 @@ header {
 	height: auto;
 	margin: 0 auto;
 	text-align: center;
-	padding: 0px;
+	padding: 30px 0px;
 	display: none;
 }
 /* ********** Alturas ********** */
@@ -421,7 +421,26 @@ header {
 	}
 	.selRolUsuario.notSelected {
 		box-shadow: 0px 0px 5px 3px #c00;
-		
+	}
+	#loadingBody img {
+
+	}
+	#loadingBody {
+		position: relative;
+		display: none;
+		max-width: 200px;
+		max-height: 200px;
+		padding: 80px;
+		background-color: #06141D;
+		margin: 30px auto 20px auto;
+		text-align: center;
+		box-shadow: 0px 0px 10px #000;
+		border-radius: 50%;
+	}
+	#loadingBody label {
+		display: inline;
+		color: #fff;
+		right: 150px;
 	}
 	.contSelRolUsuario {
 		position: relative;
@@ -434,7 +453,6 @@ header {
 		padding: 10px 0px;
 		box-shadow: 0px 0px 10px #000;
 		border-radius: 5px;
-
 	}
 	.selRolUsuario {
 		display: inline-block;
@@ -567,6 +585,18 @@ header {
 	.labelFillDP.inline2 {
 		display: inline-block;
 	}
+	.labelFillTel {
+		cursor: default;
+		font-size: 1.2em;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		color: #fff;
+		text-shadow: 0px 0px 2px #777;
+	}
+	.labelFillTel.inline {
+		display: inline-block;
+		
+	}
 	.labelCheckbox {
 		text-align: left;
 		display: ineline-block;
@@ -633,6 +663,29 @@ header {
 		transition: 0.3s !important;
 		box-shadow: inset 1px 1px 1px 1px #000 !important;
 	}
+	
+	.inputFillDPTel {
+		display: inline-block;
+		padding: 0px 5px !important;
+		width: 150px;
+		background-color: #ccc !important;
+		height: 30px !important;	
+		border-radius: 0px !important;
+		border: none !important;
+		font-size: 1.3em !important;
+		transition: 0.3s !important;
+		box-shadow: inset 1px 1px 1px 1px #000 !important;
+	}
+	.inputFillDPTel:ACTIVE, .inputFillDPTel:FOCUS,.textAreaFillDPTel:ACTIVE, .textAreaFillDPTel:FOCUS {
+		background-color: #fff !important;
+		
+	}
+	.inputFillDPTel.notSelected,.textAreaFillDPTel.notSelected {
+		box-shadow: inset 1px 1px 1px 1px #000, 
+		0px 0px 5px 3px #c00 !important;
+	}
+	
+	
 	#dpNroDoc.notSelected {
 		box-shadow: inset 1px 1px 1px 1px #000, 
 		0px 0px 5px 3px #c00 !important;
@@ -736,6 +789,9 @@ header {
 	}
 	.btnCuadrado.cancelar {
 		background-color: #900;
+	}
+	.btnCuadrado.ver {
+		background-color: #009;
 	}
 	
 }

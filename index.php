@@ -60,10 +60,6 @@ if (isset($_GET)) {
 		<script type="text/javascript" src="/js/jq.min.js"></script>
 		<script type="text/javascript" src="/js/scripts.js"></script>
 		<script type="text/javascript" src="/js/jq.ez-pinned-footer.js"></script>
-		<script type="text/javascript" src="/js/footable.js"></script>
-		<script type="text/javascript" src="/js/footable.sort.js"></script>
-		<script type="text/javascript" src="/js/footable.paginate.js"></script>
-		<script type="text/javascript" src="/js/footable.filter.js"></script>
 		<script type="text/javascript" src="/js/jq.toastmessage.js"></script>
 
 
@@ -121,7 +117,11 @@ if (isset($_GET)) {
 	<?php 
 
 	?>
+
 		</div>
+	<div id="loadingBody" class="loading">
+		<img alt="" src="imagenes/loading.gif" width=50>
+	</div>
 			<?php include_once("php/footer.php"); ?>	
 			</div>
 	</body>

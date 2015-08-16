@@ -140,6 +140,7 @@ if (isset($_POST)) {
 			$conex->consulta("COMMIT;");
 			echo '<br><br><br><br><br><br><label class="selRolLabel">Datos guardados correctamente</label>';
 			echo '<img src="imagenes/iconos/check.png">';
+			echo '<br><a href="index.php">Inicio</a>';
 			$_SESSION['UsuarioRol'] = $codRol;
 		} else {
 			$conex->consulta("ROLLBACK;");

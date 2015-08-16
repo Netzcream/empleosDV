@@ -51,7 +51,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 	}
 //EM Empresa
 	else if ($_SESSION['UsuarioRol'] == "EM" AND $_SESSION['estadoUsuario'] == '3') {
-		echo '<div class="btnIcono" title="Bolsa"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
+		echo '<div class="btnIcono" title="Bolsa"  onclick="GoTo(8);"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
 		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
 		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['usr']->getPic().'"><span>Perfil</span></div>';
 		
@@ -78,7 +78,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 	echo "<script>
 	function GoTo(a) {
 		$('.menuDaInd').removeClass('selected');
-	
+		showWait();
 		if (a == 0) $('#cuerpo').load('php/home.php');
 		else if (a == 1) $('#cuerpo').load('php/registro.php');
 		else if (a == 2) $('#cuerpo').load('php/login.php');
@@ -90,6 +90,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 		else if (a == 5) $('#cuerpo').load('php/logmein.php',{ logout:true });
 		else if (a == 6) $('#cuerpo').load('php/authUsuarios.php');
 		else if (a == 7) $('#cuerpo').load('php/perfilHome.php');
+		else if (a == 8) $('#cuerpo').load('php/bolsaEmpresa.php');
 	}
 	$('#partOfMenu').html('". $textLogOut."');
 		
@@ -99,6 +100,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['us
 	function unhover() {
     	document.getElementById('logOutIcon').setAttribute('src', 'imagenes/iconos/logout_blanco.png');
 	}
+				
 	</script>";
 	
 	

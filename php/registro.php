@@ -83,6 +83,9 @@ function getEnter(e) {
 function gotologin() {
 	$("#cuerpo").load ("php/login.php");
 }
+$(document).ready(function() {
+	hideWait();
+});
 </script>
 
 

@@ -1,4 +1,7 @@
 @media (min-width: 601px) {
+	.perfilTelType {
+		width: 100px;
+	}
 	.perfilHeader {
 		text-align: left;
 		
@@ -302,6 +305,11 @@
 		text-align: center; 
 		vertical-align: middle;
 	}
+	.listAccion2 {
+		width: 105px;
+		text-align: center; 
+		vertical-align: middle;
+	}
 	.listDescripcion {
 		display: table-row;
 		padding-left: 10px;
@@ -348,6 +356,44 @@
 		font-weight: bold;
 		
 	}
+	.listCantPost {
+		font-size: 0.8em;
+		font-weight: bold;
+		color: #090;
+		text-align: center;
+
+	}
+	.listEstadoBolsa {
+		font-size: 0.8em;
+		font-weight: bold;
+		text-align: center;
+	}
+	.listEstadoBolsa.pendiente {
+		color: #666;
+	}
+	.listEstadoBolsa.aprobado {
+		color: #090;
+	}
+			
+.tablaDeEmergencia {
+	border-collapse: collapse;
+
+
+}
+
+.tablaDeEmergencia tr td span {
+	display: block;
+	color: #fafafa;
+}
+.tablaDeEmergencia {
+	text-align: center;
+	width: 100%;
+}
+.tablaDeEmergencia tr td textarea {
+height: 50px;
+ resize: none;
+
+}
 	.listNancionalidad {
 		width: auto;
 		font-size: 0.9em;

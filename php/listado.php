@@ -60,7 +60,7 @@ class Listado {
 			$temp .= "<td>".$Persona->getApellido()."</td>";
 			$temp .= "<td>".$Persona->getNombre()."</td>";
 			$temp .= "<td style='text-align: center; vertical-align: middle;'>".$Persona->getEdad()."</td>";
-			$temp .= "<td>".$Persona->getDomicilio()->getLoc()->getLocalidad()."</td>";
+			$temp .= "<td>".$Persona->getDomicilio()->getLoc()->getLocalidad().", ".$Persona->getDomicilio()->getLoc()->getProvincia()->getProvincia()."</td>";
 			$temp .= "<td style='text-align: center; vertical-align: middle;' data-value='".$Persona->getSexo()."'><img alt='' src='".$Persona->getSexoImg()."'></td>";
 			$temp .= "<td style='text-align: center; vertical-align: middle;'><a target='_blank' href='php/imprimirCVde.php?cv=".$Persona->getId()."'>Ver</a></td>";
 			$temp .= "</tr>";
@@ -89,12 +89,19 @@ class Listado {
 		$temp .= $this->getFooter();
 		$temp .= "</table>";
 		
+		$temp .= '<script type="text/javascript" src="/js/footable.js"></script>';
+		$temp .= '<script type="text/javascript" src="/js/footable.sort.js"></script>';
+		$temp .= '<script type="text/javascript" src="/js/footable.paginate.js"></script>';
+		$temp .= '<script type="text/javascript" src="/js/footable.filter.js"></script>';
+		
+		
 		$temp .= "<script type='text/javascript'>
 					$(function () {
 						$('.tablaDemo').footable({
 							addRowToggle: true
 							})
 					});
+				$('#cuerpo').show();
 				</script>";
 		return $temp;
 	}

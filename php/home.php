@@ -17,4 +17,7 @@ else {
 ?>
 <script>
 errorToas('Prueba de Home');
+$(document).ready(function() {
+	hideWait();
+});
 </script>
