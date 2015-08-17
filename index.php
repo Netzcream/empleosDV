@@ -86,7 +86,6 @@ if (isset($_GET)) {
 		</header>
 
 		<div id="cuerpo">
-		
 			<?php 
 				if ($_SESSION['location'] == "home") {
 					include_once("/php/home.php");
@@ -103,9 +102,16 @@ if (isset($_GET)) {
 				else if ($_SESSION['location'] == "listadoAUTH") {
 					include_once("/php/authUsuarios.php");
 				}
+				else if ($_SESSION['location'] == "listadoUsuarios") {
+					include_once("/php/adminListadoUsuarios.php");
+				}
 				else if ($_SESSION['location'] == "buscar") {
 					include_once("/php/buscar.php");
 				}
+				else if ($_SESSION['location'] == "abmCarreras") {
+					include_once("/php/adminABMCarreras.php");
+				}
+				
 				else if ($_SESSION['location'] == "verificar") {
 					include_once("/php/verificoMail.php");
 				}

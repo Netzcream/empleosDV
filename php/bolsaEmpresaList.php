@@ -51,7 +51,7 @@ class Listado {
 							." FROM usuario u"
 							." INNER JOIN usuarioRol ur on (ur.CodUsuario = u.CodUsuario)"
 							." INNER JOIN alumno a on (a.CodUsuario=u.codUsuario)"
-							." INNER JOIN AlumnoBolsa ab on (a.ID_Alumno=ab.alumnoId)"
+							." INNER JOIN AlumnoBolsa ab on (a.codUsuario=ab.alumnoId)"
 							." INNER JOIN tipodocumento td on (a.ID_TipoDocumento=td.ID_TipoDocumento)"
 							." WHERE ur.CodRol = 'AL' AND ab.bolsaId = ".$_POST['campo1'].";";
 		$this->result = $this->conex->consulta($this->consulta);

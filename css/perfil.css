@@ -364,6 +364,16 @@
 		line-height: normal;
 		margin-bottom: 5px;
 	}
+	.listDescripcion2 {
+		display: table-row;
+		padding-left: 10px;
+		text-align: left;
+		font-style: italic;
+		text-align: justify;
+		font-size: 1em;
+		line-height: normal;
+		margin-bottom: 5px;
+	}
 	.listRow0 {
 		background-color: #bbb;
 		transition: 0.3s;

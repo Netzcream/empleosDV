@@ -90,11 +90,29 @@ if (isset($_POST)) {
 		return;
 	}
 	else {
+		$result3 = $conex->fetch_assoc();
+
+if ($result3['Estado'] == "4") {
+		$error = "El usuario se encuentra bloqueado, comuniquese a infor@bolsadv.com";
+		$error = '<label class="regLabelNota regError">'.$error.'</label>';
+		echo "<script>
+			$('#loadingLogin').hide();
+			$('.openLogin').show('fast');
+			$('#reLabelNot').show('fast');
+			document.getElementById('reLabelNot').innerHTML = '".$error."';
+			</script>";
+		
+
+		return;
+}
+else {
+
+
 		$msj = "Ingres&oacute; correctamente.";
 		
 		
 
-		$result3 = $conex->fetch_assoc();
+		
 		
 		$_SESSION['usuario'] = $result3['Email'];
 		$_SESSION['estadoUsuario'] = $result3['Estado'];
@@ -149,7 +167,7 @@ if ($_SESSION['estadoUsuario'] != 2) {
 			</script>";
 		
 	}
-	
+	}
 }
 
 ?>

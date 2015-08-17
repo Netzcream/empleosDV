@@ -52,6 +52,8 @@ echo '<div class="btnIcono" title="Inicio" onclick="GoTo(0);"><img alt="Inicio" 
  		}
 
 		echo '<div class="btnIcono" title="Autorizar" onclick="GoTo(6);"><img alt="Autorizar" src="imagenes/iconos/auth'.$auth.'.png"><span>Autorizar</span></div>';
+		echo '<div class="btnIcono" title="Usuarios" onclick="GoTo(12);"><img alt="Usuarios" src="imagenes/iconos/users.png"><span>Usuarios</span></div>';
+		echo '<div class="btnIcono" title="Carreras" onclick="GoTo(13);"><img alt="Carreras" src="imagenes/iconos/carreras.png"><span>Carreras</span></div>';
 		echo '<div class="btnIcono" title="Bolsa" onclick="GoTo(9);"><img alt="Bolsa"src="imagenes/iconos/bolsa'.$auth2.'.png"><span>Bolsa</span></div>';
 		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
 	}
@@ -106,6 +108,8 @@ echo '<div class="btnIcono" title="Inicio" onclick="GoTo(0);"><img alt="Inicio" 
 		else if (a == 9) $('#cuerpo').load('php/bolsaAdminListado.php');
 		else if (a == 10) $('#cuerpo').load('php/bolsaAlumnoList.php');
 		else if (a == 11) $('#cuerpo').load('php/bolsaPostuladoAlumno.php');
+		else if (a == 12) $('#cuerpo').load('php/adminListadoUsuarios.php');
+		else if (a == 13) $('#cuerpo').load('php/adminABMCarreras.php');
 	}
 
 	$('#partOfMenu').html('". $textLogOut."');
