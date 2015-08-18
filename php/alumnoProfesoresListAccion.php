@@ -13,13 +13,12 @@ if (!class_exists('MySQL')) { require_once $_SERVER["DOCUMENT_ROOT"].'/php/conex
 		$sqlNTB .= "INNER JOIN MATERIA M ON (M.CodCarrera=AC.CodCarrera) ";
 		$sqlNTB .= "INNER JOIN PROFESORMATERIA PM ON (PM.CodMateria=M.CodMateria) ";
 		$sqlNTB .= "INNER JOIN PROFESOR P ON (P.ID_Profesor=PM.ID_Profesor) ";
-		$sqlNTB .= "WHERE A.codUsuario = 6  ";
-		$sqlNTB .= "AND NOT EXISTS (SELECT * FROM ProfesorRecomendacionAlumno PRA WHERE PRA.codProfesor=P.CodUsuario ";
+		$sqlNTB .= "WHERE A.codUsuario = ".$idWork;
+		$sqlNTB .= " AND NOT EXISTS (SELECT * FROM ProfesorRecomendacionAlumno PRA WHERE PRA.codProfesor=P.CodUsuario ";
 		$sqlNTB .= "and PRA.codAlumno=A.CodUsuario and PRA.codMateria=M.CodMateria) ";
-		$sqlNTB .= "having (((cuatrimestre*100)/6+20) <avance) ";
+		$sqlNTB .= "having (((cuatrimestre*100)/6+20) < avance) ";
 		$sqlNTB .= "order by M.CodCarrera,M.CodMateria,P.Apellido,P.Nombre DESC; ";
 
-//echo $sqlNTB;
 
 if (isset($_POST['accion'])) {
 

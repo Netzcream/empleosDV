@@ -144,6 +144,7 @@ if (isset($_POST['accion'])) {
 							}
 							echo "</td>";
 							echo "</tr>";
+							echo "<script>reloadMenu();</script>";
 	
 						}
 					}
@@ -154,14 +155,14 @@ if (isset($_POST['accion'])) {
 					var confirmar = confirm("Esta seguro que desea aprobar la recomendación al alumno?");
 					if (confirmar == true) {
 						$('#mibolsa').load('php/profMisAlumnosAccion.php',{ accion: 'aprobar', alumno: idAlumno, materia: idMateria, profesor:idProfesor });
-						reloadMenu();
+						
 					}
 				}
 				function rechazarAlumno(idAlumno,idMateria,idProfesor) {
 					var confirmar = confirm("Esta seguro que desea rechazar la recomendación al alumno?");
 					if (confirmar == true) {
 						$('#mibolsa').load('php/profMisAlumnosAccion.php',{ accion: 'rechazar', alumno: idAlumno, materia: idMateria, profesor:idProfesor });
-						reloadMenu();
+						
 					}
 				}
 

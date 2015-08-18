@@ -193,6 +193,7 @@ function getTags() {
 			$tags .= $a;
 		}
 		$this->MultiCell(0,5,utf8_decode($tags));
+		$this->Ln(2);
 	}
 
 	
@@ -243,6 +244,7 @@ function getRecomendaciones() {
 			$this->Ln(6);
 			$result = $conex->fetch_assoc();
 		}
+		$this->Ln(2);
  	}
 }
 function getDomicilio() {
