@@ -1,7 +1,8 @@
 <?php
 
-header('Content-Type: text/html; charset=UTF-8');
+
 if (!isset($_SESSION)) {
+	header('Content-Type: text/html; charset=UTF-8');
 	session_start();
 }
 if (!class_exists('MySQL')) { require_once $_SERVER["DOCUMENT_ROOT"].'/php/conex.php'; }
@@ -22,7 +23,7 @@ if (!class_exists('Carrera')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/cla
 if (!class_exists('Materia')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Materia.php"); }
 if (!class_exists('Telefono')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Telefono.php"); }
 
-$_SESSION['location'] = "bolsaAlumno";
+$_SESSION['location'] = "bolsaAlumnoPostulado";
 $mostrarUsuario = "NN";
 $Persona = new Persona();
 if (isset($_SESSION["usr"])) {

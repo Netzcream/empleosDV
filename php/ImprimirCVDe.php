@@ -72,6 +72,7 @@ function printBody() {
 
 	$this->getExperiencia();
 	$this->getTags();
+	$this->getRecomendaciones();
 	//$this->Seccion("Referencias");
 }
 function getEstudios() {
@@ -218,6 +219,31 @@ function getDatosPersonales() {
 	$this->Cell(40,0,'Email:');
 	$this->Cell(0,0,$this->Persona->getEmail());
 	$this->Ln(5);
+}
+function getRecomendaciones() {
+	$sql = "SELECT M.CodMateria as materiaId, M.Materia as materia, P.*, ";
+	$sql .= " PRA.id as idPRA, PRA.visible as visiblePRA ";
+	$sql .= " FROM ProfesorRecomendacionAlumno PRA ";
+	$sql .= " INNER JOIN Profesor P ON (P.CodUsuario=P.CodUsuario) ";
+	$sql .= " INNER JOIN Materia M ON (M.CodMateria=PRA.CodMateria) ";
+	$sql .= " WHERE PRA.estado=2 AND PRA.visible=1 AND PRA.codAlumno = ".$this->Persona->getId();
+	$conex = new MySQL();
+	$result3 = $conex->consulta($sql);
+	$result4 = $conex->num_rows();
+	if ($result4 > 0) {
+		$this->Seccion("Profesores que recomiendan a ".$this->Persona->getNombre().", ".$this->Persona->getApellido());
+		$result = $conex->fetch_assoc();
+		while ($result) {
+			$nombreProfesor = utf8_decode($result['Apellido'].", ".$result['Nombre']);
+			$materia = utf8_decode($result['materia']);
+			$nombreProfesor .= ", profesor de ".$materia;
+			$this->SetFont('Arial','',12);
+			$this->SetFillColor(230,230,0);
+			$this->Cell(0,0,$nombreProfesor);
+			$this->Ln(6);
+			$result = $conex->fetch_assoc();
+		}
+ 	}
 }
 function getDomicilio() {
 	$this->Seccion("Domicilio");

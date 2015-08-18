@@ -821,7 +821,9 @@ margin-top: 10px;
 	.btnCuadrado.ver {
 		background-color: #009;
 	}
-	
+	.btnCuadrado.blanco {
+		background-color: #fff;
+	}
 }
 
 

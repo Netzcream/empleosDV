@@ -22,7 +22,10 @@ if (isset($_SESSION["usr"])) {
 <?php 
 
 if (isset($_SESSION['usuario']) && $_SESSION['usuario'] != null && $_SESSION['usuario'] != "") {
-
+	
+	if (isset($_SESSION['usr'])) {
+		$codUsuario = $_SESSION['usr']->getId();
+	}
 	echo '<div id="menuDa">';
 
 //AD Administrador
@@ -61,6 +64,10 @@ echo '<div class="btnIcono" title="Inicio" onclick="GoTo(0);"><img alt="Inicio" 
 	else if ($_SESSION['UsuarioRol'] == "AL" AND $_SESSION['estadoUsuario'] == '3') {
 		echo '<div class="btnIcono" title="Bolsa" onclick="GoTo(10);"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
 		echo '<div class="btnIcono" title="Mis Postulaciones" onclick="GoTo(11);"><img alt="Postulaciones"src="imagenes/iconos/Postulaciones.png"><span>Postulado</span></div>';
+
+		echo '<div class="btnIcono" title="Profesores" onclick="GoTo(15);"><img alt="Profesores" src="imagenes/iconos/users.png"><span>Prof.</span></div>';
+		echo '<div class="btnIcono" title="Ver Recomendaciones" onclick="GoTo(16);"><img alt="Ver Recomendaciones" src="imagenes/iconos/reco.png"><span>Reco.</span></div>';
+
 		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['usr']->getPic().'"><span>Perfil</span></div>';
 	}
 //EM Empresa
@@ -68,10 +75,21 @@ echo '<div class="btnIcono" title="Inicio" onclick="GoTo(0);"><img alt="Inicio" 
 		echo '<div class="btnIcono" title="Bolsa"  onclick="GoTo(8);"><img alt="Bolsa"src="imagenes/iconos/bolsa.png"><span>Bolsa</span></div>';
 		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
 		echo '<div class="btnIcono" id="perfilImg" onclick="GoTo(7);" title="Perfil"><img alt="Perfil" src="'.$_SESSION['usr']->getPic().'"><span>Perfil</span></div>';
-		
 	}
 //PR Profesor
 	else if ($_SESSION['UsuarioRol'] == "PR" AND $_SESSION['estadoUsuario'] == '3') {
+
+ 		$consulta2 = "SELECT * FROM ProfesorRecomendacionAlumno WHERE estado=1 and codProfesor=".$codUsuario.";";
+		$conex2 = new MySQL();
+ 		$result3 = $conex2->consulta($consulta2);
+ 		$result4 = $conex2->num_rows();
+ 		$reco = "";
+ 		if ($result4 > 0) {
+ 			$reco = "_rojo";
+ 		}
+
+
+		echo '<div class="btnIcono" title="Recomendaciones" onclick="GoTo(14);"><img alt="Recomendaciones" src="imagenes/iconos/users'.$reco.'.png"><span>Reco</span></div>';
 		echo '<div class="btnIcono" title="Buscador" onclick="GoTo(4);"><img alt="Buscador" src="imagenes/iconos/lupa.png"><span>Buscador</span></div>';
 		echo '<div class="btnIcono" onclick="GoTo(7);" id="perfilImg" title="Perfil"><img alt="Perfil" src="'.$_SESSION['usr']->getPic().'"><span>Perfil</span></div>';
 	}
@@ -96,20 +114,31 @@ echo '<div class="btnIcono" title="Inicio" onclick="GoTo(0);"><img alt="Inicio" 
 		if (a == 0) $('#cuerpo').load('php/home.php');
 		else if (a == 1) $('#cuerpo').load('php/registro.php');
 		else if (a == 2) $('#cuerpo').load('php/login.php');
+
 		else if (a == 3) { $('#btnListado').addClass('selected'); $('#cuerpo').load('php/listado.php'); }
 		else if (a == 4) {
 			$('#btnBuscador').addClass('selected');
 			$('#cuerpo').load('php/buscar.php');
 		}
-		else if (a == 5) $('#cuerpo').load('php/logmein.php',{ logout:true });
-		else if (a == 6) $('#cuerpo').load('php/authUsuarios.php');
-		else if (a == 7) $('#cuerpo').load('php/perfilHome.php');
-		else if (a == 8) $('#cuerpo').load('php/bolsaEmpresa.php');
-		else if (a == 9) $('#cuerpo').load('php/bolsaAdminListado.php');
-		else if (a == 10) $('#cuerpo').load('php/bolsaAlumnoList.php');
-		else if (a == 11) $('#cuerpo').load('php/bolsaPostuladoAlumno.php');
-		else if (a == 12) $('#cuerpo').load('php/adminListadoUsuarios.php');
-		else if (a == 13) $('#cuerpo').load('php/adminABMCarreras.php');
+		else if (a == 5) $('#cuerpo').load('php/logmein.php',{ logout:true });";
+if ($_SESSION['UsuarioRol'] == "AD") {
+		echo "else if (a == 6) $('#cuerpo').load('php/authUsuarios.php');";
+		echo "else if (a == 12) $('#cuerpo').load('php/adminListadoUsuarios.php');";
+		echo "else if (a == 13) $('#cuerpo').load('php/adminABMCarreras.php');";
+		echo " else if (a == 9) $('#cuerpo').load('php/bolsaAdminListado.php');";
+	}
+	if ($_SESSION['UsuarioRol'] == "PR" AND $_SESSION['estadoUsuario'] == '3') {
+		echo "else if (a == 14) $('#cuerpo').load('php/profMisAlumnos.php');";
+	}
+		echo "else if (a == 7) $('#cuerpo').load('php/perfilHome.php');";
+		echo "else if (a == 8) $('#cuerpo').load('php/bolsaEmpresa.php');";
+
+		echo " else if (a == 10) $('#cuerpo').load('php/bolsaAlumnoList.php');";
+		echo " else if (a == 11) $('#cuerpo').load('php/bolsaPostuladoAlumno.php');
+
+		else if (a == 15) $('#cuerpo').load('php/alumnoProfesoresList.php');
+		else if (a == 16) $('#cuerpo').load('php/alumnoRecomendaciones.php');
+
 	}
 
 	$('#partOfMenu').html('". $textLogOut."');
@@ -120,7 +149,10 @@ echo '<div class="btnIcono" title="Inicio" onclick="GoTo(0);"><img alt="Inicio" 
 	function unhover() {
     	document.getElementById('logOutIcon').setAttribute('src', 'imagenes/iconos/logout_blanco.png');
 	}
-				
+	function reloadMenu() {
+		$('#contMenu').load('php/menu.php');
+
+	}	
 	</script>";
 	
 	

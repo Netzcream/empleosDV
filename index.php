@@ -76,6 +76,7 @@ if (isset($_GET)) {
 				<img alt="Bolsa DV" src="imagenes/logo/logo100.png">
 				<span class="logoText">BolsaDV</span>
 			</div>
+
 			<div id="contMenu">
 			<?php 
 			if (isset($_SESSION['usuario'])) {
@@ -118,6 +119,29 @@ if (isset($_GET)) {
 				else if ($_SESSION['location'] == "perfilHome") {
 					include_once("/php/perfilHome.php");
 				}
+				else if ($_SESSION['location'] == "bolsaAlumno") {
+					include_once("/php/bolsaAlumnoList.php");
+				}
+				else if ($_SESSION['location'] == "bolsaAlumnoPostulado") {
+					include_once("/php/bolsaPostuladoAlumno.php");
+				}
+				
+				else if ($_SESSION['location'] == "misProfesores") {
+					include_once("/php/alumnoProfesoresList.php");
+				}
+				else if ($_SESSION['location'] == "misRecomendaciones") {
+					include_once("/php/alumnoRecomendaciones.php");
+				}			
+				else if ($_SESSION['location'] == "bolsaEmpresa") {
+					include_once("/php/bolsaEmpresa.php");
+				}	
+				else if ($_SESSION['location'] == "misAlumnos") {
+					include_once("/php/profMisAlumnos.php");
+				}	
+				else if ($_SESSION['location'] == "bolsaAdmin") {
+					include_once("/php/bolsaAdminListado.php");
+				}	
+
 			?>
 
 	<?php 

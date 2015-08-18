@@ -210,6 +210,20 @@
 		overflow-x: hidden;  
 		text-align: center;
 	}
+			.thingsConteiner6 {
+		margin: 0 auto;
+		width: 90%;
+		height: 340px;
+		box-shadow: inset -1px -1px 1px 1px #ccf,
+				   inset 1px 1px 1px 1px #333;
+		
+		background-color: #bbb;
+		border-radius: 5px;
+		padding: 10px;
+		overflow-y: auto;
+		overflow-x: hidden;  
+		text-align: center;
+	}
 	.rowWork {
 		display: inline-block;
 		width: 100%;

@@ -3830,3 +3830,14 @@ CREATE TABLE AlumnoBolsa (
 
 ALTER TABLE `bolsadv`.`bolsa` 
 CHANGE COLUMN `validaAdministrador` `validaAdministrador` INT NOT NULL DEFAULT '0' ;
+
+CREATE TABLE ProfesorRecomendacionAlumno (
+  id int not null auto_increment,
+  codProfesor bigint(20) not null,
+  codAlumno bigint(20) not null,
+  codMateria varchar(4) not null,
+  visible bool null default 0,
+  estado int not null,
+  primary key (id),
+  foreign key (codMateria) references Materia (CodMateria)
+);

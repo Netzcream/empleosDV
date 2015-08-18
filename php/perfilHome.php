@@ -1,6 +1,7 @@
 <?php
-  header('Content-Type: text/html; charset=UTF-8');
+
 	if (!isset($_SESSION)) {
+		  header('Content-Type: text/html; charset=UTF-8');
 		session_start();
 	}
 	if (!class_exists('MySQL')) { require_once $_SERVER["DOCUMENT_ROOT"].'/php/conex.php'; }
@@ -99,7 +100,10 @@
 		</div>
 		
 		<div class="perfilBtns">
-		
+		<?php if($Persona->getRol()->getId() == "PR" or $Persona->getRol()->getId() == "EM"): ?>
+		<br><br><br>	
+			
+		<?php endif; ?>
 		<?php if($Persona->getRol()->getId() != "AD"): ?>
 			<div class="perfilIndCont" onclick="loadSectionPerfil(1);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/configuracion.png"></div> <span>Configuraci&oacute;n</span></div>
 			<div class="perfilIndCont" onclick="loadSectionPerfil(2);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/estudiante.png"></div><span>Datos Personales</span></div>
@@ -110,16 +114,7 @@
 			<div class="perfilIndCont" onclick="loadSectionPerfil(5);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/trabajo.png"></div><span>Mis Trabajos</span></div>
 			<div class="perfilIndCont" onclick="loadSectionPerfil(6);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/estudios.png"></div><span>Mis Estudios</span></div>
 		<?php endif; ?>
-		<?php if($Persona->getRol()->getId() == "PR"): ?>
-			
-			<div class="perfilIndCont" onclick="loadSectionPerfil(5);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/trabajo.png"></div><span>Mis Alumnos</span></div>
-			
-		<?php endif; ?>
-		
-		<?php if($Persona->getRol()->getId() == "EM"): ?>
-		
-			<div class="perfilIndCont" onclick="loadSectionPerfil(10);"><div class="perfilIndBtn"><img title="" alt="" src="imagenes/iconos/trabajo.png"></div><span>Bolsa de trabajo</span></div>
-		<?php endif; ?>
+
 			
 		</div>
 		
@@ -408,17 +403,16 @@
 		</div>
 		
 		<div id="perfilMisTrabajos" class="contSelRolUsuario">
-			<div class="titleSelRol">Mis Trabajos</div>
-			
-			<div id="misTrabajos" class="thingsConteiner2">
-			
-			
-
-		
+			<div id="tituloAlumnosCapaz" class="titleSelRol">Mis Trabajos</div>
+					<?php if($Persona->getRol()->getId() == "PR") { ?>
+			<div id="misTrabajos" class="thingsConteiner6">	</div>
+			<?php } else { ?>
+			<div id="misTrabajos" class="thingsConteiner2">	</div>
+			<div>
+				<input type="button" class="perfilBtnSeeMyCV" value="A&ntilde;adir Nuevo" onclick="agregarWork(); loadSectionPerfil(7);">
 			</div>
-		<div>
-			<input type="button" class="perfilBtnSeeMyCV" value="A&ntilde;adir Nuevo" onclick="agregarWork(); loadSectionPerfil(7);">
-		</div>
+			<?php } ?>
+
 			
 			<div class="finRecuadroPerfil">
 				<input type="button" class="perfilBtnSeeMyCV" value="Volver" onclick="goBacktoPerfil(5);">
@@ -988,6 +982,21 @@
 			$('#homePerfil').hide();	 
 			$('#uploadFileCont').fadeIn();	
 		});
+	}
+	function loadSectionPerfilMisAlumnos() { 
+		$('#pruebaFechas').load('php/cargaScripts.php');
+		$('#homePerfil').animate({
+				'marginLeft' : "-=1500px"
+			},500,function() {
+				$('#homePerfil').hide();
+			});	
+		$('body').css("overflow","hidden");
+		$('input').removeClass('notSelected');
+		$('#tituloAlumnosCapaz').html('Mis Alumnos');
+		setTimeout(function() { $('#perfilMisTrabajos').fadeIn(); }, 500); 
+		setTimeout(function() {
+			$('body').css("overflow","auto");
+		}, 900);
 	}
 	function loadSectionPerfil(a) {
 		

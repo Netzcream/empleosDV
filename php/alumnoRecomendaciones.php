@@ -23,7 +23,7 @@ if (!class_exists('Carrera')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/cla
 if (!class_exists('Materia')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Materia.php"); }
 if (!class_exists('Telefono')) { include_once($_SERVER["DOCUMENT_ROOT"]."/php/clases/Telefono.php"); }
 
-$_SESSION['location'] = "bolsaAdmin";
+$_SESSION['location'] = "misRecomendaciones";
 $mostrarUsuario = "NN";
 $Persona = new Persona();
 if (isset($_SESSION["usr"])) {
@@ -40,6 +40,7 @@ else {
 	//LOGERROR
 }
 $_SESSION["personaIdForWorks"] = $Persona->getId();
+$_SESSION["profIdForWorks"] = $Persona->getidAlumno();
 
 $conex = new MySQL();
 
@@ -49,15 +50,15 @@ $conex = new MySQL();
 
 ?>
 	<div id="perfilBolsaTrabajo" class="contSelRolUsuario selActivo">
-			<div class="titleSelRol">Trabajos pendientes de autorizar</div>
+			<div class="titleSelRol">Mis Recomendaciones</div>
 			
-			<div id="mibolsa" class="thingsConteiner4">
+			<div id="mibolsa" class="thingsConteiner5">
 	
 
 
 
 				<script>
-$('#mibolsa').load('php/bolsaAdminAcciones.php', { accion:'listar' });
+$('#mibolsa').load('php/alumnoRecomendacionesAccion.php');
 </script>
 			</div>
 		<div>
@@ -68,39 +69,64 @@ $('#mibolsa').load('php/bolsaAdminAcciones.php', { accion:'listar' });
 		
 		<div id="perfilAddBolsaTrabajo" class="contSelRolUsuario">
 		<div id="titleEditWork" class="titleSelRol" style="padding-bottom: 5px;"></div>
-		<div id="editDeEmergencia">
+		<div id="editDeEmergencia" class="thingsConteiner5">
 
-</div>
-<script>
-
-
-
-var nav4 = window.Event ? true : false;
-function acceptNum(evt){	
-	// NOTE: Backspace = 8, Enter = 13, '0' = 48, '9' = 57	
-	var key = nav4 ? evt.which : evt.keyCode;	
-	return (key <= 13 || (key >= 48 && key <= 57));
-}
-
-</script>
-			<input id="currentWorkID" type="hidden" value="">
-			<input id="currentWorkAction" type="hidden" value="">
-			
+	</div>
+		
 			<div class="finRecuadroPerfil">
-				<input id="workBtn1" type="button" class="perfilBtnSeeMyCV" value="Cancelar" onclick="goBacktoPerfil();">
-				<input id="workBtn2" type="button" class="perfilBtnSeeMyCV" value="Guardar" onclick="controlaDatosCargados(); ">
+				<input id="workBtn1" type="button" class="perfilBtnSeeMyCV" value="Volver" onclick="goBacktoPerfil();">
+			</div>
+		</div>
+
+
+		<div id="perfilAddBolsaTrabajo2" class="contSelRolUsuario">
+		<div id="titleEditWork2" class="titleSelRol" style="padding-bottom: 5px;"></div>
+		<div id="editDeEmergencia2" class="thingsConteiner5">
+
+	</div>
+		
+			<div class="finRecuadroPerfil">
+				<input id="workBtn2" type="button" class="perfilBtnSeeMyCV" value="Volver" onclick="goBacktoPerfil2();">
 			</div>
 		</div>
 
 
 <script>
 
-function previewWork(id) {
-	$('#workBtn2').hide();
-	$('#titleEditWork').html("Preview");
-	$('#editDeEmergencia').load('php/bolsaAdminAcciones.php', { accion:'preview', campo1 : id });
+
+
+function disableCareer(id) {
+	var temp = id;
+	var confirmar = confirm("Esta seguro que desea deshabilitar la carrera?");
+	if (confirmar == true) {
+		$('#mibolsa').load('php/profesorMisAlumnosAccion.php', { accion: "disable", campo1 : id });
+	}
+	else return;
+
+}
+function enableCareer(id) {
+	var temp = id;
+	var confirmar = confirm("Esta seguro que desea habilitar la carrera?");
+	if (confirmar == true) {
+		$('#mibolsa').load('php/profesorMisAlumnosAccion.php', { accion: "enable", campo1 : id });
+	}
+	else return;
+}
+function editCarrera(id) {
+	$('#workBtn2').show();
+	$('#titleEditWork').html("Editar Materias");
+	$('#editDeEmergencia').html("");
+	$('#editDeEmergencia').load('php/adminABMMateriasAccion.php', { campo1 : id });
 	showEditBolsa();
 }
+function editWork(id) {
+	$('#workBtn2').show();
+	$('#titleEditWork').html("Editar trabajo");
+	$('#editDeEmergencia').load('php/bolsaEmpresaEdit.php', { accion: "e", campo1 : id });
+	showEditBolsa();
+}
+
+
 
 function goBacktoPerfil() {
 	$('body').css("overflow","hidden");
@@ -113,6 +139,19 @@ function goBacktoPerfil() {
 		}, 500);
 	}, 500);
 }
+
+function goBacktoPerfil2() {
+	$('body').css("overflow","hidden");
+	$('#perfilAddBolsaTrabajo2').fadeOut();
+	setTimeout(function() {
+		$('#perfilAddBolsaTrabajo').show();
+		$('#perfilAddBolsaTrabajo').animate({'left': '50%', 'margin-left': -$('#perfilAddBolsaTrabajo').width()/2 });
+		setTimeout(function() {
+			$('body').css("overflow","auto");
+		}, 500);
+	}, 500);
+}
+
 function goBacktoAndSavePerfil() {
 
 if ($('#idWork').val() != "") {
@@ -200,6 +239,17 @@ function showEditBolsa() {
 		$('#perfilBolsaTrabajo').hide();
 	});	
 	setTimeout(function() { $('#perfilAddBolsaTrabajo').fadeIn(); }, 500);
+}
+function showEditBolsa2() {
+	
+	$('body').css("overflow","hidden");
+	$('input').removeClass('notSelected');
+	$('#perfilAddBolsaTrabajo').animate({
+		'marginLeft' : "-=1500px"
+	},500,function() {
+		$('#perfilAddBolsaTrabajo').hide();
+	});	
+	setTimeout(function() { $('#perfilAddBolsaTrabajo2').fadeIn(); }, 500);
 }
 	$(document).ready(function() {
 		hideWait();
