@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Listado</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="usuario">Usuario</string>
+    <string name="clave">Clave</string>
+    <string name="login">Ingresar</string>
+    <string name="none"></string>
+    <string name="title_activity_alumno">Alumno</string>
+    <string name="cuatrimestre">Seleccione Cuatrimestre</string>
+    <string name="notaVacia">0</string>
+    <string name="materia">Materia</string>
+    <string name="vacio">Texto Vacio</string>
+    <string name="ver">Ver</string>
+    <string name="title_activity_notas">Notas</string>
+    <string name="recordar">"Recordar Clave "</string>
+    <string name="title_activity_profesor">Profesor</string>
+    <string name="profesor">Profesor</string>
+    <string name="selMateria">"Selecciona Materia: "</string>
+    <string name="codigo">S00001</string>
+    <string name="title_activity_profesor_notas">Profesor_notas</string>
+    <string name="profNota">Cargar Notas</string>
+    <string name="primerparcial">Primer Parcial</string>
+    <string name="segundoparcial">Segundo Parcial</string>
+    <string name="trabajopractico">Trabajo Practico</string>
+    <string name="notafinal">Nota Final</string>
+    <string name="guardar">Guardar</string>
+    <string name="noMatAsig">No posee materias Asignadas</string>
+    <string name="cuatri">Cuatrimestre</string>
+    <string name="optUsuario">Opciones de usuario</string>
+    <string name="optclave1">Recordar contraseña</string>
+    <string name="optclave2">Guarda su contraseña en el teléfono</string>
+    
+    <string name="optusuario1">Usuario</string>
+    <string name="optusuario2">Cambia su nombre de usuario</string>
+    <string name="optusuario3">Ingrese su nuevo nombre de usuario</string>
+    
+    <string name="optpass1">Clave</string>
+    <string name="optpass2">Cambia su clave de acceso</string>
+    <string name="optpass3">Ingrese su nueva clave</string>
+    
+    <string name="err_log_1">Error al intentar loguearse</string>
+    <string name="title_activity_administrador">Administrador</string>
+    <string name="title_activity_preferencias">Preferencias</string>
+    <string name="title_activity_preferences">Preferences</string>
+
+</resources>

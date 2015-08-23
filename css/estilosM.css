@@ -1,0 +1,867 @@
+/* Media */
+@media (max-width: 480px) {
+	#menuDa {
+		display: inline-block;
+		float: right;
+		margin-right: 10px;
+		width: 80%;
+		text-align: right;
+	}
+	#menuDa .menuDaInd {
+		display: inline-table;
+		cursor: pointer;
+		background-color: #fff;
+		transition: 0.3s;	
+	}
+	#menuDa .menuDaInd:hover {
+		background-color: #aaa;
+		text-shadow: 0px 0px 2px #777;
+	}
+	.menuDaInd {
+		display: inline-table;
+		min-width: 60px;
+		padding: 5px;
+		font-size: 0.8em;
+		font-weight: normal;
+		vertical-align: middle;
+		margin-left: 2px;
+		text-align: center;
+	}
+	#contMenu {
+		position:relative;
+		top: -43px;
+	}	
+	.btnIcono {
+		display: inline-table;
+		cursor: pointer;
+		background-color: #fff;
+		transition: 0.3s;	
+		vertical-align: middle;
+		margin-left: 2px;
+		text-align: center;
+		min-width: 20px;
+		padding: 4px 5px 5px 5px;
+	}
+	.btnIcono:hover {
+		background-color: #aaa;
+		text-shadow: 0px 0px 2px #777;
+	}
+	#perfilImg img {
+		border-radius: 50%;
+		background-color: #fff;
+		}
+	.btnIcono img {
+		width: 30px;
+	}
+	.btnIcono span {
+		display: none;
+		overflow: hidden;
+	}
+	#contMenu {
+		position:relative;
+		top: -55px;
+	}	
+
+	.preHeader {
+		text-align: right;
+	}
+	#partOfMenu {
+		color: #fff;
+		padding: 0px 5px 0px 10px;
+		display: block;
+		font-size: 0.8em;
+	}
+	
+	.logoutLink {
+		display: inline-block;
+		padding: 0px 5px 0px 5px;
+		cursor: pointer;
+	}
+	.logoutLink:hover {
+		background-color: #fff;;
+		color: #000;
+		text-shadow: 0px 0px 2px #aaa;
+	}
+
+	.logoutIcon {
+		transition: 0.3s;
+		position: relative;	
+		width: 15px;
+		height: 15px;
+		margin-left: 2px;
+		top: -2px;
+	}
+
+
+	.itsABody {
+		background-color: #06141D;
+		width: 100%;
+		margin: 10px auto;
+
+		display: block;
+		border-radius: 5px;
+		box-shadow: 0px 0px 10px #000;
+		color: #fff;
+		padding: 5px;
+		text-align: center;
+	}
+	.logoInicio {
+		display: inline-block;
+		margin-top: 10px;
+		background-color: #fff;
+		padding: 10px;
+		border-radius: 10px;
+		width: 80%;
+
+	}
+	.LogoDavinci {
+		margin-top: 10px;
+		cursor: pointer;
+	}
+	.labelInicio {
+		display: inline-block;
+		margin-top: 10px;
+	}
+	#toLoadLoc {
+		display: inline-block;
+	}
+
+	loadingBody img {
+
+	}
+	#loadingBody {
+		position: relative;
+		display: none;
+		max-width: 200px;
+		max-height: 200px;
+		padding: 80px;
+		background-color: #06141D;
+		margin: 30px auto 20px auto;
+		text-align: center;
+		box-shadow: 0px 0px 10px #000;
+		border-radius: 20px;
+	}
+	#loadingBody label {
+		display: inline;
+		color: #fff;
+		right: 150px;
+	}
+
+	.btnCuadrado {
+		display: inline-block;
+		padding: 3px;
+		border-radius: 3px;
+		margin: 0px 5px 5px 0px;
+		cursor: pointer;
+		transition: 0.3s;
+		box-shadow: 0px 0px 1px 0px #666;
+	}
+	.btnCuadrado:hover {
+		box-shadow: 0px 0px 3px 0px #333;
+	}
+	.btnCuadrado.aceptar {
+		background-color: #090;
+		
+	}
+	.btnCuadrado.cancelar {
+		background-color: #900;
+	}
+	.btnCuadrado.ver {
+		background-color: #009;
+	}
+	.btnCuadrado.blanco {
+		background-color: #fff;
+	}
+	#cuerpo {
+		width: 95%;
+		margin: 0px auto 10px auto;
+		
+	}
+	.contSelRolUsuario.selActivo {
+		display: block;
+	}
+	.selRolUsuario.notSelected {
+		box-shadow: 0px 0px 5px 3px #c00;
+	}
+
+	.contSelRolUsuario {
+		position: relative;
+		display: none;
+		width: 100%;
+		height: 450px;
+		background-color: #06141D;
+		margin: 10px auto;
+		text-align: center;
+		padding: 5px 0px;
+		box-shadow: 0px 0px 10px #000;
+		border-radius: 5px;
+	}
+	.selRolUsuario {
+		display: inline-block;
+		background-color: #fff;
+		padding: 10px 5px; 
+		transition: 0.3s;
+		border-radius: 3px;
+		cursor: pointer;
+		width: 160px;
+		height: 170px;
+		overflow: hidden;
+	}
+
+	.titleSelRol {
+		
+		font-size: 16px;
+		padding-left: 3px;
+		color: #eee;
+		text-shadow: 0px 0px 5px #777;
+		cursor: default;
+		font-weight: bold;
+	}
+	
+
+
+.finRecuadroPerfil {
+		position: absolute;
+		bottom: 5px;
+		display: block;
+		margin: 0px auto;
+		width: 100%;
+	}
+	.thingsConteiner {
+		margin: 0 auto;
+		width: 90%;
+		height: 230px;
+		box-shadow: inset -1px -1px 1px 1px #ccf,
+				   inset 1px 1px 1px 1px #333;
+		
+		background-color: #bbb;
+		border-radius: 5px;
+		padding: 5px;
+		overflow-y: auto;
+		overflow-x: hidden;  
+		text-align: left;
+	}
+	.thingsConteiner2 {
+		margin: 0 auto;
+		width: 90%;
+		height: 300px;
+		box-shadow: inset -1px -1px 1px 1px #ccf,
+				   inset 1px 1px 1px 1px #333;
+		
+		background-color: #bbb;
+		border-radius: 5px;
+		padding: 10px;
+		overflow-y: auto;
+		overflow-x: hidden;  
+		text-align: center;
+	}
+	.thingsConteiner3 {
+		margin: 0 auto;
+		width: 90%;
+		height: 200px;
+		box-shadow: inset -1px -1px 1px 1px #ccf,
+				   inset 1px 1px 1px 1px #333;
+		
+		background-color: #bbb;
+		border-radius: 5px;
+		padding: 10px;
+		overflow-y: auto;
+		overflow-x: hidden;  
+		text-align: center;
+	}
+	.thingsConteiner4 {
+		margin: 0 auto;
+		width: 90%;
+		height: 380px;
+		box-shadow: inset -1px -1px 1px 1px #ccf,
+				   inset 1px 1px 1px 1px #333;
+		
+		background-color: #bbb;
+		border-radius: 5px;
+		padding: 10px;
+		overflow-y: auto;
+		overflow-x: hidden;  
+		text-align: center;
+	}
+		.thingsConteiner5 {
+		margin: 0 auto;
+		width: 90%;
+		height: 360px;
+		box-shadow: inset -1px -1px 1px 1px #ccf,
+				   inset 1px 1px 1px 1px #333;
+		
+		background-color: #bbb;
+		border-radius: 5px;
+		padding: 10px;
+		overflow-y: auto;
+		overflow-x: hidden;  
+		text-align: center;
+	}
+			.thingsConteiner6 {
+		margin: 0 auto;
+		width: 90%;
+		height: 340px;
+		box-shadow: inset -1px -1px 1px 1px #ccf,
+				   inset 1px 1px 1px 1px #333;
+		
+		background-color: #bbb;
+		border-radius: 5px;
+		padding: 10px;
+		overflow-y: auto;
+		overflow-x: hidden;  
+		text-align: center;
+	}
+
+	.listaTrabajos, .listaEstudios {
+		width: 100%;
+		cursor: default;
+		border-collapse: collapse;
+		transition: 0.3s;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		/* box-shadow: 2px 2px 5px 1px #000; */
+		margin-bottom: 10px;
+		text-align: left;
+		
+	}
+	.listaTrabajos tr th, .listaEstudios tr th {
+		text-transform: uppercase;
+		font-size: 0.7em;
+		font-weight: bold;
+		background-color: #aaa;
+		text-align: center;
+		vertical-align: middle;
+		height: 25px;
+		
+	}
+
+	.rowWork {
+		display: inline-block;
+		width: 100%;
+		
+	}
+
+	.labelWork {
+		font-weight: bold;
+		float: left;
+		text-align: left;
+		width: 150px;
+	}
+	.dataWork {
+		text-align: left;
+		float: left;
+	}
+	/*PERFIL*/
+
+	.perfilTelType {
+		width: 50px;
+	}
+	.perfilHeader {
+		text-align: left;
+		
+	}
+	.perfilIMG {
+		margin-left: 10px;	
+		display: inline-block;
+		background-color: #fff;
+		border: 1px solid #000;
+		box-shadow: inset 0px 0px 1px 1px #fff, inset 0px 0px 1px 2px #666;
+		width: 50px;
+		height: 50px;
+		cursor: pointer;
+	}
+	.perfilIMG:hover img.upload {
+		opacity: 0.8;
+		filter: alpha(opacity=80);
+	}
+	.perfilIMG img {
+		padding: 5px;
+		width: 50px;
+		
+	}
+	.perfilIMG img.upload {
+		width: 50px;
+		height: 50px;
+		padding: 12px;
+		opacity: 0;
+		filter: alpha(opacity=0);
+		display: block;
+		background-color: rgba(3,3,3,0.8);
+		position: relative;
+		top: -49px;
+		transition: 0.3s;
+		z-index: 1;
+	}
+.perfilNombre {
+		display: inline-block;
+		font-size: 1em;
+		position: relative;
+		left: 70px;
+		color: #eee;
+		text-shadow: 0px 0px 5px #777;
+		cursor: default;
+	}
+
+	.perfilBtns {
+		padding: 10px;
+		margin-top: 5px;
+	}
+	.perfilIndBtn {
+		display: inline-block;
+		padding: 10px 10px;
+		background-color: #fff;
+		margin: 5px 5px;
+		transition: 0.3s;
+	}
+	.perfilIndBtn  img {
+		width: 40px;
+	}
+
+	.perfilIndBtnMap {
+		display: inline-block;
+		padding: 5px 5px;
+		background-color: #fff;
+		margin: 5px 5px;
+		transition: 0.3s;
+	}
+	.perfilIndBtnMap  img {
+		width: 35px;
+	}
+
+	.perfilIndCont {
+		display: inline-block;
+		padding: 0px 10px;
+		cursor: pointer;
+		transition: 0.3s;
+	}
+	.perfilIndCont span {
+		display: block;	
+		color: #fff;
+		font-size: 0.5em;
+		font-weight: bold;
+	}
+	.perfilIndCont:hover .perfilIndBtn {
+		background-color: #aaa;
+	}
+	.perfilIndCont:hover span {
+		color: #aaa;
+	}
+	
+	.perfilBtnSeeMyCV {
+		display: inline-block;
+		padding: 5px 15px;
+		background-color: #fff;
+		border: none;
+		font-size: 1em;
+		font-weight: bold;
+		margin: 10px auto;
+		transition: 0.3s;
+		color: #333;
+	}
+	.perfilBtnSeeMyCV:hover, .perfilBtnSeeMyCV:FOCUS {
+		background-color: #aaa;
+		color: #333;
+		text-decoration: none;		
+	}
+
+
+	.labelFillDP {
+		cursor: default;
+		font-size: 1em;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		color: #fff;
+		text-shadow: 0px 0px 2px #777;
+	}
+	.labelFillDP.inline {
+		display: inline-block;
+		min-width: 100px;
+	}
+	.labelFillDP.inline2 {
+		display: inline-block;
+	}
+	.labelFillTel {
+		cursor: default;
+		font-size: 1.2em;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		color: #fff;
+		text-shadow: 0px 0px 2px #777;
+	}
+	.labelFillTel.inline {
+		display: inline-block;
+		
+	}
+	.labelCheckbox {
+		text-align: left;
+		display: ineline-block;
+	    padding-left: 20px;
+	    text-indent: 10px;
+    	float: left;
+    	padding-right: 10px;
+    	white-space: nowrap;
+	}
+	.labelCheckbox span {
+		color: #fff;
+		vertical-align: middle;
+		padding-left: 5px;
+		cursor: pointer;
+		font-size: 1.1em;
+		text-shadow: 2px 2px #444;
+		transition: 0.3s;
+	}
+	.labelCheckbox span:hover {
+		color: #bbf;
+	}
+
+	.labelCheckbox2 {
+		display: ineline-block;
+	    text-indent: 10px;
+    	padding-right: 10px;
+    	white-space: nowrap;
+	}
+	.labelCheckbox2 span {
+		color: #fff;
+		vertical-align: middle;
+		padding-left: 5px;
+		cursor: pointer;
+		font-size: 1.1em;
+		text-shadow: 2px 2px #444;
+		transition: 0.3s;
+	}
+	.labelCheckbox2 span:hover {
+		color: #bbf;
+	}
+	.workSections {
+		display: block;
+		text-align: center important!;
+		margin: 0 auto;
+	}
+	#workPaisSel, #workSenioritySel {
+		width: 100px;
+	}
+	.checkboxAlineado {
+		color: #fff;
+	    width: 13px;
+	    height: 13px;
+	    padding: 0;
+	    margin:0;
+ 		vertical-align: middle;
+	    position: relative;
+	    top: -1px;
+	    *overflow: hidden;
+	}
+		input[type=radio].selRolRadio {
+		display: none;
+	}
+	.inputFillDP {
+		display: inline-block;
+		padding: 0px 5px !important;
+		width: 100px;
+		background-color: #ccc !important;
+		height: 25px !important;	
+		border-radius: 0px !important;
+		border: none !important;
+		font-size: 1em !important;
+		transition: 0.3s !important;
+		box-shadow: inset 1px 1px 1px 1px #000 !important;
+	}
+	.inputFillDP:ACTIVE, .inputFillDP:FOCUS,.textAreaFillDP:ACTIVE, .textAreaFillDP:FOCUS {
+		background-color: #fff !important;
+		
+	}
+	.inputFillDP.notSelected,.textAreaFillDP.notSelected {
+		box-shadow: inset 1px 1px 1px 1px #000, 
+		0px 0px 5px 3px #c00 !important;
+	}
+	.textAreaFillDP {
+		resize:none;
+		display: inline-block;
+		padding: 10px 10px !important;
+		width: 404px;
+		height: 70px !important;
+		text-align: justify;
+		background-color: #ccc !important;
+		border-radius: 0px !important;
+		border: none !important;
+		font-size: 1.0em !important;
+		transition: 0.3s !important;
+		box-shadow: inset 1px 1px 1px 1px #000 !important;
+	}
+	
+	.inputFillDPTel {
+		display: inline-block;
+		padding: 0px 5px !important;
+		width: 150px;
+		background-color: #ccc !important;
+		height: 30px !important;	
+		border-radius: 0px !important;
+		border: none !important;
+		font-size: 1.3em !important;
+		transition: 0.3s !important;
+		box-shadow: inset 1px 1px 1px 1px #000 !important;
+	}
+	.inputFillDPTel:ACTIVE, .inputFillDPTel:FOCUS,.textAreaFillDPTel:ACTIVE, .textAreaFillDPTel:FOCUS {
+		background-color: #fff !important;
+		
+	}
+	.inputFillDPTel.notSelected,.textAreaFillDPTel.notSelected {
+		box-shadow: inset 1px 1px 1px 1px #000, 
+		0px 0px 5px 3px #c00 !important;
+	}
+	
+	
+	#dpNroDoc.notSelected {
+		box-shadow: inset 1px 1px 1px 1px #000, 
+		0px 0px 5px 3px #c00 !important;
+	}
+	.selSexoOnStart {
+		border-radius: 2px;
+		background-color: #fff;
+		display: inline-block;
+		padding: 2px;
+		cursor: pointer;
+		transition: 0.3s;
+	}
+	.selSexoOnStart:hover {
+		background-color: #ccc;
+			
+	}
+	.selSexoOnStart.selected {
+		box-shadow: inset 0px 0px 3px 2px #595;
+		background-color: #afa;
+	}
+	.selSexoOnStart.notSelected {
+		box-shadow: 0px 0px 5px 3px #c00;
+	}
+	.selDocDP {
+		width: 100px;
+	}
+	.finRecuadro {
+		position: absolute;
+		bottom: 5px;
+		display: block;
+		margin: 0px 200px;
+	}
+	.logoWelcome {
+		padding: 5px;
+		background-color: #fff;
+		border-radius: 5px;
+		display: inline-block;
+		margin-bottom: 20px;
+	}
+	.logoWelcome img {
+		width: 180px;
+
+	}
+	.notationLabelEnd {
+		color: #bbb;
+		font-size: 1em;
+		font-style: italic;
+	}
+	.contLabelNotEnd {
+		padding: 10px 30px;
+		
+	}
+	.notationLabel {
+		color: #bbb;
+		font-size: 0.8em;
+	}
+
+
+	.inputTag {
+		background-image: url(../../imagenes/iconos/tag.png);
+    	background-position: 5px 5px;
+    	background-repeat: no-repeat;
+		background-size: 18px 18px; 
+		padding-left:25px !important;
+		width: 200px !important;
+		margin: 0px 0px 2px 0px !important;
+	}
+
+
+	.tag {
+		background-image: url(../../imagenes/iconos/close.png);
+		background-position: right 3px center;
+    	background-repeat: no-repeat;
+		background-size: 20px; 
+		background-color: #fff;
+		display: inline-block;
+		font-weight: bold;
+		padding: 2px 30px 2px 7px;
+		border-radius: 10px 0px 0px 10px;
+		margin: 3px;
+		cursor: pointer;
+		box-shadow: 1px 1px 1px 1px #999;
+		transition: 0.3s;
+		
+	}
+	.tag:hover {
+			background-image: url(../../imagenes/iconos/close_rojo.png);
+			box-shadow: 1px 1px 1px 1px #666;
+	}
+
+	#listAddWorkDesde, #listAddWorkHasta,#listFechaNacimiento,#listAddStuHasta,#listAddStuDesde {
+		display: inline-block;
+		padding: 0px 10px !important;
+		width: 70px;
+		background-color: #ccc !important;
+		height: 35px !important;	
+		border-radius: 0px !important;
+		border: none !important;
+		font-size: 1.3em !important;
+		text-align: center;
+		transition: 0.3s !important;
+		box-shadow: inset 1px 1px 1px 1px #000 !important;
+	}
+	
+	#listAddWorkDesde:ACTIVE, #listAddWorkDesde:FOCUS,#listAddWorkHasta:ACTIVE, #listAddWorkHasta:FOCUS,#listFechaNacimiento:ACTIVE,#listFechaNacimiento:FOCUS,#listAddStuHasta:ACTIVE,#listAddStuHasta:FOCUS,#listAddStuDesde:ACTIVE,#listAddStuDesde:FOCUS {
+		background-color: #fff !important;
+		
+	}
+	#listFechaNacimiento.notSelected,#listAddWorkDesde.notSelected,#listAddWorkHasta.notSelected,#listAddWorkDesde.notSelected,#listAddStuHasta.notSelected,#listAddStuDesde.notSelected {
+		box-shadow: inset 1px 1px 1px 1px #000, 
+		0px 0px 5px 3px #c00 !important;
+	}
+
+
+	.needMargin {
+		padding-left: 10px;
+		padding-bottom: 5px;
+	}
+	.listTituloEmpresa {
+		font-weight: bold;
+	}
+	.listCargo {
+		font-size: 0.9em;
+		font-style: oblique;
+	}
+	.listAccion {
+		width: 70px;
+		text-align: center; 
+		vertical-align: middle;
+	}
+	.listAccion2 {
+		width: 105px;
+		text-align: center; 
+		vertical-align: middle;
+	}
+	.listDescripcion {
+		display: table-row;
+		padding-left: 10px;
+		text-align: left;
+		font-style: italic;
+		text-align: justify;
+		font-size: 0.7em;
+		line-height: normal;
+		margin-bottom: 5px;
+	}
+	.listDescripcion2 {
+		display: table-row;
+		padding-left: 10px;
+		text-align: left;
+		font-style: italic;
+		text-align: justify;
+		font-size: 1em;
+		line-height: normal;
+		margin-bottom: 5px;
+	}
+	.listRow0 {
+		background-color: #bbb;
+		transition: 0.3s;
+	}
+	.listRow1 {
+		background-color: #ccc;
+		transition: 0.3s;
+	}
+	.listRow1:hover, .listRow0:hover {
+		background-color: #ddd;
+		
+	}
+	.listFechas {
+		text-align: center;
+		white-space: nowrap;
+		font-size: 0.8em;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.listFechas span {
+		display:  block;
+		text-align: center;
+	}
+	.listFechas span.listDia {
+		font-size: 1.3em;
+		font-weight: bold;
+	}
+	.listFechas span.listMes {
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+	.listFechas span.listAnio {
+		font-size: 1em;
+		font-weight: bold;
+		
+	}
+	.listCantPost {
+		font-size: 0.8em;
+		font-weight: bold;
+		color: #090;
+		text-align: center;
+
+	}
+	.listEstadoBolsa {
+		font-size: 0.8em;
+		font-weight: bold;
+		text-align: center;
+	}
+	.listEstadoBolsa.pendiente {
+		color: #666;
+	}
+	.listEstadoBolsa.aprobado {
+		color: #090;
+	}
+			
+.tablaDeEmergencia {
+	border-collapse: collapse;
+
+
+}
+
+.tablaDeEmergencia tr td span {
+	display: block;
+	color: #fafafa;
+}
+.tablaDeEmergencia {
+	text-align: center;
+	width: 100%;
+}
+.tablaDeEmergencia tr td textarea {
+height: 50px;
+ resize: none;
+
+}
+}
+
+
+/* Media de Roles */
+@media (max-width: 600px) {
+	.btnAuth {
+		display: inline-block;
+		padding: 5px 10px;
+		border-radius: 2px;
+		margin: 1px 1px;
+		cursor: pointer;
+	}
+	.btnAuth:hover {
+		box-shadow: 0px 0px 1px 1px #666;
+		transition: 0.3s;
+		
+	}
+	.btnAuth.aceptar {
+		background-color: #090;
+		
+	}
+	.btnAuth.cancelar {
+		background-color: #900;
+	}
+	
+}

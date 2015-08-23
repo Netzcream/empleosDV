@@ -1,4 +1,4 @@
-@media (min-width: 601px) {
+@media (min-width: 481px) {
 	.perfilTelType {
 		width: 100px;
 	}
@@ -499,6 +499,3 @@ height: 50px;
 	}
 }
 
-@media (max-width: 600px) {
-	
-}

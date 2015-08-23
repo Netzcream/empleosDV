@@ -44,6 +44,7 @@ if (isset($_GET)) {
 		
 		<!-- Distintas hojas de estilos utilizadas -->
 		<link rel="stylesheet" type="text/css" href="css/estilos.css"/>
+		<link rel="stylesheet" type="text/css" href="css/estilosM.css"/>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>	
 		<link rel="stylesheet" type="text/css" href="css/footable.standalone.css"/>
 		<link rel="stylesheet" type="text/css" href="css/footable.core.min.css"/>

@@ -314,108 +314,10 @@ header {
 	
 }
 
-/* Media */
-@media (max-width: 480px) {
 
-
-	#menuDa {
-		display: inline-block;
-		float: right;
-		margin-right: 10px;
-		width: 80%;
-		text-align: right;
-	}
-	#menuDa .menuDaInd {
-		display: inline-table;
-		cursor: pointer;
-		background-color: #fff;
-		transition: 0.3s;	
-	}
-	#menuDa .menuDaInd:hover {
-		background-color: #aaa;
-		text-shadow: 0px 0px 2px #777;
-	}
-	.menuDaInd {
-		display: inline-table;
-		min-width: 60px;
-		padding: 5px;
-		font-size: 0.8em;
-		font-weight: normal;
-		vertical-align: middle;
-		margin-left: 2px;
-		text-align: center;
-	}
-	#contMenu {
-		position:relative;
-		top: -43px;
-	}	
-	.btnIcono {
-		display: inline-table;
-		cursor: pointer;
-		background-color: #fff;
-		transition: 0.3s;	
-		vertical-align: middle;
-		margin-left: 2px;
-		text-align: center;
-		min-width: 20px;
-		padding: 4px 5px 5px 5px;
-	}
-	.btnIcono:hover {
-		background-color: #aaa;
-		text-shadow: 0px 0px 2px #777;
-	}
-	#perfilImg img {
-		border-radius: 50%;
-		background-color: #fff;
-		}
-	.btnIcono img {
-		width: 40px;
-	}
-	.btnIcono span {
-		display: none;
-		overflow: hidden;
-	}
-	#contMenu {
-		position:relative;
-		top: -55px;
-	}	
-
-	.preHeader {
-		text-align: right;
-	}
-	#partOfMenu {
-		color: #fff;
-		padding: 0px 5px 0px 10px;
-		display: block;
-		font-size: 0.8em;
-	}
-	
-	.logoutLink {
-		display: inline-block;
-		padding: 0px 5px 0px 5px;
-		cursor: pointer;
-	}
-	.logoutLink:hover {
-		background-color: #fff;;
-		color: #000;
-		text-shadow: 0px 0px 2px #aaa;
-	}
-
-	.logoutIcon {
-		transition: 0.3s;
-		position: relative;	
-		width: 15px;
-		height: 15px;
-		margin-left: 2px;
-		top: -2px;
-	}
-}
-#toLoadLoc {
-	display: inline-block;
-}
 
 /* ****** Seleccionar Rol ****** */
-@media (min-width: 601px) {
+@media (min-width: 481px) {
 	.itsABody {
 		background-color: #06141D;
 		width: 700px;
@@ -442,7 +344,7 @@ header {
 	}
 	.labelInicio {
 		display: inline-block;
-margin-top: 10px;
+		margin-top: 10px;
 	}
 	.contSelRolUsuario.selActivo {
 		display: block;
@@ -827,28 +729,3 @@ margin-top: 10px;
 }
 
 
-/* Media de Roles */
-@media (max-width: 600px) {
-	.btnAuth {
-		display: inline-block;
-		padding: 5px 10px;
-		border-radius: 2px;
-		margin: 1px 1px;
-		cursor: pointer;
-	}
-	.btnAuth:hover {
-		box-shadow: 0px 0px 1px 1px #666;
-		transition: 0.3s;
-		
-	}
-	.btnAuth.aceptar {
-		background-color: #090;
-		
-	}
-	.btnAuth.cancelar {
-		background-color: #900;
-	}
-
-
-	
-}

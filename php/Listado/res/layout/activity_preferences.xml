@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/optUsuario">
+       <CheckBoxPreference
+            android:key="rclave"
+            android:title="@string/optclave1"
+            android:summary="@string/optclave2" />
+       
+    <EditTextPreference
+            android:key="user"
+            android:title="@string/optusuario1"
+            android:summary="@string/optusuario2"
+            android:dialogTitle="@string/optusuario3" />
+    
+     <EditTextPreference
+            android:key="pass"
+            android:title="@string/optpass1"
+            android:summary="@string/optpass2"
+            android:dialogTitle="@string/optpass3" />   
+ 
+ </PreferenceCategory>
+</PreferenceScreen>
