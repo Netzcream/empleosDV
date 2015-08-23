@@ -24,6 +24,11 @@ else {
 if (isset($_POST['action'])) {
 	if ($_POST['action'] == "save") {
 		if ($_POST['calle'] != "" && $_POST['loc'] != "" && $_POST['prov'] != "") {
+
+
+
+
+
 			$Persona->getDomicilio()->setCalle($_POST['calle']);
 			$Persona->getDomicilio()->getLoc()->setId($_POST['loc']);
 			$Persona->getDomicilio()->getPcia()->setId($_POST['prov']);
@@ -39,6 +44,12 @@ if (isset($_POST['action'])) {
 			}
 			else {
 				$Persona->getDomicilio()->setDpto("");
+			}
+			if (isset($_POST['lat'])) {
+				$Persona->getDomicilio()->setCoor1($_POST['lat']);
+			}
+			if (isset($_POST['lng'])) {
+				$Persona->getDomicilio()->setCoor2($_POST['lng']);
 			}
 			$Persona->getDomicilio()->saveDomicilio($Persona->getId());	
 			$_SESSION["usr"] = $Persona;

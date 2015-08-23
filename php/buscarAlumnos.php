@@ -78,6 +78,8 @@ if ($tags != "") {
 	$consulta .= " INNER JOIN usuarioTag UT ON (A.CodUsuario=UT.CodUsuario)";
 	$consulta .= " INNER JOIN tag T ON (T.id=UT.tag_id)";
 }
+
+
 $consulta .= " WHERE (A.FechaNacimiento between '".$minEdad."' AND '".$maxEdad."' OR A.FechaNacimiento is null)";
 $consulta .= " AND A.encontrarme = 1 AND A.Sexo in (".$sexo.") ";
 $consulta .= " AND A.fechaBaja is null ";
@@ -92,13 +94,11 @@ if ($apellido != "") {
 	$consulta .= " AND A.Apellido like ('%".$conex->escape($apellido)."%')";
 }
 $consulta .=" GROUP BY A.CodUsuario ORDER BY A.Apellido ASC,A.Nombre ASC ;";
-
 $result1 = $conex->consulta($consulta);
 $result = $conex->fetch_assoc();
 $conPersonas = array();
 while ($result) {
 	$temp = new Persona();
-	
 	$conPersonas[] = $temp->getPersonaById($result['id']);
 	$result = $conex->fetch_assoc();
 }
@@ -106,9 +106,84 @@ while ($result) {
 $list = new Listado();
 echo $list->getTable($conPersonas);
 
+echo "<script>";
+echo "var locations = [";
+
+	$count = 0;
+	foreach ($conPersonas as $value) {
+		if ($value->getDomicilio()->getCoor1() != "" && $value->getDomicilio()->getCoor2() != "") {
+		if ($count>0) { echo ","; }
+		echo "['".$value->getNombre()." ".$value->getApellido()."', ".$value->getDomicilio()->getCoor1().", ".$value->getDomicilio()->getCoor2().", ".$value->getId()."]";
+		$count++;
+	}
+}
+echo "];";
 ?>
+
+
+ </script>
 <script>
 $(document).ready(function() {
 	hideWait();
 });
 </script>
+<div style="text-align: center;">
+<input class="nextBtnBuscar" type="submit" onclick="verMapa();" value="Ver en Mapa">
+</div>
+    <style>
+
+
+    </style>
+    
+
+    <script>
+    function verMapa() {
+    	$('#map').show();
+    	initialize();
+    }
+    var latLng;
+	  function initialize() {
+
+
+	    var mapCanvas = document.getElementById('map');
+	    var mapOptions = {
+	      center: {lat: -34.597030, lng: -58.381334},
+	      zoom: 15,
+	      mapTypeId: google.maps.MapTypeId.ROADMAP
+	    }
+	    var infoWindow = new google.maps.InfoWindow({map: map});
+// Try HTML5 geolocation.
+  if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function(position) {
+	var pos = {
+		lat: position.coords.latitude,
+        lng: position.coords.longitude
+	};
+	infoWindow.setPosition(pos);
+	infoWindow.setContent('Location found.');
+	map.setCenter(pos);
+	}, function() { handleLocationError(true, infoWindow, map.getCenter()); });
+	} else { handleLocationError(false, infoWindow, map.getCenter()); }
+    var map = new google.maps.Map(mapCanvas, mapOptions);
+
+	$.each(locations, function(key, data) {
+		latLng = new google.maps.LatLng(data[1], data[2]); 
+		var marker = new google.maps.Marker({
+			position: latLng,
+			map: map,
+			labelContent: data[0],
+			title: data[0]
+		});
+	});   
+}
+	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+		infoWindow.setPosition(pos);
+		infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+	}
+
+	</script>
+
+
+	 <div id="map"></div>

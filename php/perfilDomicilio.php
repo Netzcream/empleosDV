@@ -141,7 +141,8 @@ while ($row) {
 			<div class="finRecuadroPerfil">
 				<input type="button" class="perfilBtnSeeMyCV" value="Cancelar" onclick="goBacktoPerfil(3);">
 				<input type="button" class="perfilBtnSeeMyCV" value="Guardar" onclick="goBacktoAndSavePerfil(3);">
-			</div>		
+			</div>
+			<script src="https://maps.googleapis.com/maps/api/js"></script>		
 			<script>
 			function selProvDP() {
 				$('#selLocDP').prop('disabled', true);
@@ -170,10 +171,22 @@ while ($row) {
 					errores++;
 				}
 				
+
+
+
 				if (errores > 0) {
 					errorToas();
 					return false;
 				}
+		var lat = "";
+		var longi = "";
+
+		var urlgeol = "http://maps.google.com/maps/api/geocode/json?address=";
+		urlgeol += calle+"+"+nro+"+"+$("#selProvDP>option:selected").html()+"+"+"Argentina";
+		$.get(urlgeol, function(responseTxt, statusTxt, xhr){
+		    lat = responseTxt.results[0].geometry.location.lat;
+		    longi = responseTxt.results[0].geometry.location.lng;
+		});
 				$('#perfilSaveDom').load('php/addOrRemoveDomicilio.php',{
 					action:"save",
 					calle:calle,
@@ -181,9 +194,14 @@ while ($row) {
 					piso:piso,
 					dpto:dpto,
 					prov:prov,
-					loc:loc
+					loc:loc,
+					lat: lat,
+					lng: longi
 						});
-				
 				return true;
 			}
+
+
+
+
 			</script>

@@ -1096,6 +1096,7 @@
 		$('#selectedCarrera').val($('#selCarrera').val());
 		$('#justForCarreras').load('php/addOrRemovePercentCarreras.php',{action:'yes',carrera1:carrera1,carrera2:carrera2,val:val});
 	}
+	var response;
 	function validateDOM() {
 		var errores = 0;
 		var patron = new RegExp('^[0-9]+$');
@@ -1123,17 +1124,33 @@
 			errorToas();
 			return false;
 		}
-		$('#perfilSaveDom').load('php/addOrRemoveDomicilio.php',{
-			action:"save",
-			calle:calle,
-			nro:nro,
-			piso:piso,
-			dpto:dpto,
-			prov:prov,
-			loc:loc
-				});
-		
-		return true;
+
+
+		var lat = "";
+		var longi = "";
+
+		var urlgeol = "http://maps.google.com/maps/api/geocode/json?address=";
+		urlgeol += calle+"+"+nro+"+"+$("#selProvDP>option:selected").html()+"+"+"Argentina";
+		alert(urlgeol);
+		response = $.get(urlgeol, function(responseTxt, statusTxt, xhr) {
+		    lat = responseTxt.results[0].geometry.location.lat;
+		    longi = responseTxt.results[0].geometry.location.lng;
+
+
+		});
+  			$('#perfilSaveDom').load('php/addOrRemoveDomicilio.php',{
+				action:"save",
+				calle:calle,
+				nro:nro,
+				piso:piso,
+				dpto:dpto,
+				prov:prov,
+				loc:loc,
+				lat: lat,
+				lng: longi
+			});	
+			return true;
+	
 	}
 	function validateConfig() {
 		var errores = 0;

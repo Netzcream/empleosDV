@@ -25,7 +25,7 @@ class Listado {
 	public $consulta;
 	public $result;
 	public $cantRows;
-	
+	public $arrayCoordenadas = array();
 	public function __construct() {
 		$this->conex = new MySQL();
 		
@@ -48,10 +48,12 @@ class Listado {
 
 	public function getListadoAlumnos() {
 		
-		$this->consulta = "SELECT a.CodUsuario as usrID, a.Apellido as apellido, a.Nombre as nombre, td.Descripcion as tipoDoc, a.Documento as doc, a.FechaIngreso as fecha, a.Sexo as sexo, u.Estado FROM usuario u"
+		$this->consulta = "SELECT D.Coordenada1 as C1, D.Coordenada2 as C2, a.CodUsuario as usrID, a.Apellido as apellido, a.Nombre as nombre, td.Descripcion as tipoDoc, a.Documento as doc, a.FechaIngreso as fecha, a.Sexo as sexo, u.Estado FROM usuario u"
 							." INNER JOIN usuarioRol ur on (ur.CodUsuario = u.CodUsuario)"
 							." INNER JOIN alumno a on (a.CodUsuario=u.codUsuario)"
 							." INNER JOIN tipodocumento td on (a.ID_TipoDocumento=td.ID_TipoDocumento)"
+							." LEFT JOIN DireccionUsuario ON DU (D.CodUsuario=u.CodUsuario)"
+							." LEFT JOIN Domicilio ON D (D.ID_Direccion=DU.ID_Direccion)"
 							." WHERE ur.CodRol = 'AL' and u.estado != 5;";
 		$this->result = $this->conex->consulta($this->consulta);
 		$this->cantRows = $this->conex->num_rows();
@@ -98,8 +100,10 @@ class Listado {
 			$temp .= "</td>";
 			
 			$temp .= "</tr>";
+			$this->arrayCoordenadas[$resultado['usrID']] = array($resultado['C1'],$resultado['C2']);
 			$resultado = $this->conex->fetch_assoc();
 		} 
+
 	
 		return $temp;
 	}

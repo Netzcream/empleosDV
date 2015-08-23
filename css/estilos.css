@@ -641,6 +641,7 @@ header {
 	}
 	.selDocDP {
 		width: 200px;
+		display: inline-block;
 	}
 	.finRecuadro {
 		position: absolute;
@@ -726,6 +727,15 @@ header {
 	.btnCuadrado.blanco {
 		background-color: #fff;
 	}
+	#map {
+		display: none;
+		margin: 0 auto;
+        width: 80%;
+        height: 80%;
+        position: absolute;
+        background-color: #CCC;
+        margin-bottom: 20px;
+      }
 }
 
 

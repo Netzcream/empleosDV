@@ -57,6 +57,7 @@ if (isset($_GET)) {
 		
 		
 		<!-- Distintos Scripts de JavaScript utilizados -->
+		<script src="https://maps.googleapis.com/maps/api/js"></script>
 		<script type="text/javascript" src="/js/jq-2.1.1.js"></script>
 		<script type="text/javascript" src="/js/jq.min.js"></script>
 		<script type="text/javascript" src="/js/scripts.js"></script>
