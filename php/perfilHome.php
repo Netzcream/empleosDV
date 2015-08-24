@@ -1131,7 +1131,6 @@
 
 		var urlgeol = "http://maps.google.com/maps/api/geocode/json?address=";
 		urlgeol += calle+"+"+nro+"+"+$("#selProvDP>option:selected").html()+"+"+"Argentina";
-		alert(urlgeol);
 		response = $.get(urlgeol, function(responseTxt, statusTxt, xhr) {
 		    lat = responseTxt.results[0].geometry.location.lat;
 		    longi = responseTxt.results[0].geometry.location.lng;
